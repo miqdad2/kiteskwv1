@@ -1,0 +1,53 @@
+{
+    "nav": {
+        "home": "الرئيسية",
+        "expertise": "الخبرات",
+        "services": "الخدمات",
+        "partners": "الشركاء",
+        "insights": "الرؤى",
+        "events": "الفعاليات",
+        "contact": "تواصل معنا"
+    },
+    "buttons": {
+        "learnMore": "اعرف المزيد",
+        "readMore": "اقرأ المزيد",
+        "viewAll": "عرض الكل",
+        "contactUs": "تواصل معنا",
+        "submit": "إرسال",
+        "sending": "جارٍ الإرسال...",
+        "requestConsultation": "طلب استشارة",
+        "talkToExperts": "تحدث إلى خبرائنا",
+        "getInTouch": "تواصل معنا"
+    },
+    "footer": {
+        "sections": {
+            "company": "الشركة",
+            "services": "الخدمات",
+            "resources": "الموارد",
+            "contact": "تواصل"
+        },
+        "contactLabels": {
+            "email": "البريد الإلكتروني",
+            "phone": "الهاتف",
+            "location": "الموقع",
+            "locationValue": "حولي، الكويت"
+        },
+        "copyright": "© معهد الكويت للتدريب والمحاكاة الهندسية (KITES)",
+        "links": {
+            "expertise": "الخبرات",
+            "partners": "الشركاء",
+            "contact": "تواصل معنا",
+            "prototypeDevelopment": "تطوير النماذج الأولية",
+            "consultation": "الاستشارات",
+            "training": "التدريب",
+            "softwareDistribution": "توزيع البرمجيات",
+            "insights": "الرؤى",
+            "events": "الفعاليات"
+        }
+    },
+    "language": {
+        "switchToEnglish": "English",
+        "switchToArabic": "العربية",
+        "languageLabel": "اللغة"
+    }
+}

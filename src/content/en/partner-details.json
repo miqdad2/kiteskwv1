@@ -1,0 +1,157 @@
+{
+    "pageLabels": {
+        "backToPartners": "Back to Partners",
+        "partnerNotFound": "Partner not found",
+        "aboutTitle": "About",
+        "solutionsTitle": "Solutions & Applications",
+        "supportTitle": "KITES Support",
+        "ctaTitle": "Ready to get started?",
+        "ctaContact": "Contact Us",
+        "ctaQuote": "Get a Quote"
+    },
+    "partners": {
+        "siemens": {
+            "name": "Siemens",
+            "about": "Siemens is a globally recognized provider of advanced software solutions used by engineers, researchers, and organizations worldwide to design, simulate, analyze, and optimize complex systems.",
+            "solutions": [
+                "Engineering design and simulation",
+                "Advanced analysis and validation",
+                "Industry-specific applications"
+            ],
+            "support": "KITES provides licensing, technical support, training, and consultation services to ensure successful implementation and optimal use of Siemens solutions.",
+            "ctaDescription": "Contact our team to learn more about how we can help you implement and maximize your investment in Siemens products."
+        },
+        "autodesk": {
+            "name": "Autodesk",
+            "about": "Autodesk is a global leader in design and engineering software, empowering professionals across architecture, engineering, construction, manufacturing, and media to create, visualize, and simulate their ideas.",
+            "solutions": [
+                "3D CAD and design software",
+                "Building information modeling (BIM)",
+                "Manufacturing and production tools"
+            ],
+            "support": "KITES provides licensing, technical support, training, and consultation services to ensure successful implementation and optimal use of Autodesk solutions.",
+            "ctaDescription": "Contact our team to learn more about how we can help you implement and maximize your investment in Autodesk products."
+        },
+        "ansys": {
+            "name": "ANSYS",
+            "about": "ANSYS is a worldwide leader in engineering simulation software, enabling organizations to predict how their products will function before they are built, tested, or deployed.",
+            "solutions": [
+                "Structural and thermal analysis",
+                "Fluid dynamics simulation",
+                "Electromagnetic field modeling"
+            ],
+            "support": "KITES provides licensing, technical support, training, and consultation services to ensure successful implementation and optimal use of ANSYS solutions.",
+            "ctaDescription": "Contact our team to learn more about how we can help you implement and maximize your investment in ANSYS products."
+        },
+        "dassault": {
+            "name": "Dassault Systèmes",
+            "about": "Dassault Systèmes provides world-class 3D design, simulation, and product lifecycle management solutions that enable organizations to innovate and collaborate throughout the product development process.",
+            "solutions": [
+                "3D modeling and simulation",
+                "Product lifecycle management (PLM)",
+                "Collaborative design environments"
+            ],
+            "support": "KITES provides licensing, technical support, training, and consultation services to ensure successful implementation and optimal use of Dassault Systèmes solutions.",
+            "ctaDescription": "Contact our team to learn more about how we can help you implement and maximize your investment in Dassault Systèmes products."
+        },
+        "ptc": {
+            "name": "PTC",
+            "about": "PTC delivers transformative technology solutions that enable manufacturers to create, operate, and service products in the digital age through CAD, PLM, IoT, and augmented reality platforms.",
+            "solutions": [
+                "CAD and product design",
+                "IoT and digital transformation",
+                "Augmented reality for industry"
+            ],
+            "support": "KITES provides licensing, technical support, training, and consultation services to ensure successful implementation and optimal use of PTC solutions.",
+            "ctaDescription": "Contact our team to learn more about how we can help you implement and maximize your investment in PTC products."
+        },
+        "hexagon": {
+            "name": "Hexagon",
+            "about": "Hexagon is a global leader in digital reality solutions, combining sensor, software, and autonomous technologies to deliver actionable insights for industrial, manufacturing, infrastructure, safety, and mobility applications.",
+            "solutions": [
+                "Metrology and quality control",
+                "Design and engineering software",
+                "Reality capture and visualization"
+            ],
+            "support": "KITES provides licensing, technical support, training, and consultation services to ensure successful implementation and optimal use of Hexagon solutions.",
+            "ctaDescription": "Contact our team to learn more about how we can help you implement and maximize your investment in Hexagon products."
+        },
+        "schneider": {
+            "name": "Schneider Electric",
+            "about": "Schneider Electric is a global leader in energy management and automation, providing integrated solutions for efficient and sustainable energy use across buildings, data centers, infrastructure, and industries.",
+            "solutions": [
+                "Energy management systems",
+                "Building automation and control",
+                "Sustainability and efficiency tools"
+            ],
+            "support": "KITES provides licensing, technical support, training, and consultation services to ensure successful implementation and optimal use of Schneider Electric solutions.",
+            "ctaDescription": "Contact our team to learn more about how we can help you implement and maximize your investment in Schneider Electric products."
+        },
+        "envizi": {
+            "name": "Envizi",
+            "about": "Envizi is a leading provider of environmental and sustainability performance management software, helping organizations collect, manage, and analyze data to meet their ESG (Environmental, Social, Governance) goals.",
+            "solutions": [
+                "ESG data management",
+                "Carbon footprint tracking",
+                "Sustainability reporting and compliance"
+            ],
+            "support": "KITES provides licensing, technical support, training, and consultation services to ensure successful implementation and optimal use of Envizi solutions.",
+            "ctaDescription": "Contact our team to learn more about how we can help you implement and maximize your investment in Envizi products."
+        },
+        "sphera": {
+            "name": "Sphera",
+            "about": "Sphera is a global provider of integrated software, data, and consulting services for Environmental, Health, Safety & Sustainability (EHS&S), operational risk management, and product stewardship.",
+            "solutions": [
+                "Operational risk management",
+                "Environmental compliance",
+                "Product stewardship and supply chain transparency"
+            ],
+            "support": "KITES provides licensing, technical support, training, and consultation services to ensure successful implementation and optimal use of Sphera solutions.",
+            "ctaDescription": "Contact our team to learn more about how we can help you implement and maximize your investment in Sphera products."
+        },
+        "matlab": {
+            "name": "MathWorks",
+            "about": "MathWorks is the developer of MATLAB and Simulink, industry-leading platforms for mathematical computing, algorithm development, data analysis, visualization, and model-based design used by engineers and scientists worldwide.",
+            "solutions": [
+                "Mathematical computing and algorithm development",
+                "Data analysis and visualization",
+                "Model-based design and simulation"
+            ],
+            "support": "KITES provides licensing, technical support, training, and consultation services to ensure successful implementation and optimal use of MathWorks solutions.",
+            "ctaDescription": "Contact our team to learn more about how we can help you implement and maximize your investment in MathWorks products."
+        },
+        "tableau": {
+            "name": "Tableau",
+            "about": "Tableau is a leading business intelligence and analytics platform that enables organizations to visualize and understand their data through interactive dashboards, reports, and data-driven insights.",
+            "solutions": [
+                "Data visualization and dashboards",
+                "Business intelligence and analytics",
+                "Self-service reporting"
+            ],
+            "support": "KITES provides licensing, technical support, training, and consultation services to ensure successful implementation and optimal use of Tableau solutions.",
+            "ctaDescription": "Contact our team to learn more about how we can help you implement and maximize your investment in Tableau products."
+        },
+        "esri": {
+            "name": "Esri",
+            "about": "Esri is the global leader in geographic information system (GIS) software, providing powerful mapping, spatial analysis, and location intelligence tools for organizations across all industries.",
+            "solutions": [
+                "GIS mapping and spatial analysis",
+                "Location intelligence",
+                "Real-time data visualization and monitoring"
+            ],
+            "support": "KITES provides licensing, technical support, training, and consultation services to ensure successful implementation and optimal use of Esri solutions.",
+            "ctaDescription": "Contact our team to learn more about how we can help you implement and maximize your investment in Esri products."
+        },
+        "alteryx": {
+            "name": "Alteryx",
+            "about": "Alteryx is a leader in analytic process automation, empowering analysts and data scientists to break data barriers, deliver insights faster, and automate complex data workflows without extensive coding.",
+            "solutions": [
+                "Data preparation and blending",
+                "Advanced analytics and machine learning",
+                "Process automation"
+            ],
+            "support": "KITES provides licensing, technical support, training, and consultation services to ensure successful implementation and optimal use of Alteryx solutions.",
+            "ctaDescription": "Contact our team to learn more about how we can help you implement and maximize your investment in Alteryx products."
+        }
+    }
+}

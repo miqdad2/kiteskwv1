@@ -1,0 +1,13 @@
+{
+    "pageTitle": "Events",
+    "intro": "Stay updated with our workshops, webinars, and training events.",
+    "learnMore": "Learn More",
+    "upcomingHeading": "Upcoming Events",
+    "pastHeading": "Past Events",
+    "eventTypes": {
+        "workshop": "Workshop",
+        "webinar": "Webinar",
+        "training": "Training",
+        "conference": "Conference"
+    }
+}

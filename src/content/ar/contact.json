@@ -1,0 +1,36 @@
+{
+    "pageTitle": "تواصل معنا",
+    "intro": "تواصل مع فريقنا لمناقشة احتياجاتك.",
+    "form": {
+        "labels": {
+            "name": "الاسم",
+            "email": "البريد الإلكتروني",
+            "phone": "الهاتف",
+            "company": "الشركة",
+            "message": "الرسالة"
+        },
+        "submit": "إرسال الرسالة",
+        "sending": "جاري الإرسال...",
+        "success": "تم إرسال الرسالة بنجاح!",
+        "successDesc": "سنتواصل معك في أقرب وقت ممكن."
+    },
+    "validation": {
+        "nameRequired": "الاسم مطلوب",
+        "nameMax": "يجب أن يكون الاسم أقل من 100 حرف",
+        "emailRequired": "البريد الإلكتروني مطلوب",
+        "emailInvalid": "يرجى إدخال بريد إلكتروني صحيح",
+        "phoneInvalid": "يرجى إدخال رقم هاتف صحيح",
+        "companyMax": "يجب أن يكون اسم الشركة أقل من 100 حرف",
+        "messageRequired": "الرسالة مطلوبة",
+        "messageMax": "يجب أن تكون الرسالة أقل من 1000 حرف"
+    },
+    "contactDetails": {
+        "heading": "بيانات التواصل",
+        "email": "البريد الإلكتروني",
+        "phone": "الهاتف",
+        "location": "الموقع",
+        "emailValue": "info@kites-kw.com",
+        "phoneValue": "+965 22092260",
+        "locationValue": "حولي، الكويت"
+    }
+}

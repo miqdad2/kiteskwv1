@@ -1,0 +1,53 @@
+{
+    "nav": {
+        "home": "Home",
+        "expertise": "Expertise",
+        "services": "Services",
+        "partners": "Partners",
+        "insights": "Insights",
+        "events": "Events",
+        "contact": "Contact"
+    },
+    "buttons": {
+        "learnMore": "Learn More",
+        "readMore": "Read More",
+        "viewAll": "View All",
+        "contactUs": "Contact Us",
+        "submit": "Submit",
+        "sending": "Sending...",
+        "requestConsultation": "Request Consultation",
+        "talkToExperts": "Talk to our experts",
+        "getInTouch": "Get in Touch"
+    },
+    "footer": {
+        "sections": {
+            "company": "Company",
+            "services": "Services",
+            "resources": "Resources",
+            "contact": "Contact"
+        },
+        "contactLabels": {
+            "email": "Email",
+            "phone": "Phone",
+            "location": "Location",
+            "locationValue": "Hawally, Kuwait"
+        },
+        "copyright": "© Kuwait Institute for Training & Engineering Simulations (KITES)",
+        "links": {
+            "expertise": "Expertise",
+            "partners": "Partners",
+            "contact": "Contact",
+            "prototypeDevelopment": "Prototype Development",
+            "consultation": "Consultation",
+            "training": "Training",
+            "softwareDistribution": "Software Distribution",
+            "insights": "Insights",
+            "events": "Events"
+        }
+    },
+    "language": {
+        "switchToEnglish": "English",
+        "switchToArabic": "Arabic",
+        "languageLabel": "Language"
+    }
+}

@@ -1,0 +1,13 @@
+{
+    "pageTitle": "الفعاليات",
+    "intro": "تابع أحدث ورش العمل والندوات وبرامج التدريب.",
+    "learnMore": "المزيد",
+    "upcomingHeading": "الفعاليات القادمة",
+    "pastHeading": "الفعاليات السابقة",
+    "eventTypes": {
+        "workshop": "ورشة عمل",
+        "webinar": "ندوة إلكترونية",
+        "training": "تدريب",
+        "conference": "مؤتمر"
+    }
+}

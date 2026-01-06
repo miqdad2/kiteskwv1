@@ -1,0 +1,36 @@
+{
+    "pageTitle": "Contact Us",
+    "intro": "Get in touch with our team to discuss your needs.",
+    "form": {
+        "labels": {
+            "name": "Name",
+            "email": "Email",
+            "phone": "Phone",
+            "company": "Company",
+            "message": "Message"
+        },
+        "submit": "Send Message",
+        "sending": "Sending...",
+        "success": "Message sent successfully!",
+        "successDesc": "We'll get back to you as soon as possible."
+    },
+    "validation": {
+        "nameRequired": "Name is required",
+        "nameMax": "Name must be less than 100 characters",
+        "emailRequired": "Email is required",
+        "emailInvalid": "Please enter a valid email address",
+        "phoneInvalid": "Please enter a valid phone number",
+        "companyMax": "Company name must be less than 100 characters",
+        "messageRequired": "Message is required",
+        "messageMax": "Message must be less than 1000 characters"
+    },
+    "contactDetails": {
+        "heading": "Contact Details",
+        "email": "Email",
+        "phone": "Phone",
+        "location": "Location",
+        "emailValue": "info@kites-kw.com",
+        "phoneValue": "+965 22092260",
+        "locationValue": "Hawally, Kuwait"
+    }
+}

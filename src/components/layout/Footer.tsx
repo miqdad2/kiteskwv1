@@ -1,82 +1,41 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useContent } from "@/hooks/useContent";
 import kitesLogo from "@/assets/kites-logo.png";
 
-const footerContent = {
-  en: {
-    company: {
-      title: "Company",
-      links: [
-        { label: "Expertise", href: "/expertise", isRoute: true },
-        { label: "Partners", href: "/partners", isRoute: true },
-        { label: "Contact", href: "/contact", isRoute: true },
-      ],
-    },
-    services: {
-      title: "Services",
-      links: [
-        { label: "Prototype Development", href: "/services/prototype-development", isRoute: true },
-        { label: "Consultation", href: "/services/consultation", isRoute: true },
-        { label: "Training", href: "/services/training", isRoute: true },
-        { label: "Software Distribution", href: "/services/software-distribution", isRoute: true },
-      ],
-    },
-    resources: {
-      title: "Resources",
-      links: [
-        { label: "Insights", href: "/insights", isRoute: true },
-        { label: "Events", href: "/events", isRoute: true },
-      ],
-    },
-    contact: {
-      title: "Contact",
-      email: "Email",
-      phone: "Phone",
-      location: "Location",
-      locationValue: "Hawally, Kuwait",
-    },
-    copyright: "© Kuwait Institute for Training & Engineering Simulations (KITES)",
-  },
-  ar: {
-    company: {
-      title: "الشركة",
-      links: [
-        { label: "الخبرات", href: "/expertise", isRoute: true },
-        { label: "الشركاء", href: "/partners", isRoute: true },
-        { label: "تواصل معنا", href: "/contact", isRoute: true },
-      ],
-    },
-    services: {
-      title: "الخدمات",
-      links: [
-        { label: "تطوير النماذج الأولية", href: "/services/prototype-development", isRoute: true },
-        { label: "الاستشارات", href: "/services/consultation", isRoute: true },
-        { label: "التدريب", href: "/services/training", isRoute: true },
-        { label: "توزيع البرمجيات", href: "/services/software-distribution", isRoute: true },
-      ],
-    },
-    resources: {
-      title: "الموارد",
-      links: [
-        { label: "الرؤى", href: "/insights", isRoute: true },
-        { label: "الفعاليات", href: "/events", isRoute: true },
-      ],
-    },
-    contact: {
-      title: "تواصل",
-      email: "البريد الإلكتروني",
-      phone: "الهاتف",
-      location: "الموقع",
-      locationValue: "حولي، الكويت",
-    },
-    copyright: "© معهد الكويت للتدريب والمحاكاة الهندسية (KITES)",
-  },
-};
+interface CommonContent {
+  footer: {
+    sections: {
+      company: string;
+      services: string;
+      resources: string;
+      contact: string;
+    };
+    contactLabels: {
+      email: string;
+      phone: string;
+      location: string;
+      locationValue: string;
+    };
+    copyright: string;
+    links: {
+      expertise: string;
+      partners: string;
+      contact: string;
+      prototypeDevelopment: string;
+      consultation: string;
+      training: string;
+      softwareDistribution: string;
+      insights: string;
+      events: string;
+    };
+  };
+}
 
 export function Footer() {
   const { language } = useLanguage();
-  const content = footerContent[language];
+  const common = useContent<CommonContent>('common');
 
   return (
     <footer className="bg-primary text-primary-foreground/80">
@@ -86,71 +45,86 @@ export function Footer() {
           {/* Column 1 - Company */}
           <div>
             <h4 className="font-heading text-primary-foreground font-semibold text-caption uppercase tracking-widest mb-6">
-              {content.company.title}
+              {common.footer.sections.company}
             </h4>
             <ul className="space-y-3">
-              {content.company.links.map((link) => (
-                <li key={link.label}>
-                  <Link
-                    to={link.href}
-                    className="text-body-sm font-body text-primary-foreground/50 hover:text-primary-foreground transition-colors duration-200"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+              <li>
+                <Link to="/expertise" className="text-body-sm font-body text-primary-foreground/50 hover:text-primary-foreground transition-colors duration-200">
+                  {common.footer.links.expertise}
+                </Link>
+              </li>
+              <li>
+                <Link to="/partners" className="text-body-sm font-body text-primary-foreground/50 hover:text-primary-foreground transition-colors duration-200">
+                  {common.footer.links.partners}
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact" className="text-body-sm font-body text-primary-foreground/50 hover:text-primary-foreground transition-colors duration-200">
+                  {common.footer.links.contact}
+                </Link>
+              </li>
             </ul>
           </div>
 
           {/* Column 2 - Services */}
           <div>
             <h4 className="font-heading text-primary-foreground font-semibold text-caption uppercase tracking-widest mb-6">
-              {content.services.title}
+              {common.footer.sections.services}
             </h4>
             <ul className="space-y-3">
-              {content.services.links.map((link) => (
-                <li key={link.label}>
-                  <Link
-                    to={link.href}
-                    className="text-body-sm font-body text-primary-foreground/50 hover:text-primary-foreground transition-colors duration-200"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+              <li>
+                <Link to="/services/prototype-development" className="text-body-sm font-body text-primary-foreground/50 hover:text-primary-foreground transition-colors duration-200">
+                  {common.footer.links.prototypeDevelopment}
+                </Link>
+              </li>
+              <li>
+                <Link to="/services/consultation" className="text-body-sm font-body text-primary-foreground/50 hover:text-primary-foreground transition-colors duration-200">
+                  {common.footer.links.consultation}
+                </Link>
+              </li>
+              <li>
+                <Link to="/services/training" className="text-body-sm font-body text-primary-foreground/50 hover:text-primary-foreground transition-colors duration-200">
+                  {common.footer.links.training}
+                </Link>
+              </li>
+              <li>
+                <Link to="/services/software-distribution" className="text-body-sm font-body text-primary-foreground/50 hover:text-primary-foreground transition-colors duration-200">
+                  {common.footer.links.softwareDistribution}
+                </Link>
+              </li>
             </ul>
           </div>
 
           {/* Column 3 - Resources */}
           <div>
             <h4 className="font-heading text-primary-foreground font-semibold text-caption uppercase tracking-widest mb-6">
-              {content.resources.title}
+              {common.footer.sections.resources}
             </h4>
             <ul className="space-y-3">
-              {content.resources.links.map((link) => (
-                <li key={link.label}>
-                  <Link
-                    to={link.href}
-                    className="text-body-sm font-body text-primary-foreground/50 hover:text-primary-foreground transition-colors duration-200"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+              <li>
+                <Link to="/insights" className="text-body-sm font-body text-primary-foreground/50 hover:text-primary-foreground transition-colors duration-200">
+                  {common.footer.links.insights}
+                </Link>
+              </li>
+              <li>
+                <Link to="/events" className="text-body-sm font-body text-primary-foreground/50 hover:text-primary-foreground transition-colors duration-200">
+                  {common.footer.links.events}
+                </Link>
+              </li>
             </ul>
           </div>
 
           {/* Column 4 - Contact */}
           <div>
             <h4 className="font-heading text-primary-foreground font-semibold text-caption uppercase tracking-widest mb-6">
-              {content.contact.title}
+              {common.footer.sections.contact}
             </h4>
             <ul className="space-y-5">
               <li className="flex items-start gap-3">
                 <Mail size={16} className="text-primary-foreground/40 shrink-0 mt-0.5" strokeWidth={1.5} />
                 <div>
                   <span className="block text-caption text-primary-foreground/30 font-body mb-0.5">
-                    {content.contact.email}
+                    {common.footer.contactLabels.email}
                   </span>
                   <a
                     href="mailto:info@kites-kw.com"
@@ -164,7 +138,7 @@ export function Footer() {
                 <Phone size={16} className="text-primary-foreground/40 shrink-0 mt-0.5" strokeWidth={1.5} />
                 <div>
                   <span className="block text-caption text-primary-foreground/30 font-body mb-0.5">
-                    {content.contact.phone}
+                    {common.footer.contactLabels.phone}
                   </span>
                   <a
                     href="tel:+96522092260"
@@ -179,10 +153,10 @@ export function Footer() {
                 <MapPin size={16} className="text-primary-foreground/40 shrink-0 mt-0.5" strokeWidth={1.5} />
                 <div>
                   <span className="block text-caption text-primary-foreground/30 font-body mb-0.5">
-                    {content.contact.location}
+                    {common.footer.contactLabels.location}
                   </span>
                   <span className="text-body-sm font-body text-primary-foreground/60">
-                    {content.contact.locationValue}
+                    {common.footer.contactLabels.locationValue}
                   </span>
                 </div>
               </li>
@@ -195,16 +169,16 @@ export function Footer() {
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             {/* Logo */}
             <Link to="/" className="flex items-center">
-              <img 
-                src={kitesLogo} 
-                alt="KITES" 
+              <img
+                src={kitesLogo}
+                alt="KITES"
                 className="h-8 w-auto opacity-70 hover:opacity-100 transition-opacity"
               />
             </Link>
 
             {/* Copyright */}
             <p className="text-caption font-body text-primary-foreground/30 text-center sm:text-end">
-              {content.copyright}
+              {common.footer.copyright}
             </p>
           </div>
         </div>

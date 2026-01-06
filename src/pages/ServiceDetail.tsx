@@ -1,4 +1,5 @@
 import { useParams, Link } from "react-router-dom";
+import { SEO } from "@/components/common/SEO";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
@@ -174,99 +175,102 @@ const ServiceDetail = () => {
   const Icon = service.icon;
 
   return (
-    <div className="min-h-screen">
-      <Header />
-      <main>
-        {/* Hero Section */}
-        <section className="pt-32 pb-16 lg:pt-40 lg:pb-24 bg-primary">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-4xl mx-auto text-center">
-              {/* Back Link */}
-              <Link 
-                to="/services" 
-                className="inline-flex items-center gap-2 text-primary-foreground/60 hover:text-primary-foreground font-body text-sm mb-8 transition-colors"
-              >
-                <ArrowLeft size={16} strokeWidth={1.5} className="rtl:rotate-180" />
-                {language === "en" ? "All Services" : "جميع الخدمات"}
-              </Link>
-              
-              {/* Icon */}
-              <div className="w-16 h-16 border border-primary-foreground/30 mx-auto flex items-center justify-center mb-8">
-                <Icon className="text-primary-foreground/80" size={32} strokeWidth={1.5} />
+    <>
+      <SEO page="services" serviceId={serviceId} />
+      <div className="min-h-screen">
+        <Header />
+        <main>
+          {/* Hero Section */}
+          <section className="pt-32 pb-16 lg:pt-40 lg:pb-24 bg-primary">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="max-w-4xl mx-auto text-center">
+                {/* Back Link */}
+                <Link
+                  to="/services"
+                  className="inline-flex items-center gap-2 text-primary-foreground/60 hover:text-primary-foreground font-body text-sm mb-8 transition-colors"
+                >
+                  <ArrowLeft size={16} strokeWidth={1.5} className="rtl:rotate-180" />
+                  {language === "en" ? "All Services" : "جميع الخدمات"}
+                </Link>
+
+                {/* Icon */}
+                <div className="w-16 h-16 border border-primary-foreground/30 mx-auto flex items-center justify-center mb-8">
+                  <Icon className="text-primary-foreground/80" size={32} strokeWidth={1.5} />
+                </div>
+
+                <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-primary-foreground mb-6 tracking-tight">
+                  {t.title}
+                </h1>
               </div>
-              
-              <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-primary-foreground mb-6 tracking-tight">
-                {t.title}
-              </h1>
             </div>
-          </div>
-        </section>
+          </section>
 
-        {/* Overview Section */}
-        <section className="py-16 lg:py-24 bg-background">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-3xl mx-auto">
-              <div className="h-px w-16 bg-foreground/20 mb-8" />
-              <p className="font-body text-lg lg:text-xl text-muted-foreground leading-relaxed">
-                {t.overview}
-              </p>
+          {/* Overview Section */}
+          <section className="py-16 lg:py-24 bg-background">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="max-w-3xl mx-auto">
+                <div className="h-px w-16 bg-foreground/20 mb-8" />
+                <p className="font-body text-lg lg:text-xl text-muted-foreground leading-relaxed">
+                  {t.overview}
+                </p>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        {/* What We Deliver Section */}
-        <section className="py-16 lg:py-24 bg-secondary/30">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-3xl mx-auto">
-              <h2 className="font-heading text-2xl lg:text-3xl font-semibold text-foreground mb-10 tracking-tight">
-                {t.deliverTitle}
-              </h2>
-              <ul className="space-y-5">
-                {t.deliverables.map((item, index) => (
-                  <li key={index} className="flex items-start gap-4">
-                    <CheckCircle className="text-foreground/70 shrink-0 mt-0.5" size={20} strokeWidth={1.5} />
-                    <span className="font-body text-lg text-foreground">{item}</span>
-                  </li>
-                ))}
-              </ul>
+          {/* What We Deliver Section */}
+          <section className="py-16 lg:py-24 bg-secondary/30">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="max-w-3xl mx-auto">
+                <h2 className="font-heading text-2xl lg:text-3xl font-semibold text-foreground mb-10 tracking-tight">
+                  {t.deliverTitle}
+                </h2>
+                <ul className="space-y-5">
+                  {t.deliverables.map((item, index) => (
+                    <li key={index} className="flex items-start gap-4">
+                      <CheckCircle className="text-foreground/70 shrink-0 mt-0.5" size={20} strokeWidth={1.5} />
+                      <span className="font-body text-lg text-foreground">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        {/* How KITES Supports You Section */}
-        <section className="py-16 lg:py-24 bg-background">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-3xl mx-auto">
-              <h2 className="font-heading text-2xl lg:text-3xl font-semibold text-foreground mb-8 tracking-tight">
-                {t.supportTitle}
-              </h2>
-              <p className="font-body text-lg text-muted-foreground leading-relaxed">
-                {t.support}
-              </p>
+          {/* How KITES Supports You Section */}
+          <section className="py-16 lg:py-24 bg-background">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="max-w-3xl mx-auto">
+                <h2 className="font-heading text-2xl lg:text-3xl font-semibold text-foreground mb-8 tracking-tight">
+                  {t.supportTitle}
+                </h2>
+                <p className="font-body text-lg text-muted-foreground leading-relaxed">
+                  {t.support}
+                </p>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        {/* CTA Section */}
-        <section className="py-20 lg:py-28 bg-primary">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-2xl mx-auto text-center">
-              <div className="h-px w-16 bg-primary-foreground/40 mx-auto mb-8" />
-              <p className="font-body text-lg lg:text-xl text-primary-foreground/80 mb-10 leading-relaxed">
-                {t.cta}
-              </p>
-              <Link to="/contact">
-                <Button variant="heroOutline" size="xl" className="group">
-                  {t.ctaButton}
-                  <ArrowRight size={18} strokeWidth={1.5} className="transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180" />
-                </Button>
-              </Link>
+          {/* CTA Section */}
+          <section className="py-20 lg:py-28 bg-primary">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="max-w-2xl mx-auto text-center">
+                <div className="h-px w-16 bg-primary-foreground/40 mx-auto mb-8" />
+                <p className="font-body text-lg lg:text-xl text-primary-foreground/80 mb-10 leading-relaxed">
+                  {t.cta}
+                </p>
+                <Link to="/contact">
+                  <Button variant="heroOutline" size="xl" className="group">
+                    {t.ctaButton}
+                    <ArrowRight size={18} strokeWidth={1.5} className="transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180" />
+                  </Button>
+                </Link>
+              </div>
             </div>
-          </div>
-        </section>
-      </main>
-      <Footer />
-    </div>
+          </section>
+        </main>
+        <Footer />
+      </div>
+    </>
   );
 };
 
