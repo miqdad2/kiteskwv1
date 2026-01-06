@@ -1,0 +1,337 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* KITES Design System - Technical Research Institute
+   RTL-Ready | Monochrome | Engineering-Grade */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap');
+
+@layer base {
+  :root {
+    /* Monochrome Technical Palette */
+    --background: 0 0% 100%;
+    --foreground: 220 15% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 15% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 15% 10%;
+
+    /* Primary - Deep Technical Black */
+    --primary: 220 20% 8%;
+    --primary-foreground: 0 0% 98%;
+
+    /* Secondary - Warm Gray */
+    --secondary: 220 10% 95%;
+    --secondary-foreground: 220 15% 10%;
+
+    --muted: 220 10% 96%;
+    --muted-foreground: 220 10% 40%;
+
+    /* Technical Accent - Muted Steel Blue */
+    --accent: 215 20% 45%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 10% 88%;
+    --input: 220 10% 88%;
+    --ring: 215 20% 45%;
+
+    --radius: 0.125rem;
+
+    /* KITES Technical Tokens */
+    --technical-black: 220 20% 8%;
+    --technical-dark: 220 15% 15%;
+    --technical-medium: 220 10% 35%;
+    --technical-light: 220 10% 55%;
+    --technical-muted: 220 8% 75%;
+    --technical-pale: 220 10% 96%;
+    --technical-white: 0 0% 100%;
+    
+    /* Technical Accent - Steel Blue */
+    --accent-technical: 215 25% 42%;
+    --accent-hover: 215 25% 32%;
+
+    /* Shadows - Ultra Minimal */
+    --shadow-subtle: 0 1px 2px 0 hsla(220, 20%, 8%, 0.03);
+    --shadow-card: 0 1px 3px -1px hsla(220, 20%, 8%, 0.04);
+    --shadow-elevated: 0 4px 12px -4px hsla(220, 20%, 8%, 0.08);
+
+    /* Typography */
+    --font-heading: 'Inter', system-ui, sans-serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+    --font-arabic: 'IBM Plex Sans Arabic', system-ui, sans-serif;
+
+    --sidebar-background: 220 20% 8%;
+    --sidebar-foreground: 0 0% 96%;
+    --sidebar-primary: 215 20% 45%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 15% 15%;
+    --sidebar-accent-foreground: 0 0% 96%;
+    --sidebar-border: 220 15% 20%;
+    --sidebar-ring: 215 20% 45%;
+  }
+
+  .dark {
+    --background: 220 20% 6%;
+    --foreground: 0 0% 96%;
+
+    --card: 220 15% 10%;
+    --card-foreground: 0 0% 96%;
+
+    --popover: 220 15% 10%;
+    --popover-foreground: 0 0% 96%;
+
+    --primary: 0 0% 96%;
+    --primary-foreground: 220 20% 8%;
+
+    --secondary: 220 15% 15%;
+    --secondary-foreground: 0 0% 96%;
+
+    --muted: 220 15% 15%;
+    --muted-foreground: 220 8% 60%;
+
+    --accent: 215 20% 55%;
+    --accent-foreground: 220 20% 8%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 15% 20%;
+    --input: 220 15% 20%;
+    --ring: 215 20% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
+    font-feature-settings: 'cv11', 'ss01';
+    font-variation-settings: 'opsz' 32;
+  }
+
+  /* Arabic font override */
+  [dir="rtl"] body,
+  [lang="ar"] body {
+    font-family: var(--font-arabic);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    @apply font-semibold;
+    letter-spacing: -0.02em;
+  }
+
+  h1 {
+    @apply text-h1;
+  }
+
+  h2 {
+    @apply text-h2;
+  }
+
+  h3 {
+    @apply text-h3;
+  }
+
+  h4 {
+    @apply text-h4;
+  }
+
+  [dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3, 
+  [dir="rtl"] h4, [dir="rtl"] h5, [dir="rtl"] h6,
+  [lang="ar"] h1, [lang="ar"] h2, [lang="ar"] h3,
+  [lang="ar"] h4, [lang="ar"] h5, [lang="ar"] h6 {
+    font-family: var(--font-arabic);
+    letter-spacing: 0;
+  }
+
+  /* Improved focus states */
+  :focus-visible {
+    @apply outline-none ring-2 ring-accent ring-offset-2 ring-offset-background;
+  }
+}
+
+@layer components {
+  /* Technical Accent Line */
+  .accent-line {
+    @apply h-px w-12 bg-foreground/30;
+  }
+
+  .accent-line-light {
+    @apply h-px w-12 bg-primary-foreground/30;
+  }
+
+  .accent-line-sm {
+    @apply h-px w-8 bg-foreground/20;
+  }
+
+  /* Technical Card Styles */
+  .card-technical {
+    @apply border border-border bg-card transition-all duration-200;
+  }
+
+  .card-technical:hover {
+    @apply border-foreground/15;
+    box-shadow: var(--shadow-card);
+  }
+
+  /* Interactive Card */
+  .card-interactive {
+    @apply border border-border bg-card transition-all duration-200 cursor-pointer;
+  }
+
+  .card-interactive:hover {
+    @apply border-foreground/20 bg-secondary/50;
+  }
+
+  /* Section divider */
+  .section-divider {
+    @apply h-px w-full bg-border;
+  }
+
+  /* Technical Grid Pattern */
+  .pattern-grid {
+    background-image: 
+      linear-gradient(hsla(220, 10%, 88%, 0.4) 1px, transparent 1px),
+      linear-gradient(90deg, hsla(220, 10%, 88%, 0.4) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  /* Engineering Blueprint Pattern */
+  .pattern-blueprint {
+    background-image: 
+      linear-gradient(hsla(220, 20%, 8%, 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, hsla(220, 20%, 8%, 0.02) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  /* Page hero section base */
+  .page-hero {
+    @apply pt-32 pb-20 lg:pt-40 lg:pb-28 bg-primary relative overflow-hidden;
+  }
+
+  /* Category badge */
+  .badge-category {
+    @apply px-3 py-1.5 text-xs font-medium border border-border bg-background text-foreground;
+  }
+
+  .badge-category-active {
+    @apply px-3 py-1.5 text-xs font-medium bg-foreground text-background border border-foreground;
+  }
+}
+
+@layer utilities {
+  /* RTL-friendly spacing using logical properties */
+  .ps-safe { padding-inline-start: 1rem; }
+  .pe-safe { padding-inline-end: 1rem; }
+  .ms-safe { margin-inline-start: 1rem; }
+  .me-safe { margin-inline-end: 1rem; }
+
+  /* Text balance for headings */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Animation utilities */
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.5s ease-out forwards;
+  }
+
+  .animate-slide-in-start {
+    animation: slideInStart 0.5s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideUp {
+    from { 
+      opacity: 0; 
+      transform: translateY(16px); 
+    }
+    to { 
+      opacity: 1; 
+      transform: translateY(0); 
+    }
+  }
+
+  /* RTL-aware slide animation */
+  @keyframes slideInStart {
+    from { 
+      opacity: 0; 
+      transform: translateX(-16px); 
+    }
+    to { 
+      opacity: 1; 
+      transform: translateX(0); 
+    }
+  }
+
+  @keyframes slideInStartRtl {
+    from { 
+      opacity: 0; 
+      transform: translateX(16px); 
+    }
+    to { 
+      opacity: 1; 
+      transform: translateX(0); 
+    }
+  }
+
+  /* RTL override for slide animation */
+  [dir="rtl"] .animate-slide-in-start {
+    animation: slideInStartRtl 0.5s ease-out forwards;
+  }
+
+  /* Stagger delays */
+  .delay-75 { animation-delay: 75ms; }
+  .delay-100 { animation-delay: 100ms; }
+  .delay-150 { animation-delay: 150ms; }
+  .delay-200 { animation-delay: 200ms; }
+  .delay-300 { animation-delay: 300ms; }
+  .delay-400 { animation-delay: 400ms; }
+  .delay-500 { animation-delay: 500ms; }
+
+  /* Hover transition utilities */
+  .hover-lift {
+    @apply transition-transform duration-200;
+  }
+  .hover-lift:hover {
+    transform: translateY(-2px);
+  }
+
+  /* Stagger animation system */
+  .stagger-hidden .stagger-item {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  
+  .stagger-visible .stagger-item {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    transition-delay: calc(var(--stagger-index, 0) * var(--stagger-delay, 80ms));
+  }
+}
