@@ -92,7 +92,31 @@
   .dark {
     --background: 220 20% 6%;
     --foreground: 0 0% 96%;
-    /* ... (keep other vars) ... */
+
+    --card: 220 15% 10%;
+    --card-foreground: 0 0% 96%;
+
+    --popover: 220 15% 10%;
+    --popover-foreground: 0 0% 96%;
+
+    --primary: 0 0% 96%;
+    --primary-foreground: 220 20% 8%;
+
+    --secondary: 220 15% 15%;
+    --secondary-foreground: 0 0% 96%;
+
+    --muted: 220 15% 15%;
+    --muted-foreground: 220 8% 60%;
+
+    --accent: 215 20% 55%;
+    --accent-foreground: 220 20% 8%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 15% 20%;
+    --input: 220 15% 20%;
+    --ring: 215 20% 55%;
   }
 
   /* Custom Easings */
@@ -107,33 +131,6 @@
   :root {
     --header-height: 88px;
   }
-}
-
---card: 220 15% 10%;
---card-foreground: 0 0% 96%;
-
---popover: 220 15% 10%;
---popover-foreground: 0 0% 96%;
-
---primary: 0 0% 96%;
---primary-foreground: 220 20% 8%;
-
---secondary: 220 15% 15%;
---secondary-foreground: 0 0% 96%;
-
---muted: 220 15% 15%;
---muted-foreground: 220 8% 60%;
-
---accent: 215 20% 55%;
---accent-foreground: 220 20% 8%;
-
---destructive: 0 63% 31%;
---destructive-foreground: 0 0% 100%;
-
---border: 220 15% 20%;
---input: 220 15% 20%;
---ring: 215 20% 55%;
-}
 }
 
 @layer base {
@@ -492,6 +489,7 @@
     overflow: visible;
     clip: auto;
     white-space: normal;
+
   }
 }
 
