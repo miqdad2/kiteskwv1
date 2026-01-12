@@ -1,12 +1,16 @@
 import { useEffect, useState, useRef } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { cn } from "@/lib/utils";
+import { GraduationCap, Building2, Handshake, Globe } from "lucide-react";
 
 interface KPI {
     id: string;
-    value: number;
-    suffix: string;
+    icon: React.ElementType;
     label: {
+        en: string;
+        ar: string;
+    };
+    description: {
         en: string;
         ar: string;
     };
@@ -14,28 +18,28 @@ interface KPI {
 
 const kpiData: KPI[] = [
     {
-        id: "engineers",
-        value: 80,
-        suffix: "+",
-        label: { en: "Engineers Trained", ar: "مهندسًا تم تدريبهم" },
+        id: "training",
+        icon: GraduationCap,
+        label: { en: "Training Excellence", ar: "التميز في التدريب" },
+        description: { en: "Structured professional and academic training", ar: "تدريب مهني وأكاديمي منظم" },
     },
     {
         id: "clients",
-        value: 30,
-        suffix: "+",
-        label: { en: "Enterprise Clients", ar: "عميلًا مؤسسيًا" },
+        icon: Building2,
+        label: { en: "Institutional Trust", ar: "ثقة المؤسسات" },
+        description: { en: "Universities, ministries, and public institutions", ar: "جامعات ووزارات ومؤسسات عامة" },
     },
     {
         id: "partners",
-        value: 10,
-        suffix: "+",
-        label: { en: "Global Partners", ar: "شركاء تقنيين" },
+        icon: Handshake,
+        label: { en: "Technology Partners", ar: "شركاء التقنية" },
+        description: { en: "MSC, ANSYS ecosystem, Altair, and others", ar: "MSC و ANSYS و Altair وغيرها" },
     },
     {
-        id: "countries",
-        value: 7,
-        suffix: "",
-        label: { en: "Countries Served", ar: "دول نخدمها" },
+        id: "reach",
+        icon: Globe,
+        label: { en: "Regional Reach", ar: "انتشار إقليمي" },
+        description: { en: "Active projects across GCC markets", ar: "مشاريع نشطة في أسواق الخليج" },
     },
 ];
 
@@ -53,7 +57,6 @@ export function HeroKPI({ startDelay = 0 }: HeroKPIProps) {
         const observer = new IntersectionObserver(
             ([entry]) => {
                 if (entry.isIntersecting) {
-                    // Add custom delay before showing
                     timerRef.current = setTimeout(() => {
                         setIsVisible(true);
                         observer.disconnect();
@@ -76,25 +79,24 @@ export function HeroKPI({ startDelay = 0 }: HeroKPIProps) {
     return (
         <div
             ref={containerRef}
-            className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 lg:mt-24 pointer-events-auto"
+            className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 lg:mt-16 pointer-events-auto"
         >
             <div
-                ref={containerRef}
                 className={cn(
-                    "w-full rounded-lg bg-white/3 backdrop-blur-md border border-white/5 p-6 md:p-8 overflow-hidden relative",
+                    "w-full rounded-lg bg-white/[0.03] backdrop-blur-md border border-white/[0.06] p-4 sm:p-6 md:p-8 overflow-hidden relative",
                     "before:absolute before:inset-0 before:-translate-x-full before:bg-gradient-to-r before:from-transparent before:via-white/5 before:to-transparent before:z-10",
                     isVisible ? "opacity-100 translate-y-0 before:animate-[shimmer_2s_ease-in-out_forwards]" : "opacity-0 translate-y-4"
                 )}
                 style={{ transition: 'opacity 1s ease-out, transform 1s ease-out', transitionDelay: '0ms' }}
             >
-                <div className="grid grid-cols-2 lg:flex lg:justify-between gap-6 lg:gap-12 relative z-20">
-                    {kpiData.map((stat, index) => (
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 relative z-20">
+                    {kpiData.map((item, index) => (
                         <KPICard
-                            key={index}
-                            item={stat}
+                            key={item.id}
+                            item={item}
                             isVisible={isVisible}
                             language={language}
-                            delay={index * 150} // Internal stagger between items
+                            delay={index * 100}
                         />
                     ))}
                 </div>
@@ -114,43 +116,7 @@ function KPICard({
     language: string;
     delay: number;
 }) {
-    const [count, setCount] = useState(0);
-
-    useEffect(() => {
-        if (!isVisible) return;
-
-        // Check for reduced motion
-        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        if (prefersReducedMotion) {
-            setCount(item.value);
-            return;
-        }
-
-        let startTime: number;
-        const duration = 1500; // 1.5s duration
-        const startValue = 0;
-        const endValue = item.value;
-
-        const animate = (currentTime: number) => {
-            if (!startTime) startTime = currentTime;
-            const progress = Math.min((currentTime - startTime) / duration, 1);
-
-            // Ease out quart
-            const easeProgress = 1 - Math.pow(1 - progress, 4);
-
-            setCount(Math.floor(startValue + easeProgress * (endValue - startValue)));
-
-            if (progress < 1) {
-                requestAnimationFrame(animate);
-            }
-        };
-
-        const timer = setTimeout(() => {
-            requestAnimationFrame(animate);
-        }, delay);
-
-        return () => clearTimeout(timer);
-    }, [isVisible, item.value, delay]);
+    const Icon = item.icon;
 
     return (
         <div
@@ -160,12 +126,19 @@ function KPICard({
             )}
             style={{ transitionDelay: `${delay}ms` }}
         >
-            <div className="font-heading font-bold text-3xl sm:text-4xl text-white tracking-tight">
-                {count}
-                <span className="text-white/80">{item.suffix}</span>
+            {/* Icon */}
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/[0.05] border border-white/10 flex items-center justify-center">
+                <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-white/60" strokeWidth={1.5} />
             </div>
-            <div className="text-xs sm:text-sm font-body text-white/60 font-medium uppercase tracking-wider">
+
+            {/* Label */}
+            <div className="font-heading font-semibold text-xs sm:text-sm text-white tracking-tight">
                 {language === "ar" ? item.label.ar : item.label.en}
+            </div>
+
+            {/* Description */}
+            <div className="text-[9px] sm:text-[10px] font-body text-white/45 font-medium leading-snug max-w-[130px] sm:max-w-[150px]">
+                {language === "ar" ? item.description.ar : item.description.en}
             </div>
         </div>
     );

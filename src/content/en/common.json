@@ -15,9 +15,10 @@
         "contactUs": "Contact Us",
         "submit": "Submit",
         "sending": "Sending...",
-        "requestConsultation": "Request Consultation",
-        "talkToExperts": "Talk to our experts",
-        "getInTouch": "Get in Touch"
+        "requestAssessment": "Request Assessment",
+        "talkToExperts": "Talk to Our Team",
+        "getInTouch": "Get in Touch",
+        "exploreCapabilities": "Explore Our Capabilities"
     },
     "footer": {
         "sections": {
@@ -35,19 +36,25 @@
         "copyright": "© Kuwait Institute for Training & Engineering Simulations (KITES)",
         "links": {
             "expertise": "Expertise",
-            "partners": "Partners",
+            "partners": "Technology Partners",
             "contact": "Contact",
             "prototypeDevelopment": "Prototype Development",
-            "consultation": "Consultation",
-            "training": "Training",
-            "softwareDistribution": "Software Distribution",
+            "consultation": "Engineering Consultation",
+            "training": "Professional Training",
+            "softwareDistribution": "Simulation Technology",
             "insights": "Insights",
             "events": "Events"
-        }
+        },
+        "tagline": "Engineering Simulation Partner"
     },
     "language": {
         "switchToEnglish": "English",
         "switchToArabic": "Arabic",
         "languageLabel": "Language"
+    },
+    "trust": {
+        "trustedBy": "Trusted by",
+        "partneringWith": "Partnering with",
+        "supporting": "Supporting"
     }
 }

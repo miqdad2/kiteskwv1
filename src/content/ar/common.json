@@ -15,9 +15,10 @@
         "contactUs": "تواصل معنا",
         "submit": "إرسال",
         "sending": "جارٍ الإرسال...",
-        "requestConsultation": "طلب استشارة",
-        "talkToExperts": "تحدث إلى خبرائنا",
-        "getInTouch": "تواصل معنا"
+        "requestAssessment": "اطلب تقييماً",
+        "talkToExperts": "تحدث إلى فريقنا",
+        "getInTouch": "تواصل معنا",
+        "exploreCapabilities": "استكشف قدراتنا"
     },
     "footer": {
         "sections": {
@@ -35,19 +36,25 @@
         "copyright": "© معهد الكويت للتدريب والمحاكاة الهندسية (KITES)",
         "links": {
             "expertise": "الخبرات",
-            "partners": "الشركاء",
+            "partners": "شركاء التقنية",
             "contact": "تواصل معنا",
             "prototypeDevelopment": "تطوير النماذج الأولية",
-            "consultation": "الاستشارات",
-            "training": "التدريب",
-            "softwareDistribution": "توزيع البرمجيات",
+            "consultation": "الاستشارات الهندسية",
+            "training": "التدريب المهني",
+            "softwareDistribution": "تقنية المحاكاة",
             "insights": "الرؤى",
             "events": "الفعاليات"
-        }
+        },
+        "tagline": "شريك المحاكاة الهندسية"
     },
     "language": {
         "switchToEnglish": "English",
         "switchToArabic": "العربية",
         "languageLabel": "اللغة"
+    },
+    "trust": {
+        "trustedBy": "موثوق من قبل",
+        "partneringWith": "بالشراكة مع",
+        "supporting": "ندعم"
     }
 }

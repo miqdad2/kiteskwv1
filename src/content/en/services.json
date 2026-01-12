@@ -1,66 +1,70 @@
 {
     "pageTitle": "Services",
-    "intro": "Our services support engineers and organizations throughout the entire engineering lifecycle.",
+    "intro": "We support engineers and organizations throughout the entire engineering lifecycle—from capability assessment to long-term operational excellence.",
     "learnMore": "Learn More",
+    "hero": {
+        "title": "Engineering Services",
+        "intro": "Integrated simulation, training, and consulting solutions designed to build lasting organizational capability."
+    },
     "approach": {
         "label": "Our Approach",
         "steps": [
             {
-                "iconName": "Target",
-                "label": "Define",
-                "description": "Requirements & scope"
+                "icon": "Target",
+                "label": "Assess",
+                "desc": "Understand requirements and organizational readiness"
             },
             {
-                "iconName": "Cpu",
-                "label": "Simulate",
-                "description": "Model & analyze"
+                "icon": "BookOpen",
+                "label": "Train",
+                "desc": "Build foundational and advanced competencies"
             },
             {
-                "iconName": "CheckCircle",
-                "label": "Validate",
-                "description": "Test & verify"
-            },
-            {
-                "iconName": "Rocket",
+                "icon": "Settings",
                 "label": "Implement",
-                "description": "Deploy & support"
+                "desc": "Deploy solutions with hands-on support"
+            },
+            {
+                "icon": "HeartHandshake",
+                "label": "Support",
+                "desc": "Ensure long-term adoption and success"
             }
         ]
     },
     "categories": {
-        "prototype-development": "CORE SERVICE",
+        "prototype-development": "ENGINEERING",
         "consultation": "CONSULTING",
-        "training": "TRAINING",
-        "software-distribution": "DISTRIBUTION"
+        "training": "CAPABILITY BUILDING",
+        "software-distribution": "TECHNOLOGY"
     },
     "bridgeCta": {
-        "title": "Not sure which service fits your needs?",
-        "subtitle": "Talk to our experts.",
-        "button": "Request Consultation"
+        "title": "Not sure where to start?",
+        "subtitle": "Our team can help assess your engineering simulation needs.",
+        "button": "Request an Assessment"
     },
     "finalCta": {
-        "title": "Ready to discuss your engineering challenges?",
-        "subtitle": "Let's explore how simulation-driven solutions can transform your projects.",
+        "title": "Ready to build engineering capability?",
+        "subtitle": "Let's explore how we can support your organization's simulation journey.",
         "button": "Contact Us"
     },
     "outcomes": {
-        "label": "Service Outcomes",
+        "label": "What We Enable",
         "items": [
             {
                 "iconName": "Shield",
-                "label": "Risk reduction"
+                "label": "Reduced uncertainty"
             },
             {
                 "iconName": "Zap",
-                "label": "Faster validation"
+                "label": "Improved workflows"
             },
             {
                 "iconName": "BarChart3",
-                "label": "Better decisions"
+                "label": "Informed decisions"
             },
             {
                 "iconName": "Settings",
-                "label": "Scalable implementation"
+                "label": "Sustainable adoption"
             }
         ]
     },
@@ -69,69 +73,79 @@
             "id": "prototype-development",
             "iconName": "Boxes",
             "title": "Prototype Development",
-            "authority": "Accelerate innovation cycles by validating concepts before committing to full-scale production.",
-            "description": "From concept to functional, validated prototypes. We transform ideas into tangible solutions using advanced simulation and rapid prototyping technologies.",
+            "authority": "Validate concepts before committing to production through simulation-driven prototyping.",
+            "description": "We help engineering teams transform concepts into validated prototypes using advanced simulation and rapid development methodologies—reducing risk and accelerating innovation cycles.",
             "features": [
-                "Concept validation and feasibility studies",
-                "3D modeling and digital twins",
+                "Concept validation and feasibility assessment",
+                "Digital twin development",
                 "Functional prototype creation",
-                "Testing and iteration cycles"
+                "Iterative testing and refinement"
             ],
             "outcomes": [
-                "Risk reduction",
-                "Faster validation"
+                "Reduced uncertainty",
+                "Improved workflows"
             ]
         },
         {
             "id": "consultation",
             "iconName": "MessageSquare",
-            "title": "Consultation",
-            "authority": "Make data-driven engineering decisions backed by simulation expertise and environmental insight.",
-            "description": "Simulation-driven engineering and environmental consulting. Expert guidance to optimize your processes and achieve sustainable outcomes.",
+            "title": "Engineering Consultation",
+            "authority": "Expert guidance to optimize engineering processes and achieve sustainable outcomes.",
+            "description": "Our consulting practice combines simulation expertise with deep domain knowledge to help organizations make informed engineering decisions, optimize processes, and navigate technical complexity.",
             "features": [
-                "Engineering process optimization",
-                "Environmental impact assessment",
+                "Engineering process assessment",
                 "Technology strategy development",
-                "Regulatory compliance support"
+                "Simulation workflow optimization",
+                "Compliance and standards guidance"
             ],
             "outcomes": [
-                "Better decisions",
-                "Risk reduction"
+                "Informed decisions",
+                "Reduced uncertainty"
             ]
         },
         {
             "id": "training",
             "iconName": "GraduationCap",
-            "title": "Training",
-            "authority": "Build lasting organizational capability through structured, industry-aligned professional development.",
-            "description": "Professional training programs for engineers and organizations. Hands-on courses designed to elevate skills and drive performance.",
+            "title": "Professional Training",
+            "authority": "Build lasting organizational capability through structured, industry-aligned programs.",
+            "description": "We deliver professional training programs designed to build simulation competency at every level—from foundational skills to advanced mastery. Our approach ensures knowledge transfer and long-term organizational capability.",
             "features": [
-                "Certified professional programs",
-                "Custom corporate training",
+                "Industry-certified programs",
+                "Custom organizational training",
                 "Simulation software workshops",
-                "Leadership development"
+                "Ongoing capability development"
             ],
             "outcomes": [
-                "Scalable implementation",
-                "Better decisions"
+                "Sustainable adoption",
+                "Informed decisions"
             ]
         },
         {
             "id": "software-distribution",
             "iconName": "Package",
-            "title": "Software Distribution",
-            "authority": "Deploy proven, enterprise-grade tools with comprehensive support for seamless integration.",
-            "description": "Access to world-leading engineering and simulation software. Authorized distribution with full technical support and implementation services.",
+            "title": "Simulation Technology",
+            "authority": "Access proven platforms with comprehensive support for seamless integration.",
+            "description": "We provide access to world-leading simulation platforms—selected based on your engineering requirements, not vendor preference. Our multi-vendor approach ensures you receive the right technology with complete implementation support.",
             "features": [
-                "Licensed enterprise software",
+                "Multi-vendor technology access",
+                "Needs-based platform selection",
                 "Implementation and deployment",
-                "Technical support and maintenance",
-                "Training and onboarding"
+                "Ongoing technical support"
             ],
             "outcomes": [
-                "Faster validation",
-                "Scalable implementation"
+                "Improved workflows",
+                "Sustainable adoption"
             ]
         }
-    ]
+    ],
+    "vendorNeutrality": {
+        "title": "Why We Don't Push a Single Vendor",
+        "description": "Our recommendations are based on your engineering requirements—not vendor relationships.",
+        "points": [
+            "Engineering requirements come first",
+            "Industry and regulatory constraints considered",
+            "Team maturity and existing workflows assessed",
+            "Long-term sustainability over short-term convenience"
+        ]
+    }
 }

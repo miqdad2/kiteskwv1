@@ -17,22 +17,22 @@ const Index = () => {
       <div className="min-h-screen">
         <Header />
         <main id="main-content">
-          {/* 1. Hero Section */}
+          {/* 1. Hero Section - Lead with value proposition */}
           <Hero />
 
-          {/* 2. Who We Are */}
-          <WhoWeAreSection />
-
-          {/* 3. Services Overview */}
-          <ServicesSection />
-
-          {/* 4. Partners Preview */}
-          <PartnersSection />
-
-          {/* 5. Clients Preview */}
+          {/* 2. Organizations We Support - Establish institutional credibility */}
           <ClientsSection />
 
-          {/* 6. Call To Action */}
+          {/* 3. Our Services - Demonstrate capability */}
+          <ServicesSection />
+
+          {/* 4. Technology Partners - Tools support outcomes */}
+          <PartnersSection />
+
+          {/* 5. Who We Are - Contextual depth (includes Key Pillars) */}
+          <WhoWeAreSection />
+
+          {/* 6. Final CTA */}
           <CTASection />
         </main>
         <Footer />

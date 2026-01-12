@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -9,7 +9,6 @@ import { FlowFieldCanvas } from "@/components/home/FlowFieldCanvas";
 export function Hero() {
     const { language, isRTL } = useLanguage();
     const [scrollY, setScrollY] = useState(0);
-    const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
     useEffect(() => {
         const handleScroll = () => {
@@ -18,36 +17,28 @@ export function Hero() {
             });
         };
 
-        const handleMouseMove = (e: MouseEvent) => {
-            requestAnimationFrame(() => {
-                const x = (e.clientX / window.innerWidth - 0.5) * 10; // +/- 5px movement
-                const y = (e.clientY / window.innerHeight - 0.5) * 10;
-                setMousePos({ x, y });
-            });
-        };
-
         window.addEventListener("scroll", handleScroll);
-        window.addEventListener("mousemove", handleMouseMove);
         return () => {
             window.removeEventListener("scroll", handleScroll);
-            window.removeEventListener("mousemove", handleMouseMove);
         };
     }, []);
 
     const content = {
         en: {
-            titleLine1: "SIMULATE",
-            titleLine2: "EVERYTHING",
-            subtitle: "Advanced simulation, training, and sustainability solutions trusted by engineering leaders across the GCC.",
-            ctaPrimary: "Talk to Our Experts",
-            ctaSecondary: "Explore Capabilities",
+            headline: "Engineering Simulation Solutions",
+            subheadline: "Delivered Through Expertise, Training, and Partnership",
+            description1: "Multi-vendor simulation platforms supported by structured training, consulting, and long-term engineering support.",
+            description2: "Trusted by universities, government agencies, and industrial organizations across the GCC.",
+            ctaPrimary: "Get an Engineering Assessment",
+            ctaSecondary: "Explore Our Capabilities",
         },
         ar: {
-            titleLine1: "حاكي",
-            titleLine2: "كل شيء",
-            subtitle: "حلول محاكاة متقدمة للتدريب والاستدامة، موثوقة من قبل قادة الهندسة في جميع أنحاء الخليج.",
-            ctaPrimary: "تحدث مع خبرائنا",
-            ctaSecondary: "استكشف القدرات",
+            headline: "حلول المحاكاة الهندسية",
+            subheadline: "تُقدَّم من خلال الخبرة والتدريب والشراكة",
+            description1: "منصات محاكاة متعددة البائعين مدعومة بتدريب منظم واستشارات ودعم هندسي طويل المدى.",
+            description2: "موثوق بها من قبل الجامعات والجهات الحكومية والمؤسسات الصناعية في دول مجلس التعاون الخليجي.",
+            ctaPrimary: "احصل على تقييم هندسي",
+            ctaSecondary: "استكشف قدراتنا",
         },
     }[language];
 
@@ -64,15 +55,15 @@ export function Hero() {
 
             {/* 2. LAYER: Flow Field Visual - Z-10 */}
             <div
-                className="absolute inset-0 z-10 opacity-30 transition-transform duration-75 ease-out will-change-transform"
+                className="absolute inset-0 z-10 opacity-20 transition-transform duration-75 ease-out will-change-transform"
                 style={{ transform: `translateY(${scrollY * 0.15}px)` }}
             >
                 <FlowFieldCanvas />
             </div>
 
-            {/* 2.5 LAYER: Contrast Gradient - Z-15 */}
-            {/* Ensures text readability against flow lines */}
-            <div className="absolute inset-0 z-15 bg-gradient-to-r from-[#0B0F14]/90 via-[#0B0F14]/40 to-transparent pointer-events-none" />
+            {/* 2.5 LAYER: Enhanced Contrast Gradient - Z-15 */}
+            <div className="absolute inset-0 z-15 bg-gradient-to-r from-[#0B0F14]/95 via-[#0B0F14]/70 to-[#0B0F14]/30 pointer-events-none" />
+            <div className="absolute inset-0 z-15 bg-gradient-to-b from-transparent via-transparent to-[#0B0F14]/50 pointer-events-none" />
 
             {/* 3. LAYER: Content - Z-20 */}
             <div
@@ -87,41 +78,46 @@ export function Hero() {
 
                     {/* Main Content Column */}
                     <div className={cn(
-                        "lg:col-span-7 flex flex-col justify-center",
+                        "lg:col-span-8 flex flex-col justify-center",
                         "max-lg:text-center max-lg:items-center"
                     )}>
 
-                        {/* Headline - Explicitly sharp rendering with Depth */}
-                        <h1 className="font-heading font-bold text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-[5.5rem] xl:text-[6.5rem] leading-[0.95] tracking-tight mb-6 sm:mb-8 uppercase antialiased w-full"
-                            style={{
-                                textRendering: 'geometricPrecision',
-                                WebkitFontSmoothing: 'antialiased',
-                                transform: 'translateZ(0)',
-                            }}>
-                            {/* Line 1 */}
-                            <span className="block animate-hero-up opacity-0 text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-200 drop-shadow-2xl"
-                                style={{ animationDelay: '100ms', filter: 'drop-shadow(0 8px 24px rgba(0,0,0,0.35))' }}>
-                                {content.titleLine1}
-                            </span>
+                        {/* Headline Block */}
+                        <div className="mb-8 sm:mb-10">
+                            {/* Primary Headline */}
+                            <h1 className="font-heading font-bold text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] xl:text-[3.75rem] leading-[1.1] tracking-tight text-white mb-3 sm:mb-4 animate-hero-up opacity-0"
+                                style={{
+                                    animationDelay: '100ms',
+                                    textRendering: 'geometricPrecision',
+                                    WebkitFontSmoothing: 'antialiased',
+                                }}>
+                                {content.headline}
+                            </h1>
 
-                            {/* Line 2 */}
-                            <span className="block animate-hero-up opacity-0 text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-200 drop-shadow-2xl"
-                                style={{ animationDelay: '220ms', filter: 'drop-shadow(0 8px 24px rgba(0,0,0,0.35))' }}>
-                                {content.titleLine2}
-                            </span>
-                        </h1>
+                            {/* Subheadline - Smaller, lighter */}
+                            <p className="font-heading font-medium text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-[1.75rem] xl:text-[2rem] leading-[1.2] tracking-tight text-white/70 animate-hero-up opacity-0"
+                                style={{ animationDelay: '200ms' }}>
+                                {content.subheadline}
+                            </p>
+                        </div>
 
-                        {/* Subheadline */}
-                        <p className="font-body text-base sm:text-lg lg:text-xl text-white/70 max-w-full sm:max-w-2xl lg:max-w-3xl mb-8 sm:mb-12 leading-relaxed animate-hero-fade px-2 sm:px-0"
-                            style={{ animationDelay: '300ms' }}>
-                            {content.subtitle}
-                        </p>
+                        {/* Description - Two calm lines */}
+                        <div className="space-y-3 sm:space-y-4 mb-10 sm:mb-12 max-w-2xl animate-hero-fade opacity-0"
+                            style={{ animationDelay: '350ms' }}>
+                            <p className="font-body text-sm sm:text-base lg:text-lg text-white/60 leading-relaxed">
+                                {content.description1}
+                            </p>
+                            <p className="font-body text-sm sm:text-base lg:text-lg text-white/60 leading-relaxed">
+                                {content.description2}
+                            </p>
+                        </div>
 
-                        {/* CTAs */}
-                        <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 w-full sm:w-auto animate-hero-scale px-4 sm:px-0"
+                        {/* CTAs - Clear hierarchy with proper interaction feedback */}
+                        <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 w-full sm:w-auto animate-hero-scale opacity-0"
                             style={{ animationDelay: '500ms' }}>
+                            {/* Primary CTA - Border default, white fill on hover */}
                             <Link to="/contact" className="w-full sm:w-auto">
-                                <button className="group w-full sm:min-w-[200px] h-12 sm:h-14 px-6 sm:px-8 border border-white/20 bg-white/5 backdrop-blur-sm text-white font-medium hover:bg-white hover:text-[#0B0F14] hover:border-white hover:-translate-y-[1px] transition-all duration-300 flex items-center justify-center rounded-sm text-sm sm:text-base">
+                                <button className="group w-full sm:min-w-[280px] h-12 sm:h-14 px-6 sm:px-8 border border-white/30 bg-transparent text-white font-semibold hover:bg-white hover:text-[#0B0F14] hover:border-white hover:scale-[1.02] hover:shadow-lg active:scale-[0.98] transition-all duration-300 ease-out flex items-center justify-center rounded text-sm sm:text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50">
                                     <span>{content.ctaPrimary}</span>
                                     <ArrowRight className={cn("w-5 h-5 transition-transform duration-300",
                                         isRTL ? "mr-2 group-hover:-translate-x-1 rotate-180" : "ml-2 group-hover:translate-x-1"
@@ -129,8 +125,9 @@ export function Hero() {
                                 </button>
                             </Link>
 
+                            {/* Secondary CTA - Text-style, subtle hover */}
                             <Link to="/services" className="w-full sm:w-auto">
-                                <button className="w-full sm:min-w-[200px] h-12 sm:h-14 px-6 sm:px-8 text-white/60 hover:text-white hover:bg-white/5 hover:-translate-y-[1px] transition-all duration-300 font-medium rounded-sm text-sm sm:text-base">
+                                <button className="w-full sm:min-w-[180px] h-11 sm:h-12 px-5 sm:px-6 text-white/60 hover:text-white hover:underline underline-offset-4 transition-all duration-300 font-medium rounded text-xs sm:text-sm">
                                     {content.ctaSecondary}
                                 </button>
                             </Link>
@@ -139,15 +136,15 @@ export function Hero() {
                     </div>
 
                     {/* Visual Spacer (Right Side) */}
-                    <div className="hidden lg:block lg:col-span-5 h-[400px]">
+                    <div className="hidden lg:block lg:col-span-4 h-[400px]">
                         {/* The flow field background fills this visually */}
                     </div>
 
                 </div>
 
                 {/* KPI Strip - Anchored at Bottom of Hero Content */}
-                <div className="relative z-20 mt-12 lg:mt-0">
-                    <HeroKPI startDelay={800} />
+                <div className="relative z-20 mt-12 lg:mt-16">
+                    <HeroKPI startDelay={700} />
                 </div>
 
             </div>

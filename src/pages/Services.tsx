@@ -13,161 +13,161 @@ import { cn } from "@/lib/utils";
 const content = {
   en: {
     hero: {
-      title: "Our Services",
-      intro: "End-to-end engineering simulation solutions—from concept validation to operational deployment.",
+      title: "Engineering Services",
+      intro: "Integrated simulation, training, and consulting solutions designed to build lasting organizational capability.",
     },
     approach: {
-      label: "Our Methodology",
+      label: "Our Approach",
       steps: [
-        { label: "Define", icon: "ClipboardList", desc: "Identify critical parameters." },
-        { label: "Simulate", icon: "Cpu", desc: "Run high-fidelity models." },
-        { label: "Validate", icon: "CheckCircle2", desc: "Compare against real-world data." },
-        { label: "Implement", icon: "Rocket", desc: "Deploy optimized solutions." },
+        { label: "Assess", icon: "Target", desc: "Understand requirements and organizational readiness." },
+        { label: "Train", icon: "BookOpen", desc: "Build foundational and advanced competencies." },
+        { label: "Implement", icon: "Settings", desc: "Deploy solutions with hands-on support." },
+        { label: "Support", icon: "HeartHandshake", desc: "Ensure long-term adoption and success." },
       ]
     },
     services: [
       {
         id: "prototype-development",
         icon: "Cpu",
-        category: "Development",
+        category: "Engineering",
         title: "Prototype Development",
-        solves: "Eliminate costly iteration cycles by validating designs digitally before manufacturing.",
+        solves: "Validate concepts before production through simulation-driven prototyping—reducing risk and accelerating innovation.",
         how: [
-          "Physics-based digital twins",
-          "Material behavior analysis",
-          "Stress & failure prediction"
+          "Concept validation and feasibility assessment",
+          "Digital twin development",
+          "Iterative testing and refinement"
         ],
-        outcomes: ["Reduced Time-to-Market", "Lower R&D Costs", "Design Confidence"]
+        outcomes: ["Reduced Uncertainty", "Improved Workflows", "Design Confidence"]
       },
       {
         id: "consultation",
         icon: "LineChart",
-        category: "Strategy",
+        category: "Consulting",
         title: "Engineering Consultation",
-        solves: "Solve complex operational challenges with rigorous, data-driven engineering analysis.",
+        solves: "Expert guidance to help organizations make informed engineering decisions and navigate technical complexity.",
         how: [
-          "Root cause analysis",
-          "Performance optimization",
-          "Regulatory compliance checks"
+          "Engineering process assessment",
+          "Technology strategy development",
+          "Simulation workflow optimization"
         ],
-        outcomes: ["Risk Mitigation", "Operational Efficiency", "Safety Assurance"]
+        outcomes: ["Informed Decisions", "Reduced Uncertainty", "Process Excellence"]
       },
       {
         id: "training",
         icon: "GraduationCap",
-        category: "Capability",
-        title: "Authorized Training",
-        solves: "Bridge the skills gap by equipping your team with certified simulation expertise.",
+        category: "Capability Building",
+        title: "Professional Training",
+        solves: "Build simulation competency at every level—from foundational skills to advanced mastery.",
         how: [
-          "Hands-on local workshops",
-          "Official ANSYS curriculum",
-          "Project-based mentorship"
+          "Industry-certified programs",
+          "Custom organizational training",
+          "Ongoing capability development"
         ],
-        outcomes: ["Internal Capability", "Certified Workforce", "Software ROI"]
+        outcomes: ["Sustainable Adoption", "Knowledge Transfer", "Team Capability"]
       },
       {
         id: "software-distribution",
         icon: "Leaf",
         category: "Technology",
-        title: "Software Distribution",
-        solves: "Access and integrate the world's leading simulation platforms seamlessly.",
+        title: "Simulation Technology",
+        solves: "Access proven platforms selected based on your engineering requirements—not vendor preference.",
         how: [
-          "Licensing strategy & support",
-          "Technical installation",
-          "Infrastructure integration"
+          "Multi-vendor technology access",
+          "Needs-based platform selection",
+          "Implementation and deployment"
         ],
-        outcomes: ["Seamless Access", "Technical Support", "Scalable Licensing"]
+        outcomes: ["Right-Fit Technology", "Complete Support", "Long-Term Success"]
       }
     ],
     cta: {
       bridge: {
-        text: "Our experts help you identify the most effective simulation-driven path.",
-        btn: "Not Sure Which Service Fits?"
+        text: "Our team can help assess your engineering simulation needs.",
+        btn: "Request an Assessment"
       },
       final: {
-        trust: "Trusted by government, academic, and enterprise organizations across the GCC",
-        title: "Ready to elevate your engineering capabilities?",
-        btn: "Schedule a Consultation"
+        trust: "Trusted by academic, government, and industrial organizations across the GCC",
+        title: "Ready to build engineering capability?",
+        btn: "Contact Us"
       }
     }
   },
   ar: {
     hero: {
-      title: "خدماتنا",
-      intro: "حلول محاكاة هندسية متكاملة — من التحقق من المفهوم إلى النشر التشغيلي.",
+      title: "الخدمات الهندسية",
+      intro: "حلول متكاملة للمحاكاة والتدريب والاستشارات مصممة لبناء قدرات مؤسسية دائمة.",
     },
     approach: {
       label: "منهجيتنا",
       steps: [
-        { label: "تحديد", icon: "ClipboardList", desc: "تحديد المعلمات الحرجة." },
-        { label: "محاكاة", icon: "Cpu", desc: "تشغيل نماذج عالية الدقة." },
-        { label: "تحقق", icon: "CheckCircle2", desc: "مقارنة مع بيانات العالم الحقيقي." },
-        { label: "تطبيق", icon: "Rocket", desc: "نشر حلول محسنة." },
+        { label: "تقييم", icon: "Target", desc: "فهم المتطلبات والجاهزية المؤسسية." },
+        { label: "تدريب", icon: "BookOpen", desc: "بناء الكفاءات الأساسية والمتقدمة." },
+        { label: "تنفيذ", icon: "Settings", desc: "نشر الحلول مع دعم عملي." },
+        { label: "دعم", icon: "HeartHandshake", desc: "ضمان التبني والنجاح طويل المدى." },
       ]
     },
     services: [
       {
         id: "prototype-development",
         icon: "Cpu",
-        category: "تطوير",
+        category: "هندسة",
         title: "تطوير النماذج الأولية",
-        solves: "القضاء على دورات التكرار المكلفة من خلال التحقق من التصاميم رقمياً قبل التصنيع.",
+        solves: "التحقق من المفاهيم قبل الإنتاج من خلال النمذجة القائمة على المحاكاة — لتقليل المخاطر وتسريع الابتكار.",
         how: [
-          "توائم رقمية قائمة على الفيزياء",
-          "تحليل سلوك المواد",
-          "تنبؤ الإجهاد والفشل"
+          "التحقق من المفاهيم وتقييم الجدوى",
+          "تطوير التوأم الرقمي",
+          "الاختبار والتحسين التكراري"
         ],
-        outcomes: ["تقليل وقت الوصول للسوق", "خفض تكاليف البحث والتطوير", "ثقة في التصميم"]
+        outcomes: ["تقليل عدم اليقين", "تحسين سير العمل", "ثقة في التصميم"]
       },
       {
         id: "consultation",
         icon: "LineChart",
         category: "استشارات",
         title: "الاستشارات الهندسية",
-        solves: "حل التحديات التشغيلية المعقدة بتحليل هندسي دقيق مدعوم بالبيانات.",
+        solves: "توجيه متخصص لمساعدة المؤسسات على اتخاذ قرارات هندسية مستنيرة والتنقل في التعقيدات التقنية.",
         how: [
-          "تحليل السبب الجذري",
-          "تحسين الأداء",
-          "التحقق من الامتثال التنظيمي"
+          "تقييم العمليات الهندسية",
+          "تطوير استراتيجية التقنية",
+          "تحسين سير عمل المحاكاة"
         ],
-        outcomes: ["تخفيف المخاطر", "الكفاءة التشغيلية", "ضمان السلامة"]
+        outcomes: ["قرارات مستنيرة", "تقليل عدم اليقين", "تميز العمليات"]
       },
       {
         id: "training",
         icon: "GraduationCap",
-        category: "قدرات",
-        title: "التدريب المعتمد",
-        solves: "سد فجوة المهارات من خلال تزويد فريقك بخبرات محاكاة معتمدة.",
+        category: "بناء القدرات",
+        title: "التدريب المهني",
+        solves: "بناء كفاءة المحاكاة على جميع المستويات — من المهارات الأساسية إلى الإتقان المتقدم.",
         how: [
-          "ورش عمل محلية عملية",
-          "منهج ANSYS الرسمي",
-          "توجيه قائم على المشاريع"
+          "برامج معتمدة صناعياً",
+          "تدريب مؤسسي مخصص",
+          "تطوير القدرات المستمر"
         ],
-        outcomes: ["قدرات داخلية", "قوى عاملة معتمدة", "عائد استثمار البرمجيات"]
+        outcomes: ["تبني مستدام", "نقل المعرفة", "قدرات الفريق"]
       },
       {
         id: "software-distribution",
         icon: "Leaf",
-        category: "تكنولوجيا",
-        title: "توزيع البرمجيات",
-        solves: "الوصول إلى منصات المحاكاة الرائدة عالمياً ودمجها بسلاسة.",
+        category: "تقنية",
+        title: "تقنية المحاكاة",
+        solves: "الوصول إلى منصات مثبتة مختارة بناءً على متطلباتك الهندسية — وليس تفضيل البائع.",
         how: [
-          "استراتيجية الترخيص والدعم",
-          "التثبيت الفني",
-          "تكامل البنية التحتية"
+          "الوصول لتقنيات متعددة البائعين",
+          "اختيار المنصة بناءً على الاحتياجات",
+          "التنفيذ والنشر"
         ],
-        outcomes: ["وصول سلس", "دعم فني", "ترخيص قابل للتوسع"]
+        outcomes: ["التقنية المناسبة", "دعم كامل", "نجاح طويل المدى"]
       }
     ],
     cta: {
       bridge: {
-        text: "خبراؤنا يساعدونك في تحديد المسار الأكثر فعالية المدفوع بالمحاكاة.",
-        btn: "لست متأكداً أي خدمة تناسبك؟"
+        text: "فريقنا يمكنه مساعدتك في تقييم احتياجاتك من المحاكاة الهندسية.",
+        btn: "اطلب تقييماً"
       },
       final: {
-        trust: "موثوق به من قبل المؤسسات الحكومية والأكاديمية والشركات في جميع أنحاء دول مجلس التعاون الخليجي",
-        title: "هل أنت مستعد للارتقاء بقدراتك الهندسية؟",
-        btn: "اتصل بنا"
+        trust: "موثوق بها من قبل المؤسسات الأكاديمية والحكومية والصناعية في دول مجلس التعاون الخليجي",
+        title: "مستعد لبناء القدرات الهندسية؟",
+        btn: "تواصل معنا"
       }
     }
   },
