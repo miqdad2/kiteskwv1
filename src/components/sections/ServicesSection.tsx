@@ -7,76 +7,90 @@ const content = {
   en: {
     eyebrow: "WHAT WE DO",
     label: "Our Services",
-    subtitle: "Integrated engineering services designed for complex, real-world challenges.",
-    learnMore: "Learn more",
+    subtitle: "Integrated engineering services supporting analysis, validation, training, and long-term capability development.",
     coreLabel: "Core Service",
     trustText: "Trusted by engineering teams across energy, manufacturing, infrastructure, and academia.",
+    sectionCta: {
+      prompt: "Not sure which service fits your challenge?",
+      button: "Request an Engineering Assessment",
+    },
     services: [
       {
-        id: "prototype-development",
-        title: "Prototype Development",
-        description: "From concept to functional, validated prototypes.",
-        outcome: "Validate designs before production.",
-        icon: Boxes,
-      },
-      {
         id: "consultation",
-        title: "Consultation",
-        description: "Simulation-driven engineering and environmental consulting.",
-        outcome: "Reduce risk. Improve performance.",
+        title: "Engineering & Sustainability Consulting",
+        challenge: "Typical Challenge: Complex engineering or environmental decisions with high uncertainty",
+        description: "Address complex engineering and environmental challenges through simulation-led analysis, expert assessment, and strategic guidance.",
+        cta: "Explore consulting approach",
         icon: MessageSquare,
       },
       {
-        id: "training",
-        title: "Training",
-        description: "Professional training programs for engineers and organizations.",
-        outcome: "Build internal capability.",
-        icon: GraduationCap,
+        id: "software-distribution",
+        title: "Simulation Software & Platforms",
+        challenge: "Typical Challenge: Selecting and adopting the right simulation platforms",
+        description: "Enable effective use of world-leading engineering and simulation platforms through guided selection, onboarding, and long-term support.",
+        cta: "View supported platforms",
+        icon: Package,
       },
       {
-        id: "software-distribution",
-        title: "Software Distribution",
-        description: "Access to world-leading engineering and simulation software.",
-        outcome: "Deploy best-in-class tools with confidence.",
-        icon: Package,
+        id: "prototype-development",
+        title: "Simulation-Driven Prototyping",
+        challenge: "Typical Challenge: Validating designs before physical investment",
+        description: "Transform early concepts into validated, simulation-backed engineering solutions ready for real-world application.",
+        cta: "See validation workflow",
+        icon: Boxes,
+      },
+      {
+        id: "training",
+        title: "Professional Engineering Training",
+        challenge: "Typical Challenge: Building internal engineering capability and software proficiency",
+        description: "Build internal engineering capability through structured professional and academic training aligned with real project needs.",
+        cta: "View training programs",
+        icon: GraduationCap,
       },
     ],
   },
   ar: {
     eyebrow: "ماذا نقدم",
     label: "خدماتنا",
-    subtitle: "خدمات هندسية متكاملة مصممة لتحديات العالم الحقيقي المعقدة.",
-    learnMore: "اقرأ المزيد",
+    subtitle: "خدمات هندسية متكاملة تدعم التحليل والتحقق والتدريب وتطوير القدرات طويلة المدى.",
     coreLabel: "الخدمة الأساسية",
     trustText: "موثوق به من قبل الفرق الهندسية في قطاعات الطاقة والتصنيع والبنية التحتية والأوساط الأكاديمية.",
+    sectionCta: {
+      prompt: "غير متأكد أي خدمة تناسب تحديك؟",
+      button: "اطلب تقييماً هندسياً",
+    },
     services: [
       {
-        id: "prototype-development",
-        title: "تطوير النماذج الأولية",
-        description: "من الفكرة إلى نماذج أولية عملية ومختبرة.",
-        outcome: "تحقق من التصاميم قبل الإنتاج.",
-        icon: Boxes,
-      },
-      {
         id: "consultation",
-        title: "الاستشارات",
-        description: "استشارات هندسية وبيئية قائمة على المحاكاة.",
-        outcome: "قلل المخاطر. حسن الأداء.",
+        title: "استشارات الهندسة والاستدامة",
+        challenge: "التحدي النموذجي: قرارات هندسية أو بيئية معقدة مع عدم يقين عالٍ",
+        description: "معالجة التحديات الهندسية والبيئية المعقدة من خلال التحليل القائم على المحاكاة والتقييم المتخصص والتوجيه الاستراتيجي.",
+        cta: "استكشف نهج الاستشارات",
         icon: MessageSquare,
       },
       {
-        id: "training",
-        title: "التدريب",
-        description: "برامج تدريب احترافية للمهندسين والمؤسسات.",
-        outcome: "بناء القدرات الداخلية.",
-        icon: GraduationCap,
+        id: "software-distribution",
+        title: "برمجيات ومنصات المحاكاة",
+        challenge: "التحدي النموذجي: اختيار واعتماد منصات المحاكاة المناسبة",
+        description: "تمكين الاستخدام الفعال لمنصات الهندسة والمحاكاة الرائدة عالمياً من خلال الاختيار الموجه والإعداد والدعم طويل المدى.",
+        cta: "عرض المنصات المدعومة",
+        icon: Package,
       },
       {
-        id: "software-distribution",
-        title: "توزيع البرمجيات",
-        description: "توفير أفضل برمجيات الهندسة والمحاكاة عالميًا.",
-        outcome: "انشر أفضل الأدوات بثقة.",
-        icon: Package,
+        id: "prototype-development",
+        title: "النمذجة القائمة على المحاكاة",
+        challenge: "التحدي النموذجي: التحقق من التصاميم قبل الاستثمار المادي",
+        description: "تحويل المفاهيم المبكرة إلى حلول هندسية معتمدة على المحاكاة وجاهزة للتطبيق الفعلي.",
+        cta: "شاهد سير عمل التحقق",
+        icon: Boxes,
+      },
+      {
+        id: "training",
+        title: "التدريب الهندسي المهني",
+        challenge: "التحدي النموذجي: بناء القدرات الهندسية الداخلية وإتقان البرمجيات",
+        description: "بناء القدرات الهندسية الداخلية من خلال تدريب مهني وأكاديمي منظم يتماشى مع احتياجات المشاريع الحقيقية.",
+        cta: "عرض برامج التدريب",
+        icon: GraduationCap,
       },
     ],
   },
@@ -111,11 +125,11 @@ export function ServicesSection() {
             <StaggerItem key={service.id} index={index}>
               <Link
                 to={`/services/${service.id}`}
-                className="group block h-full bg-white p-6 lg:p-8 rounded-xl border border-gray-200 shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-1.5 hover:border-gray-300 relative overflow-hidden"
+                className="group block h-full bg-white p-6 lg:p-8 rounded-xl border border-gray-200 shadow-sm cursor-pointer transition-all duration-300 hover:shadow-md hover:-translate-y-1 hover:border-gray-300 hover:bg-gray-50/50 relative overflow-hidden"
               >
                 <div className="flex flex-col h-full items-start text-left">
                   {/* Icon */}
-                  <div className="w-14 h-14 bg-gray-50 border border-gray-100 rounded-lg flex items-center justify-center mb-8 group-hover:bg-gray-100 transition-colors duration-300">
+                  <div className="w-14 h-14 bg-gray-50 border border-gray-100 rounded-lg flex items-center justify-center mb-6 group-hover:bg-gray-100 transition-colors duration-300">
                     <service.icon
                       className="text-gray-500 group-hover:text-primary transition-colors duration-300"
                       size={24}
@@ -124,18 +138,23 @@ export function ServicesSection() {
                   </div>
 
                   {/* Title */}
-                  <h3 className="font-heading text-lg font-semibold text-gray-900 mb-4 group-hover:text-primary transition-colors duration-300">
+                  <h3 className="font-heading text-base lg:text-lg font-semibold text-gray-900 mb-2 group-hover:text-primary transition-colors duration-300 leading-tight">
                     {service.title}
                   </h3>
 
+                  {/* Challenge Context Line - Reduced prominence */}
+                  <p className="font-body text-[10px] text-gray-400/80 leading-snug mb-3 italic">
+                    {service.challenge}
+                  </p>
+
                   {/* Description */}
-                  <p className="font-body text-sm text-gray-500 leading-relaxed mb-8 line-clamp-2 max-w-[280px]">
+                  <p className="font-body text-sm text-gray-500 leading-relaxed mb-6 line-clamp-3">
                     {service.description}
                   </p>
 
-                  {/* CTA */}
+                  {/* Service-Specific CTA */}
                   <div className="mt-auto flex items-center text-sm font-medium text-gray-900 group-hover:text-primary transition-colors duration-300">
-                    <span>{t.learnMore}</span>
+                    <span>{service.cta}</span>
                     <ArrowRight
                       className="ml-2 w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 rtl:rotate-180 rtl:mr-2 rtl:ml-0 rtl:group-hover:-translate-x-1"
                       strokeWidth={2}
@@ -146,6 +165,23 @@ export function ServicesSection() {
             </StaggerItem>
           ))}
         </StaggerContainer>
+
+        {/* Section-Level CTA */}
+        <ScrollReveal className="text-center mt-16 pt-12 border-t border-gray-100">
+          <p className="font-body text-base text-gray-500 mb-4">
+            {t.sectionCta.prompt}
+          </p>
+          <Link
+            to="/contact"
+            className="inline-flex items-center text-sm font-medium text-gray-900 hover:text-primary transition-colors duration-300 group"
+          >
+            <span>{t.sectionCta.button}</span>
+            <ArrowRight
+              className="ml-2 w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 rtl:rotate-180 rtl:mr-2 rtl:ml-0 rtl:group-hover:-translate-x-1"
+              strokeWidth={2}
+            />
+          </Link>
+        </ScrollReveal>
       </div>
     </section>
   );

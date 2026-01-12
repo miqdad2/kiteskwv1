@@ -7,6 +7,7 @@ import { WhoWeAreSection } from "@/components/sections/WhoWeAreSection";
 import { ServicesSection } from "@/components/sections/ServicesSection";
 import { PartnersSection } from "@/components/sections/PartnersSection";
 import { ClientsSection } from "@/components/sections/ClientsSection";
+import { KeyPillarsSection } from "@/components/sections/KeyPillarsSection";
 import { CTASection } from "@/components/sections/CTASection";
 
 const Index = () => {
@@ -23,16 +24,19 @@ const Index = () => {
           {/* 2. Organizations We Support - Establish institutional credibility */}
           <ClientsSection />
 
-          {/* 3. Our Services - Demonstrate capability */}
+          {/* 3. Key Pillars - Core fundamental pillars */}
+          <KeyPillarsSection />
+
+          {/* 4. Our Services - Demonstrate capability */}
           <ServicesSection />
 
-          {/* 4. Technology Partners - Tools support outcomes */}
+          {/* 5. Technology Partners - Tools support outcomes */}
           <PartnersSection />
 
-          {/* 5. Who We Are - Contextual depth (includes Key Pillars) */}
+          {/* 6. Who We Are - Contextual depth and self-description */}
           <WhoWeAreSection />
 
-          {/* 6. Final CTA */}
+          {/* 7. Final CTA */}
           <CTASection />
         </main>
         <Footer />
