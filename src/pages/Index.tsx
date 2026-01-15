@@ -21,14 +21,14 @@ const Index = () => {
           {/* 1. Hero Section - Lead with value proposition */}
           <Hero />
 
-          {/* 2. Organizations We Support - Establish institutional credibility */}
-          <ClientsSection />
-
-          {/* 3. Key Pillars - Core fundamental pillars */}
+          {/* 2. Key Pillars - Core fundamental pillars */}
           <KeyPillarsSection />
 
-          {/* 4. Our Services - Demonstrate capability */}
+          {/* 3. Our Services - Demonstrate capability */}
           <ServicesSection />
+
+          {/* 4. Organizations We Support - Establish institutional credibility */}
+          <ClientsSection />
 
           {/* 5. Technology Partners - Tools support outcomes */}
           <PartnersSection />

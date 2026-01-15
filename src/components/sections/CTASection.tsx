@@ -8,13 +8,13 @@ import { cn } from "@/lib/utils";
 const content = {
   en: {
     badge: "Enterprise Simulation Solutions",
-    heading: "Ready to solve your most complex engineering challenges?",
+    heading: "Ready to build long-term engineering capability?",
     subtitle: "Partner with the GCC's leading simulation experts to optimize performance, reduce risk, and accelerate innovation.",
     button: "Talk to Our Experts",
   },
   ar: {
     badge: "حلول محاكاة للمؤسسات",
-    heading: "هل أنت مستعد لحل أعقد التحديات الهندسية؟",
+    heading: "هل أنت مستعد لبناء قدرات هندسية طويلة المدى؟",
     subtitle: "شراكة مع خبراء المحاكاة الرائدين في دول مجلس التعاون الخليجي لتحسين الأداء وتقليل المخاطر وتسريع الابتكار.",
     button: "تحدث إلى خبرائنا",
   },
@@ -81,10 +81,10 @@ export function CTASection() {
               <Button
                 size="xl"
                 className={cn(
-                  "group relative h-14 px-8 text-base font-semibold rounded-full overflow-hidden transition-all duration-300",
-                  "bg-white text-slate-900 hover:bg-white/90 hover:scale-[1.01]", // High contrast white button
-                  "shadow-[0_0_20px_rgba(255,255,255,0.05)] hover:shadow-[0_0_25px_rgba(255,255,255,0.15)]", // Subtle glow
-                  "border border-white/20"
+                  "group relative h-14 px-8 text-base font-semibold rounded overflow-hidden transition-all duration-300",
+                  "bg-white/5 text-white hover:bg-white hover:text-[#0B0F14] hover:scale-[1.01]", // Dark glass default -> White hover
+                  "shadow-[0_0_20px_rgba(255,255,255,0.05)] hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]",
+                  "border border-white/20 hover:border-white"
                 )}
               >
                 <span className="relative z-10 flex items-center gap-2">

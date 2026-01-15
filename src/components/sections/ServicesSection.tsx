@@ -125,9 +125,12 @@ export function ServicesSection() {
             <StaggerItem key={service.id} index={index}>
               <Link
                 to={`/services/${service.id}`}
-                className="group block h-full bg-white p-6 lg:p-8 rounded-xl border border-gray-200 shadow-sm cursor-pointer transition-all duration-300 hover:shadow-md hover:-translate-y-1 hover:border-gray-300 hover:bg-gray-50/50 relative overflow-hidden"
+                className="group block h-full bg-white p-6 lg:p-8 rounded-xl border border-gray-200 shadow-sm cursor-pointer transition-all duration-300 hover:shadow-md hover:border-gray-300 hover:bg-gray-50/50 relative overflow-hidden"
               >
-                <div className="flex flex-col h-full items-start text-left">
+                {/* Thin Left Accent Line on Hover */}
+                <div className="absolute top-0 bottom-0 left-0 w-[4px] bg-primary scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-center" />
+
+                <div className="flex flex-col h-full items-start text-left pl-2 group-hover:pl-4 transition-all duration-300">
                   {/* Icon */}
                   <div className="w-14 h-14 bg-gray-50 border border-gray-100 rounded-lg flex items-center justify-center mb-6 group-hover:bg-gray-100 transition-colors duration-300">
                     <service.icon
@@ -173,7 +176,7 @@ export function ServicesSection() {
           </p>
           <Link
             to="/contact"
-            className="inline-flex items-center text-sm font-medium text-gray-900 hover:text-primary transition-colors duration-300 group"
+            className="inline-flex items-center justify-center px-8 py-3 rounded-md text-sm font-semibold transition-all duration-300 group border border-black/20 bg-white text-slate-900 hover:bg-[#0B0F14] hover:text-white hover:border-[#0B0F14]"
           >
             <span>{t.sectionCta.button}</span>
             <ArrowRight

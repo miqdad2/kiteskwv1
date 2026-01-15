@@ -102,7 +102,7 @@ export function Hero() {
                         </div>
 
                         {/* Description - Two calm lines */}
-                        <div className="space-y-3 sm:space-y-4 mb-10 sm:mb-12 max-w-2xl animate-hero-fade opacity-0"
+                        <div className="space-y-4 mb-8 sm:mb-10 max-w-2xl animate-hero-fade opacity-0"
                             style={{ animationDelay: '350ms' }}>
                             <p className="font-body text-sm sm:text-base lg:text-lg text-white/60 leading-relaxed">
                                 {content.description1}
@@ -110,26 +110,45 @@ export function Hero() {
                             <p className="font-body text-sm sm:text-base lg:text-lg text-white/60 leading-relaxed">
                                 {content.description2}
                             </p>
+
+                            {/* Authority Reinforcement Line */}
+                            <p className="font-heading font-medium text-xs sm:text-sm text-white/40 uppercase tracking-widest pt-4 border-t border-white/10">
+                                {language === 'ar'
+                                    ? "دعم البرامج الهندسية الأكاديمية والحكومية والصناعية عبر دول مجلس التعاون الخليجي."
+                                    : "Supporting academic, government, and industrial engineering programs across the GCC."}
+                            </p>
                         </div>
 
                         {/* CTAs - Clear hierarchy with proper interaction feedback */}
-                        <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 w-full sm:w-auto animate-hero-scale opacity-0"
+                        <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-10 w-full sm:w-auto animate-hero-scale opacity-0"
                             style={{ animationDelay: '500ms' }}>
-                            {/* Primary CTA - Border default, white fill on hover */}
+                            {/* Primary CTA - Dark Glass Default, White Hover (Inversion) */}
                             <Link to="/contact" className="w-full sm:w-auto">
-                                <button className="group w-full sm:min-w-[280px] h-12 sm:h-14 px-6 sm:px-8 border border-white/30 bg-transparent text-white font-semibold hover:bg-white hover:text-[#0B0F14] hover:border-white hover:scale-[1.02] hover:shadow-lg active:scale-[0.98] transition-all duration-300 ease-out flex items-center justify-center rounded text-sm sm:text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50">
+                                <button className="group relative w-full sm:min-w-[240px] h-12 sm:h-14 px-8 border border-white/20 bg-white/5 backdrop-blur-sm text-white font-semibold hover:bg-white hover:text-[#0B0F14] hover:border-white hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] active:scale-[0.98] transition-all duration-300 ease-out flex items-center justify-center rounded text-[15px] sm:text-base tracking-wide focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50">
                                     <span>{content.ctaPrimary}</span>
-                                    <ArrowRight className={cn("w-5 h-5 transition-transform duration-300",
-                                        isRTL ? "mr-2 group-hover:-translate-x-1 rotate-180" : "ml-2 group-hover:translate-x-1"
+                                    <ArrowRight className={cn("w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300",
+                                        isRTL ? "mr-3 group-hover:-translate-x-1 rotate-180" : "ml-3 group-hover:translate-x-1"
                                     )} />
                                 </button>
                             </Link>
 
-                            {/* Secondary CTA - Text-style, subtle hover */}
-                            <Link to="/services" className="w-full sm:w-auto">
-                                <button className="w-full sm:min-w-[180px] h-11 sm:h-12 px-5 sm:px-6 text-white/60 hover:text-white hover:underline underline-offset-4 transition-all duration-300 font-medium rounded text-xs sm:text-sm">
+                            {/* Secondary CTA - Strictly Text Link (No Button Style) */}
+                            <Link
+                                to="/services"
+                                className="group/secondary relative inline-flex items-center justify-center py-2 px-1 rounded transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
+                            >
+                                <span className={cn(
+                                    "font-body font-medium text-sm sm:text-[15px] text-white/70 group-hover/secondary:text-white transition-colors duration-200",
+                                    "border-b border-transparent group-hover/secondary:border-white/60 pb-0.5" // Subtle underline on hover
+                                )}>
                                     {content.ctaSecondary}
-                                </button>
+                                </span>
+                                <ArrowRight className={cn(
+                                    "w-4 h-4 ml-2 text-white/50 group-hover/secondary:text-white transition-all duration-300",
+                                    isRTL
+                                        ? "rotate-180 group-hover/secondary:-translate-x-1"
+                                        : "group-hover/secondary:translate-x-1"
+                                )} />
                             </Link>
                         </div>
 
@@ -152,6 +171,6 @@ export function Hero() {
             {/* Bottom Fade Gradient */}
             <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-t from-[#0B0F14] to-transparent pointer-events-none z-10" />
 
-        </section>
+        </section >
     );
 }
