@@ -109,7 +109,7 @@ export default function Partners() {
                                     <img
                                       src={partner.logo}
                                       alt={`${partner.name} logo`}
-                                      className="h-full w-auto object-contain max-w-[140px] filter grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
+                                      className="h-full w-auto object-contain max-w-[140px] transition-all duration-300"
                                     />
                                   ) : (
                                     <div className="w-16 h-16 rounded-lg bg-secondary/50 border border-border/50 flex items-center justify-center text-xl font-heading font-bold text-muted-foreground group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">

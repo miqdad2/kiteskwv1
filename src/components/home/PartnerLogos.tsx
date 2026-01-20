@@ -82,9 +82,9 @@ export function PartnerLogos() {
                                     "h-full w-auto object-contain max-h-full transition-all duration-300 ease-in-out",
                                     // Visual Normalization: increased max-width to allow larger logos to breathe
                                     "max-w-[180px] sm:max-w-[200px] lg:max-w-[240px]",
-                                    // Interaction: grayscale -> color, opacity change, scale
-                                    "filter grayscale opacity-70",
-                                    "hover:grayscale-0 hover:opacity-100 hover:scale-105"
+                                    // Interaction: subtle scale only
+                                    "transition-all duration-300",
+                                    "hover:scale-105"
                                 )}
                             />
                         </div>

@@ -1,6 +1,7 @@
 import { Cpu, Cog, GraduationCap, Leaf } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { ScrollReveal, StaggerContainer, StaggerItem } from "@/components/ui/scroll-reveal";
+import { useEffect, useRef } from "react";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
 
 const content = {
     en: {
@@ -26,31 +27,71 @@ const content = {
 export function KeyPillarsSection() {
     const { language } = useLanguage();
     const t = content[language];
+    const sectionRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            // Animate Header
+            gsap.fromTo(".pillar-header",
+                { opacity: 0, y: 20 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.8,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: sectionRef.current,
+                        start: "top 80%",
+                        toggleActions: "play none none reverse"
+                    }
+                }
+            );
+
+            // Animate Cards Stagger
+            gsap.fromTo(".pillar-card",
+                { opacity: 0, y: 30 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.6,
+                    stagger: 0.1,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: ".pillar-grid",
+                        start: "top 85%",
+                        toggleActions: "play none none reverse"
+                    }
+                }
+            );
+        }, sectionRef);
+
+        return () => ctx.revert();
+    }, []);
 
     return (
-        <section id="key-pillars" className="py-24 lg:py-32 bg-white relative overflow-hidden">
+        <section ref={sectionRef} id="key-pillars" className="py-20 lg:py-28 bg-white relative overflow-hidden">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
-                <ScrollReveal className="text-center mb-16">
+                <div className="pillar-header text-center mb-20 opacity-0">
                     <p className="font-body text-caption font-medium text-muted-foreground uppercase tracking-[0.2em] mb-4">
                         {t.pillarsLabel}
                     </p>
                     <div className="h-px w-12 bg-border mx-auto" />
-                </ScrollReveal>
+                </div>
 
-                <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8" staggerDelay={100}>
+                <div className="pillar-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
                     {t.pillars.map((pillar, index) => (
-                        <StaggerItem key={pillar.title} index={index}>
-                            <div className="group h-full p-8 bg-white border border-gray-100 rounded-xl transition-all duration-300 shadow-sm hover:shadow-md hover:border-gray-200 hover:-translate-y-1 text-center flex flex-col items-center">
-                                <div className="w-16 h-16 bg-gray-50 border border-gray-100 rounded-full flex items-center justify-center mb-8 group-hover:bg-gray-100 transition-colors duration-300">
-                                    <pillar.icon className="text-gray-400 group-hover:text-primary transition-colors duration-300" size={28} strokeWidth={1.25} />
+                        <div key={pillar.title} className="pillar-card opacity-0">
+                            <div className="group h-full p-8 bg-white border border-gray-100 border-t-2 border-t-transparent rounded-xl transition-all duration-300 ease-executive shadow-sm hover:shadow-xl hover:border-gray-200 hover:border-t-primary hover:-translate-y-1 text-center flex flex-col items-center">
+                                <div className="w-16 h-16 bg-gray-50 border border-gray-100 rounded-full flex items-center justify-center mb-8 group-hover:bg-primary/5 group-hover:border-primary/10 group-hover:scale-105 transition-all duration-300 ease-executive">
+                                    <pillar.icon className="text-gray-400 group-hover:text-primary transition-colors duration-300 ease-executive" size={28} strokeWidth={1.25} />
                                 </div>
                                 <h3 className="font-heading text-lg font-semibold text-foreground tracking-tight">
                                     {pillar.title}
                                 </h3>
                             </div>
-                        </StaggerItem>
+                        </div>
                     ))}
-                </StaggerContainer>
+                </div>
             </div>
         </section>
     );

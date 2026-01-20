@@ -19,7 +19,7 @@ const content = {
   },
 };
 
-import { PartnerLogos } from "@/components/home/PartnerLogos";
+import { ScrollPartners } from "@/components/home/ScrollPartners";
 
 const partners = [
   { name: "Siemens", abbr: "Si", id: "siemens" },
@@ -49,9 +49,9 @@ export function PartnersSection() {
         </ScrollReveal>
       </div>
 
-      {/* Partners Logo Marquee - Full Width */}
+      {/* Partners Scroll Animation - Marquee */}
       <div className="w-full mb-12">
-        <PartnerLogos />
+        <ScrollPartners />
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">

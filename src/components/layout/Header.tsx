@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useContent } from "@/hooks/useContent";
 import kitesLogo from "@/assets/kites-logo.png";
+import { ServicesMegaMenu } from "./ServicesMegaMenu";
+import { PartnersMegaMenu } from "./PartnersMegaMenu";
 
 interface CommonContent {
   nav: {
@@ -27,8 +29,8 @@ interface CommonContent {
 const navStructure = [
   { key: "home", href: "/" },
   { key: "expertise", href: "/expertise" },
-  { key: "services", href: "/services" },
-  { key: "partners", href: "/partners" },
+  { key: "services", href: "/services", hasMegaMenu: true },
+  { key: "partners", href: "/partners", hasMegaMenu: true },
   // { key: "insights", href: "/insights" }, // Temporarily hidden
   { key: "events", href: "/events" },
   { key: "contact", href: "/contact" },
@@ -40,6 +42,16 @@ export function Header() {
   const { language, setLanguage } = useLanguage();
   const common = useContent<CommonContent>('common');
   const location = useLocation();
+
+  // Mega Menu State
+  const [hoveredNav, setHoveredNav] = useState<string | null>(null);
+
+  // Mobile Accordion State
+  const [expandedMobileNav, setExpandedMobileNav] = useState<string | null>(null);
+
+  const toggleMobileNav = (key: string) => {
+    setExpandedMobileNav(prev => prev === key ? null : key);
+  };
 
   // Check if we are on the homepage
   const isHomePage = location.pathname === "/";
@@ -70,7 +82,12 @@ export function Header() {
   // Determine header appearance
   // If NOT homepage, always use the "scrolled" (solid/visible) style
   // If homepage, use scroll state to toggle between transparent and solid
-  const shouldShowSolidHeader = !isHomePage || isScrolled;
+  const shouldShowSolidHeader = !isHomePage || isScrolled || hoveredNav !== null; // Solid when mega menu is open too
+
+  // Close mega menu on route change
+  useEffect(() => {
+    setHoveredNav(null);
+  }, [location.pathname]);
 
   return (
     <>
@@ -81,6 +98,7 @@ export function Header() {
             ? "bg-[#0B0F14]/95 backdrop-blur-md shadow-md border-b border-white/10"
             : "bg-transparent backdrop-blur-sm border-b border-transparent"
         )}
+        onMouseLeave={() => setHoveredNav(null)}
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 h-full">
           <div className="flex items-center justify-between h-full transition-all duration-300">
@@ -97,22 +115,30 @@ export function Header() {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-6">
+            <nav className="hidden lg:flex items-center gap-6 h-full">
               {navStructure.map((item) => (
-                <NavLink
+                <div
                   key={item.key}
-                  to={item.href}
-                  className={({ isActive }) => cn(
-                    "relative py-2 font-body text-lg font-medium transition-colors duration-200",
-                    "after:absolute after:-bottom-1 after:left-0 after:right-0 after:h-[2px] after:bg-white after:origin-center after:transition-transform after:duration-300",
-                    // Enhancing visibility logic for links based on header state
-                    shouldShowSolidHeader
-                      ? (isActive ? "text-white after:scale-x-100 font-semibold" : "text-white/90 hover:text-white after:scale-x-0 hover:after:scale-x-100")
-                      : (isActive ? "text-white after:scale-x-100 font-semibold" : "text-white/90 hover:text-white after:scale-x-0 hover:after:scale-x-100")
-                  )}
+                  className="relative h-full flex items-center"
+                  onMouseEnter={() => setHoveredNav(item.hasMegaMenu ? item.key : null)}
                 >
-                  {common.nav[item.key as keyof typeof common.nav]}
-                </NavLink>
+                  <NavLink
+                    to={item.href}
+                    className={({ isActive }) => cn(
+                      "relative py-2 font-body text-lg font-medium transition-colors duration-200 flex items-center gap-1",
+                      "after:absolute after:-bottom-1 after:left-0 after:right-0 after:h-[2px] after:bg-white after:origin-center after:transition-transform after:duration-300",
+                      // Keep text interactions consistent
+                      shouldShowSolidHeader
+                        ? (isActive || hoveredNav === item.key ? "text-white after:scale-x-100 font-semibold" : "text-white/90 hover:text-white after:scale-x-0 hover:after:scale-x-100")
+                        : (isActive || hoveredNav === item.key ? "text-white after:scale-x-100 font-semibold" : "text-white/90 hover:text-white after:scale-x-0 hover:after:scale-x-100")
+                    )}
+                  >
+                    {common.nav[item.key as keyof typeof common.nav]}
+                    {item.hasMegaMenu && (
+                      <ChevronDown size={14} className={cn("transition-transform duration-200", hoveredNav === item.key ? "rotate-180" : "")} strokeWidth={2} />
+                    )}
+                  </NavLink>
+                </div>
               ))}
             </nav>
 
@@ -151,6 +177,17 @@ export function Header() {
             </button>
           </div>
         </div>
+
+        {/* Mega Menus Rendered Outside Container but inside Header relative context */}
+        <ServicesMegaMenu
+          isOpen={hoveredNav === 'services'}
+          onClose={() => setHoveredNav(null)}
+        />
+        <PartnersMegaMenu
+          isOpen={hoveredNav === 'partners'}
+          onClose={() => setHoveredNav(null)}
+        />
+
       </header>
 
       {/* Mobile Navigation */}
@@ -195,17 +232,76 @@ export function Header() {
           </div>
 
           <nav className="flex flex-col py-6 px-6">
-            {navStructure.map((item, index) => (
-              <Link
-                key={item.key}
-                to={item.href}
-                onClick={() => setIsOpen(false)}
-                className="py-4 text-primary-foreground/80 hover:text-primary-foreground font-body text-lg font-medium transition-colors duration-200 border-b border-primary-foreground/5 animate-fade-in"
-                style={{ animationDelay: `${index * 50}ms` }}
-              >
-                {common.nav[item.key as keyof typeof common.nav]}
-              </Link>
-            ))}
+            {navStructure.map((item, index) => {
+              // Render standard links
+              if (!item.hasMegaMenu) {
+                return (
+                  <Link
+                    key={item.key}
+                    to={item.href}
+                    onClick={() => setIsOpen(false)}
+                    className="py-4 text-primary-foreground/80 hover:text-primary-foreground font-body text-lg font-medium transition-colors duration-200 border-b border-primary-foreground/5 animate-fade-in"
+                    style={{ animationDelay: `${index * 50}ms` }}
+                  >
+                    {common.nav[item.key as keyof typeof common.nav]}
+                  </Link>
+                );
+              }
+
+              // Render Accordion for Mega Menu items
+              const isExpanded = expandedMobileNav === item.key;
+              return (
+                <div key={item.key} className="border-b border-primary-foreground/5 animate-fade-in" style={{ animationDelay: `${index * 50}ms` }}>
+                  <button
+                    onClick={() => toggleMobileNav(item.key)}
+                    className="flex items-center justify-between w-full py-4 text-primary-foreground/80 hover:text-primary-foreground font-body text-lg font-medium transition-colors duration-200 text-left"
+                  >
+                    {common.nav[item.key as keyof typeof common.nav]}
+                    <ChevronDown size={18} className={cn("transition-transform duration-200", isExpanded ? "rotate-180" : "")} />
+                  </button>
+
+                  {/* Mobile Submenu Content */}
+                  <div className={cn(
+                    "overflow-hidden transition-all duration-300 ease-in-out bg-white/5 rounded-sm",
+                    isExpanded ? "max-h-[500px] mb-4 opacity-100" : "max-h-0 opacity-0"
+                  )}>
+                    {item.key === 'services' && (
+                      <div className="flex flex-col p-2">
+                        {['consultation', 'software-distribution', 'prototype-development', 'training'].map(id => (
+                          <Link
+                            key={id}
+                            to={`/services/${id}`}
+                            onClick={() => setIsOpen(false)}
+                            className="py-3 px-3 text-sm text-white/70 hover:text-white hover:bg-white/5 rounded transition-colors"
+                          >
+                            {id === 'consultation' ? (language === 'ar' ? "الاستشارات الهندسية" : "Engineering Consulting") :
+                              id === 'software-distribution' ? (language === 'ar' ? "البرمجيات والمنصات" : "Software & Platforms") :
+                                id === 'prototype-development' ? (language === 'ar' ? "النماذج الأولية" : "Prototyping") : (language === 'ar' ? "التدريب المهني" : "Training")}
+                          </Link>
+                        ))}
+                        <Link to="/services" onClick={() => setIsOpen(false)} className="mt-2 py-2 px-3 text-xs font-semibold text-blue-400 uppercase tracking-wider">
+                          {language === 'ar' ? "عرض جميع الخدمات" : "View All Services"}
+                        </Link>
+                      </div>
+                    )}
+
+                    {item.key === 'partners' && (
+                      <div className="flex flex-col p-2">
+                        <Link to="/partners" onClick={() => setIsOpen(false)} className="py-3 px-3 text-sm text-white/70 hover:text-white hover:bg-white/5 rounded transition-colors">
+                          {language === 'ar' ? "الشركاء التقنيون" : "Technology Partners"}
+                        </Link>
+                        <Link to="/partners" onClick={() => setIsOpen(false)} className="py-3 px-3 text-sm text-white/70 hover:text-white hover:bg-white/5 rounded transition-colors">
+                          {language === 'ar' ? "المؤسسات الأكاديمية والبحثية" : "Academic & Research"}
+                        </Link>
+                        <Link to="/partners" onClick={() => setIsOpen(false)} className="py-3 px-3 text-sm text-white/70 hover:text-white hover:bg-white/5 rounded transition-colors">
+                          {language === 'ar' ? "الجهات الحكومية والصناعية" : "Government & Industrial"}
+                        </Link>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
           </nav>
 
           <div className="absolute bottom-0 inset-x-0 p-6 border-t border-primary-foreground/10">

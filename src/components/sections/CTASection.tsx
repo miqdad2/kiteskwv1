@@ -2,8 +2,9 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRight, Sparkles } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Link } from "react-router-dom";
-import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { cn } from "@/lib/utils";
+import { useEffect, useRef } from "react";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
 
 const content = {
   en: {
@@ -23,9 +24,51 @@ const content = {
 export function CTASection() {
   const { language, isRTL } = useLanguage();
   const t = content[language];
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Create timeline
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".cta-content",
+          start: "top 80%",
+          toggleActions: "play none none reverse"
+        }
+      });
+
+      tl.fromTo(".cta-badge",
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }
+      )
+        .fromTo(".cta-heading",
+          { opacity: 0, y: 30 },
+          { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" },
+          "-=0.4"
+        )
+        .fromTo(".cta-subtitle",
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" },
+          "-=0.6"
+        )
+        .fromTo(".cta-trust",
+          { opacity: 0 },
+          { opacity: 1, duration: 0.8 },
+          "-=0.6"
+        )
+        .fromTo(".cta-button",
+          { opacity: 0, scale: 0.9, y: 20 },
+          { opacity: 1, scale: 1, y: 0, duration: 0.6, ease: "back.out(1.5)" },
+          "-=0.4"
+        );
+
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <section id="cta" className="relative py-28 lg:py-36 bg-[#0B1220] overflow-hidden">
+    <section ref={sectionRef} id="cta" className="relative py-28 lg:py-36 bg-[#0B1220] overflow-hidden">
 
       {/* 1. Background Gradient (Navy Toned) */}
       <div
@@ -47,36 +90,34 @@ export function CTASection() {
       <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-[#fafafa] to-transparent z-10 opacity-5 pointer-events-none" />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
-        <div className="max-w-[720px] mx-auto text-center">
+        <div className="cta-content max-w-[720px] mx-auto text-center">
 
-          <ScrollReveal>
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-900/20 border border-blue-500/10 text-blue-100/90 mb-8 backdrop-blur-sm">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span className="text-xs font-medium uppercase tracking-wider">{t.badge}</span>
-            </div>
+          {/* Badge */}
+          <div className="cta-badge inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-900/20 border border-blue-500/10 text-blue-100/90 mb-8 backdrop-blur-sm opacity-0">
+            <Sparkles className="w-3.5 h-3.5" />
+            <span className="text-xs font-medium uppercase tracking-wider">{t.badge}</span>
+          </div>
 
-            {/* Heading */}
-            <h2 className="font-heading text-h2 sm:text-4xl lg:text-5xl font-bold text-white leading-tight mb-6 text-balance drop-shadow-sm">
-              {t.heading}
-            </h2>
+          {/* Heading */}
+          <h2 className="cta-heading font-heading text-h2 sm:text-4xl lg:text-5xl font-bold text-white leading-tight mb-6 text-balance drop-shadow-sm opacity-0">
+            {t.heading}
+          </h2>
 
-            {/* Subtitle */}
-            <p className="font-body text-lg sm:text-xl text-slate-300/90 max-w-2xl mx-auto mb-8 leading-relaxed">
-              {t.subtitle}
-            </p>
+          {/* Subtitle */}
+          <p className="cta-subtitle font-body text-lg sm:text-xl text-slate-300/90 max-w-2xl mx-auto mb-8 leading-relaxed opacity-0">
+            {t.subtitle}
+          </p>
 
-            {/* Trust Reinforcement Line */}
-            <p className="font-body text-sm text-slate-400/80 max-w-2xl mx-auto mb-10 tracking-wide border-t border-white/5 pt-6 uppercase">
-              {language === 'ar'
-                ? "موثوق به من قبل الجامعات الرائدة والجهات الحكومية والمنظمات الصناعية في دول مجلس التعاون الخليجي"
-                : "Trusted by leading universities, government entities, and industrial organizations across the GCC."
-              }
-            </p>
-          </ScrollReveal>
+          {/* Trust Reinforcement Line */}
+          <p className="cta-trust font-body text-sm text-slate-400/80 max-w-2xl mx-auto mb-10 tracking-wide border-t border-white/5 pt-6 uppercase opacity-0">
+            {language === 'ar'
+              ? "موثوق به من قبل الجامعات الرائدة والجهات الحكومية والمنظمات الصناعية في دول مجلس التعاون الخليجي"
+              : "Trusted by leading universities, government entities, and industrial organizations across the GCC."
+            }
+          </p>
 
           {/* CTA Button */}
-          <ScrollReveal delay={150}>
+          <div className="cta-button opacity-0">
             <Link to="/contact">
               <Button
                 size="xl"
@@ -97,7 +138,7 @@ export function CTASection() {
                 </span>
               </Button>
             </Link>
-          </ScrollReveal>
+          </div>
 
         </div>
       </div>

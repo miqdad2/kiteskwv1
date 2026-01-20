@@ -1,7 +1,8 @@
 import { Boxes, MessageSquare, GraduationCap, Package, ArrowRight } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Link } from "react-router-dom";
-import { ScrollReveal, StaggerContainer, StaggerItem } from "@/components/ui/scroll-reveal";
+import { useEffect, useRef } from "react";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
 
 const content = {
   en: {
@@ -99,14 +100,72 @@ const content = {
 export function ServicesSection() {
   const { language } = useLanguage();
   const t = content[language];
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Header Animation
+      gsap.fromTo(".services-header",
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 75%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+
+      // Services Stagger
+      gsap.fromTo(".service-card",
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          stagger: 0.15,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".services-grid",
+            start: "top 80%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+
+      // Bottom CTA
+      gsap.fromTo(".services-cta",
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          delay: 0.2,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".services-cta",
+            start: "top 90%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <section id="services" className="py-24 lg:py-40 bg-white relative overflow-hidden">
+    <section ref={sectionRef} id="services" className="py-20 lg:py-32 bg-white relative overflow-hidden">
       {/* Background Accent */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[600px] bg-gradient-to-b from-gray-50/50 to-transparent -z-10 pointer-events-none" />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <ScrollReveal className="text-center mb-16">
+        <div className="services-header text-center mb-16 opacity-0">
           <div className="accent-line mx-auto mb-8" />
           <span className="block text-xs font-semibold text-muted-foreground uppercase tracking-[0.2em] mb-4">
             {t.eyebrow}
@@ -117,24 +176,21 @@ export function ServicesSection() {
           <p className="font-body text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             {t.subtitle}
           </p>
-        </ScrollReveal>
+        </div>
 
         {/* Services Grid - 4 Cards */}
-        <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8" staggerDelay={100}>
+        <div className="services-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
           {t.services.map((service, index) => (
-            <StaggerItem key={service.id} index={index}>
+            <div key={service.id} className="service-card opacity-0">
               <Link
                 to={`/services/${service.id}`}
-                className="group block h-full bg-white p-6 lg:p-8 rounded-xl border border-gray-200 shadow-sm cursor-pointer transition-all duration-300 hover:shadow-md hover:border-gray-300 hover:bg-gray-50/50 relative overflow-hidden"
+                className="group block h-full bg-white p-8 lg:p-10 rounded-xl border border-gray-200 border-t-2 border-t-transparent shadow-sm cursor-pointer transition-all duration-300 ease-executive hover:shadow-xl hover:border-gray-300 hover:border-t-primary hover:-translate-y-1 relative overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
               >
-                {/* Thin Left Accent Line on Hover */}
-                <div className="absolute top-0 bottom-0 left-0 w-[4px] bg-primary scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-center" />
-
-                <div className="flex flex-col h-full items-start text-left pl-2 group-hover:pl-4 transition-all duration-300">
+                <div className="flex flex-col h-full items-start text-left transition-all duration-300 ease-executive">
                   {/* Icon */}
-                  <div className="w-14 h-14 bg-gray-50 border border-gray-100 rounded-lg flex items-center justify-center mb-6 group-hover:bg-gray-100 transition-colors duration-300">
+                  <div className="w-14 h-14 bg-gray-50 border border-gray-100 rounded-lg flex items-center justify-center mb-6 group-hover:bg-primary/5 group-hover:scale-105 group-hover:border-primary/10 transition-all duration-300 ease-executive">
                     <service.icon
-                      className="text-gray-500 group-hover:text-primary transition-colors duration-300"
+                      className="text-gray-500 group-hover:text-primary transition-colors duration-300 ease-executive"
                       size={24}
                       strokeWidth={1.5}
                     />
@@ -146,37 +202,40 @@ export function ServicesSection() {
                   </h3>
 
                   {/* Challenge Context Line - Reduced prominence */}
-                  <p className="font-body text-[10px] text-gray-400/80 leading-snug mb-3 italic">
+                  <p className="font-body text-xs text-muted-foreground/70 font-normal leading-snug mb-4">
                     {service.challenge}
                   </p>
 
                   {/* Description */}
-                  <p className="font-body text-sm text-gray-500 leading-relaxed mb-6 line-clamp-3">
+                  <p className="font-body text-sm text-gray-500 leading-relaxed mb-6 line-clamp-3 max-w-[95%]">
                     {service.description}
                   </p>
 
                   {/* Service-Specific CTA */}
-                  <div className="mt-auto flex items-center text-sm font-medium text-gray-900 group-hover:text-primary transition-colors duration-300">
-                    <span>{service.cta}</span>
+                  <div className="mt-auto flex items-center text-sm font-medium text-gray-500 group-hover:text-primary transition-colors duration-200 ease-executive">
+                    <span className="relative inline-block">
+                      {service.cta}
+                      <span className="absolute bottom-0 left-0 w-full h-[1px] bg-primary scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-200 ease-executive" />
+                    </span>
                     <ArrowRight
-                      className="ml-2 w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 rtl:rotate-180 rtl:mr-2 rtl:ml-0 rtl:group-hover:-translate-x-1"
+                      className="ml-2 w-4 h-4 transition-transform duration-200 ease-executive group-hover:translate-x-1 rtl:rotate-180 rtl:mr-2 rtl:ml-0 rtl:group-hover:-translate-x-1"
                       strokeWidth={2}
                     />
                   </div>
                 </div>
               </Link>
-            </StaggerItem>
+            </div>
           ))}
-        </StaggerContainer>
+        </div>
 
         {/* Section-Level CTA */}
-        <ScrollReveal className="text-center mt-16 pt-12 border-t border-gray-100">
+        <div className="services-cta text-center mt-24 pt-12 border-t border-gray-100 opacity-0">
           <p className="font-body text-base text-gray-500 mb-4">
             {t.sectionCta.prompt}
           </p>
           <Link
             to="/contact"
-            className="inline-flex items-center justify-center px-8 py-3 rounded-md text-sm font-semibold transition-all duration-300 group border border-black/20 bg-white text-slate-900 hover:bg-[#0B0F14] hover:text-white hover:border-[#0B0F14]"
+            className="inline-flex items-center justify-center px-8 py-3 rounded-md text-sm font-semibold transition-all duration-300 ease-executive group border border-black/20 bg-white text-slate-900 hover:bg-primary hover:text-white hover:border-primary"
           >
             <span>{t.sectionCta.button}</span>
             <ArrowRight
@@ -184,7 +243,7 @@ export function ServicesSection() {
               strokeWidth={2}
             />
           </Link>
-        </ScrollReveal>
+        </div>
       </div>
     </section>
   );

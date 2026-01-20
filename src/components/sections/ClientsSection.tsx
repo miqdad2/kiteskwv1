@@ -1,8 +1,10 @@
 import { useLanguage } from "@/contexts/LanguageContext";
-import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import { academicClients, commercialClients, keyClients, type Client } from "@/data/clients";
+import { useEffect, useRef } from 'react';
+import { Link } from "react-router-dom";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
 
 const content = {
   en: {
@@ -33,23 +35,75 @@ interface ClientGridProps {
 }
 
 function ClientGrid({ clients, isRTL }: ClientGridProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Kill any existing animations to prevent conflicts when switching tabs
+    gsap.killTweensOf(".client-item-anim");
+
+    // Reset opacity before animating
+    gsap.set(".client-item-anim", { opacity: 0, y: 15, scale: 0.98 });
+
+    // Staggered entrance
+    gsap.to(".client-item-anim", {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      duration: 0.6,
+      stagger: {
+        amount: 0.8,
+        grid: "auto",
+        from: "start"
+      },
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top 85%",
+        toggleActions: "play none none reverse"
+      }
+    });
+
+    // Refresh ScrollTrigger after DOM updates (tab switch)
+    ScrollTrigger.refresh();
+
+  }, [clients]); // Re-run when clients list changes (tab switch)
+
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4 animate-in fade-in slide-in-from-bottom-4 duration-500 fill-mode-forwards">
+    <div
+      ref={containerRef}
+      className="group/grid grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4"
+    >
       {clients.map((client) => (
         <div
           key={client.id}
           className={cn(
-            "group relative flex flex-col items-center justify-center p-4 sm:p-6 text-center",
-            "bg-white border border-gray-100 rounded-lg",
-            "transition-all duration-300 ease-out",
-            "hover:bg-slate-50 hover:border-gray-300 hover:-translate-y-[2px] hover:shadow-sm",
+            "client-item-anim group relative flex flex-col items-center justify-center p-6 text-center opacity-0",
+            "bg-white border border-slate-100 rounded-lg",
+
+            // Depth & Focus Interaction (Desktop)
+            // Grid Hovered: Subtle dim on others
+            "group-hover/grid:opacity-85 group-hover/grid:scale-[0.98]",
+
+            // Active Item Hover: Lift & Depth
+            "hover:!opacity-100 hover:!scale-[1.04] hover:!-translate-y-1",
+            "hover:!shadow-[0_10px_30px_rgba(59,130,246,0.15)]",
+            "hover:!border-primary/20",
+
+            // Mobile Reset
+            "sm:hover:!translate-y-0 sm:hover:!shadow-none sm:hover:!scale-100",
+            "backface-visibility-hidden",
+
+            // Active/Focus (Accessibility)
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20 focus-visible:opacity-100 focus-visible:scale-100",
+
             isRTL
-              ? "hover:border-r-2 hover:border-r-gray-400"
-              : "hover:border-l-2 hover:border-l-gray-400"
+              ? "hover:border-r-primary/20"
+              : "hover:border-l-primary/20"
           )}
+          tabIndex={0}
         >
-          {/* Logo Container - Fixed height for CLS stability */}
-          <div className="flex items-center justify-center w-full h-16 sm:h-20">
+          {/* Logo Container */}
+          <div className="flex items-center justify-center w-full h-20">
             <img
               src={client.logo}
               alt={client.name}
@@ -57,12 +111,18 @@ function ClientGrid({ clients, isRTL }: ClientGridProps) {
               height={80}
               loading="lazy"
               decoding="async"
-              className="max-h-14 sm:max-h-16 w-auto max-w-full object-contain transition-transform duration-300 group-hover:scale-105"
+              className={cn(
+                "max-h-16 w-auto max-w-full object-contain transition-all duration-[300ms] ease-out",
+                // Permanent Full Color
+                "opacity-100 grayscale-0",
+                // Simple Hover Scale
+                "group-hover:scale-[1.02]"
+              )}
             />
           </div>
 
-          {/* Client Name - Visible below logo */}
-          <span className="mt-2 sm:mt-3 text-[10px] sm:text-xs font-medium text-gray-500 group-hover:text-gray-700 transition-colors line-clamp-2 text-center leading-tight">
+          {/* Client Name */}
+          <span className="mt-3 text-xs font-medium text-gray-500 group-hover:text-gray-900 transition-colors line-clamp-2 text-center leading-tight">
             {client.name}
           </span>
         </div>
@@ -74,9 +134,65 @@ function ClientGrid({ clients, isRTL }: ClientGridProps) {
 export function ClientsSection() {
   const { language, isRTL } = useLanguage();
   const t = content[language];
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Header
+      gsap.fromTo(".clients-header",
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 75%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+
+      // Key Institutions Stagger
+      gsap.fromTo(".key-client-card",
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          stagger: 0.1,
+          ease: "back.out(1.2)",
+          scrollTrigger: {
+            trigger: ".key-clients-grid",
+            start: "top 80%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+
+      // CTA
+      gsap.fromTo(".clients-cta",
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".clients-cta",
+            start: "top 90%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <section id="clients" className="relative pb-16 sm:pb-24 lg:pb-32 bg-[#fafafa] overflow-hidden">
+    <section ref={sectionRef} id="clients" className="relative pb-16 sm:pb-24 lg:pb-32 bg-[#fafafa] overflow-hidden">
 
       {/* Trust Transition Band */}
       <div className="w-full border-b border-border/40 bg-white/50 backdrop-blur-sm py-4 sm:py-6 mb-12 sm:mb-16 lg:mb-20">
@@ -95,7 +211,7 @@ export function ClientsSection() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Section Header */}
-        <ScrollReveal className="text-center mb-10 sm:mb-16">
+        <div className="clients-header text-center mb-10 sm:mb-16 opacity-0">
           <div className="accent-line mx-auto mb-6 sm:mb-8" />
           <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-semibold text-foreground max-w-2xl mx-auto mb-4 sm:mb-6">
             {t.heading}
@@ -103,7 +219,7 @@ export function ClientsSection() {
           <p className="font-body text-sm sm:text-base lg:text-lg text-muted-foreground max-w-2xl mx-auto px-2 sm:px-0">
             {t.subtitle}
           </p>
-        </ScrollReveal>
+        </div>
 
         {/* Key Institutions Highlight */}
         <div className="mb-12 sm:mb-20 max-w-5xl mx-auto">
@@ -112,11 +228,11 @@ export function ClientsSection() {
               {t.keyInstitutions}
             </span>
           </div>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+          <div className="key-clients-grid grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
             {keyClients.map((client) => (
               <div
                 key={`key-${client.id}`}
-                className="bg-white p-4 sm:p-6 rounded-lg border border-gray-100 shadow-sm flex flex-col items-center justify-center text-center hover:shadow-md transition-shadow duration-300"
+                className="key-client-card bg-white p-4 sm:p-6 rounded-lg border border-gray-100 shadow-sm flex flex-col items-center justify-center text-center hover:shadow-md transition-shadow duration-300 opacity-0"
               >
                 <div className="h-12 sm:h-16 flex items-center justify-center mb-2 sm:mb-3">
                   <img
@@ -154,12 +270,12 @@ export function ClientsSection() {
         </Tabs>
 
         {/* Post-Clients CTA */}
-        <ScrollReveal className="text-center max-w-3xl mx-auto pt-8 sm:pt-10 border-t border-gray-200">
+        <div className="clients-cta text-center max-w-3xl mx-auto pt-8 sm:pt-10 border-t border-gray-200 opacity-0">
           <h3 className="font-heading text-lg sm:text-xl md:text-2xl font-medium text-gray-800 mb-6 sm:mb-8 px-2">
             {t.cta}
           </h3>
-          <a
-            href="/contact"
+          <Link
+            to="/contact"
             className={cn(
               "inline-flex items-center justify-center px-6 sm:px-8 py-2.5 sm:py-3 text-xs sm:text-sm font-medium transition-all duration-300 rounded-md",
               "bg-primary text-primary-foreground hover:bg-primary/90",
@@ -167,8 +283,8 @@ export function ClientsSection() {
             )}
           >
             {t.ctaButton}
-          </a>
-        </ScrollReveal>
+          </Link>
+        </div>
 
       </div>
     </section>
