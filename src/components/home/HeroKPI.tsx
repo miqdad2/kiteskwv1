@@ -1,10 +1,15 @@
-import { useEffect, useState, useRef } from "react";
+import { useRef, useLayoutEffect } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { cn } from "@/lib/utils";
+import { gsap } from "@/lib/gsap";
+import { CustomEase } from "gsap/all";
+
+// Register CustomEase if not already registered globally, or just use the cubic-bezier string directly in ease
+gsap.registerPlugin(CustomEase);
 
 interface KPI {
     id: string;
-    value: string;
+    value: number;
+    suffix: string;
     label: {
         en: string;
         ar: string;
@@ -14,22 +19,26 @@ interface KPI {
 const kpiData: KPI[] = [
     {
         id: "engineers",
-        value: "80+",
+        value: 80,
+        suffix: "+",
         label: { en: "ENGINEERS TRAINED", ar: "مهندس تم تدريبهم" },
     },
     {
         id: "clients",
-        value: "30+",
+        value: 30,
+        suffix: "+",
         label: { en: "ENTERPRISE CLIENTS", ar: "عميل مؤسسي" },
     },
     {
         id: "partners",
-        value: "10+",
+        value: 10,
+        suffix: "+",
         label: { en: "GLOBAL PARTNERS", ar: "شريك عالمي" },
     },
     {
         id: "countries",
-        value: "7",
+        value: 7,
+        suffix: "",
         label: { en: "COUNTRIES SERVED", ar: "دول نخدمها" },
     },
 ];
@@ -40,31 +49,44 @@ interface HeroKPIProps {
 
 export function HeroKPI({ startDelay = 0 }: HeroKPIProps) {
     const { language } = useLanguage();
-    const [isVisible, setIsVisible] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
-    const timerRef = useRef<NodeJS.Timeout>();
+    const itemsRef = useRef<(HTMLDivElement | null)[]>([]);
 
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                    timerRef.current = setTimeout(() => {
-                        setIsVisible(true);
-                        observer.disconnect();
-                    }, startDelay);
-                }
-            },
-            { threshold: 0.1 }
-        );
+    useLayoutEffect(() => {
+        const ctx = gsap.context(() => {
+            if (!itemsRef.current.length) return;
 
-        if (containerRef.current) {
-            observer.observe(containerRef.current);
-        }
+            itemsRef.current.forEach((item, index) => {
+                if (!item) return;
 
-        return () => {
-            observer.disconnect();
-            clearTimeout(timerRef.current);
-        };
+                const valueElement = item.querySelector('.kpi-value');
+                const dataValue = kpiData[index].value;
+
+                // Animate the counter value only
+                const counter = { val: 0 };
+
+                gsap.to(counter, {
+                    val: dataValue,
+                    duration: 1.4,
+                    // cubic-bezier(0.4, 0, 0.2, 1)
+                    ease: CustomEase.create("custom", "0.4, 0, 0.2, 1"),
+                    delay: startDelay / 1000 + (index * 0.1), // 100ms stagger
+                    scrollTrigger: {
+                        trigger: containerRef.current,
+                        start: "top 85%",
+                        once: true,
+                    },
+                    onUpdate: () => {
+                        if (valueElement) {
+                            valueElement.textContent = Math.floor(counter.val) + kpiData[index].suffix;
+                        }
+                    }
+                });
+            });
+
+        }, containerRef);
+
+        return () => ctx.revert();
     }, [startDelay]);
 
     return (
@@ -72,27 +94,18 @@ export function HeroKPI({ startDelay = 0 }: HeroKPIProps) {
             ref={containerRef}
             className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 lg:mt-24 pointer-events-auto"
         >
-            <div
-                className={cn(
-                    "w-full pt-8 border-t border-white/10",
-                    isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-                )}
-                style={{ transition: 'opacity 1s ease-out, transform 1s ease-out', transitionDelay: '0ms' }}
-            >
+            <div className="w-full p-8 border border-[rgba(255,255,255,0.22)] rounded-[10px] shadow-[0_0_0_1px_rgba(255,255,255,0.08)]">
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 relative z-20">
                     {kpiData.map((item, index) => (
                         <div
                             key={item.id}
-                            className={cn(
-                                "flex flex-col items-center sm:items-start text-center sm:text-left transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
-                                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-                            )}
-                            style={{ transitionDelay: `${index * 100}ms` }}
+                            ref={(el) => (itemsRef.current[index] = el)}
+                            className="flex flex-col items-center sm:items-start text-center sm:text-left"
                         >
-                            <span className="font-heading font-bold text-3xl sm:text-4xl text-white mb-1">
-                                {item.value}
+                            <span className="kpi-value font-heading font-bold text-3xl sm:text-4xl text-white mb-1 tabular-nums">
+                                0{item.suffix}
                             </span>
-                            <span className="font-body font-medium text-[10px] sm:text-xs tracking-widest text-white/50 uppercase">
+                            <span className="kpi-label font-body font-medium text-[10px] sm:text-xs tracking-widest text-white/50 uppercase">
                                 {language === "ar" ? item.label.ar : item.label.en}
                             </span>
                         </div>

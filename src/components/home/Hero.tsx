@@ -5,12 +5,20 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { cn } from "@/lib/utils";
 import { HeroKPI } from "@/components/home/HeroKPI";
 import { FlowFieldCanvas } from "@/components/home/FlowFieldCanvas";
+import { EcosystemNav } from "@/components/home/EcosystemNav";
 import { gsap } from "@/lib/gsap";
 
 export function Hero() {
     const { language, isRTL } = useLanguage();
     const [scrollY, setScrollY] = useState(0);
     const heroRef = useRef<HTMLDivElement>(null);
+
+    // CTA Refs
+    const primaryBtnRef = useRef<HTMLButtonElement>(null);
+    const primaryArrowRef = useRef<SVGSVGElement>(null);
+    const secondaryLinkRef = useRef<HTMLAnchorElement>(null);
+    const secondaryTextRef = useRef<HTMLSpanElement>(null);
+    const secondaryLineRef = useRef<HTMLSpanElement>(null);
 
     // Initial Load Animation
     useEffect(() => {
@@ -20,14 +28,15 @@ export function Hero() {
             });
 
             // Set initial state to avoid FOUC
-            gsap.set(".hero-element", { autoAlpha: 0, y: 15 });
+            // Constraint: Animate from y: 12px → y: 0
+            gsap.set(".hero-element", { autoAlpha: 0, y: 12 });
 
             tl.to(".hero-element",
                 {
                     autoAlpha: 1,
                     y: 0,
                     duration: 0.9,
-                    stagger: 0.12,
+                    stagger: 0.1, // Constraint: 100ms stagger
                 }
             );
 
@@ -73,11 +82,23 @@ export function Hero() {
     return (
         <section
             ref={heroRef}
-            className="relative min-h-[100dvh] bg-gradient-to-b from-[#0B0F14] via-[#0E141B] to-[#0B0F14] overflow-hidden flex flex-col justify-center z-10"
+            className="relative min-h-[100dvh] pt-[var(--header-height)] bg-gradient-to-b from-[#0B0F14] via-[#0E141B] to-[#0B0F14] overflow-hidden flex flex-col justify-center z-10"
         >
 
-            {/* 1. LAYER: Background Noise - Z-0 */}
-            <div className="absolute inset-0 pointer-events-none z-0 opacity-[0.03]"
+            {/* 0. LAYER: Background Video - Z-0 (Hidden on mobile) */}
+            <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                className="absolute inset-0 w-full h-full object-cover z-0 hidden md:block"
+            >
+                <source src="/videos/website_final_video.mp4" type="video/mp4" />
+            </video>
+
+            {/* 1. LAYER: Background Noise - Z-2 */}
+            <div className="absolute inset-0 pointer-events-none z-2 opacity-[0.03]"
                 style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}
             />
 
@@ -95,8 +116,8 @@ export function Hero() {
 
             {/* 3. LAYER: Content - Z-20 */}
             <div
-                className="relative z-20 w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12 flex flex-col justify-center h-full min-h-[inherit] will-change-transform"
-                style={{ transform: `translateY(${scrollY * 0.05}px)` }}
+                className="relative z-20 w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12 flex flex-col justify-center h-full min-h-[inherit]"
+            // Constraint: No parallax transform on parent container
             >
 
                 <div className={cn(
@@ -106,7 +127,7 @@ export function Hero() {
 
                     {/* Main Content Column */}
                     <div className={cn(
-                        "lg:col-span-8 flex flex-col justify-center",
+                        "lg:col-span-8 flex flex-col justify-center relative z-20", // Kept 8 for safety, EcoNav takes remaining space overlay or grid
                         "max-lg:text-center max-lg:items-center"
                     )}>
 
@@ -130,29 +151,64 @@ export function Hero() {
                             <div className="hero-element flex flex-col sm:flex-row items-center gap-4 sm:gap-6 w-full sm:w-auto">
                                 {/* Primary CTA */}
                                 <Link to="/contact" className="w-full sm:w-auto">
-                                    <button className="group relative w-full sm:min-w-[180px] h-12 px-6 bg-white/5 border border-white/10 text-white hover:bg-white hover:text-black hover:border-white transition-all duration-300 ease-out flex items-center justify-center rounded-sm text-sm font-medium tracking-wide">
+                                    <button
+                                        ref={primaryBtnRef}
+                                        onMouseEnter={() => {
+                                            gsap.to(primaryBtnRef.current, { y: -2, duration: 0.18, ease: "cubic-bezier(0.4, 0, 0.2, 1)" });
+                                            gsap.to(primaryArrowRef.current, { x: 5, duration: 0.18, delay: 0.04, ease: "cubic-bezier(0.4, 0, 0.2, 1)" });
+                                        }}
+                                        onMouseLeave={() => {
+                                            gsap.to(primaryBtnRef.current, { y: 0, scale: 1, duration: 0.18, ease: "cubic-bezier(0.4, 0, 0.2, 1)" });
+                                            gsap.to(primaryArrowRef.current, { x: 0, duration: 0.18, ease: "cubic-bezier(0.4, 0, 0.2, 1)" });
+                                        }}
+                                        onMouseDown={() => gsap.to(primaryBtnRef.current, { y: 0, scale: 0.98, duration: 0.12, ease: "cubic-bezier(0.4, 0, 0.2, 1)" })}
+                                        onMouseUp={() => gsap.to(primaryBtnRef.current, { scale: 1, duration: 0.14, ease: "cubic-bezier(0.4, 0, 0.2, 1)" })}
+                                        className="relative w-full sm:min-w-[180px] h-12 px-6 bg-transparent border border-white/30 text-white hover:bg-white hover:text-black hover:border-transparent transition-colors duration-[240ms] ease-[cubic-bezier(0.4,0,0.2,1)] flex items-center justify-center rounded-sm text-sm font-medium tracking-wide"
+                                    >
                                         <span>{content.ctaPrimary}</span>
-                                        <ArrowRight className={cn("w-4 h-4 transition-transform duration-300",
-                                            isRTL ? "mr-2 group-hover:-translate-x-1 rotate-180" : "ml-2 group-hover:translate-x-1"
-                                        )} />
+                                        <ArrowRight
+                                            ref={primaryArrowRef}
+                                            className={cn("w-4 h-4 transition-none", // Removed CSS transitions/transforms
+                                                isRTL ? "mr-2 rotate-180" : "ml-2"
+                                            )}
+                                        />
                                     </button>
                                 </Link>
 
                                 {/* Secondary CTA */}
                                 <Link
+                                    ref={secondaryLinkRef}
                                     to="/services"
-                                    className="group/secondary inline-flex items-center text-sm font-medium text-gray-400 hover:text-white transition-colors duration-300"
+                                    onMouseEnter={() => {
+                                        gsap.to(secondaryTextRef.current, { x: 4, duration: 0.18, ease: "cubic-bezier(0.4, 0, 0.2, 1)" });
+                                        gsap.to(secondaryLineRef.current, { scaleX: 1, duration: 0.22, ease: "cubic-bezier(0.4, 0, 0.2, 1)" });
+                                    }}
+                                    onMouseLeave={() => {
+                                        gsap.to(secondaryTextRef.current, { x: 0, duration: 0.18, ease: "cubic-bezier(0.4, 0, 0.2, 1)" });
+                                        gsap.to(secondaryLineRef.current, { scaleX: 0, duration: 0.22, ease: "cubic-bezier(0.4, 0, 0.2, 1)" });
+                                    }}
+                                    className="group/secondary relative inline-flex items-center text-sm font-normal text-white/70 hover:text-white transition-colors duration-300"
                                 >
-                                    <span>{content.ctaSecondary}</span>
+                                    <span ref={secondaryTextRef} className="inline-block">{content.ctaSecondary}</span>
+                                    <span
+                                        ref={secondaryLineRef}
+                                        className="absolute bottom-[-2px] left-0 w-full h-px bg-white/60 origin-left scale-x-0" // CSS handles refined defaults, GSAP handles scale
+                                    />
                                 </Link>
                             </div>
                         </div>
 
                     </div>
+
+                    {/* Ecosystem Navigation Column */}
+                    <div className="hidden lg:flex lg:col-span-4 lg:col-start-9 justify-center items-center h-full min-h-[400px] animate-fade-in" style={{ animationDelay: '200ms' }}>
+                        <EcosystemNav />
+                    </div>
                 </div>
 
                 {/* KPI Strip */}
-                <div className="hero-element relative z-20 mt-16 lg:mt-24 border-t border-white/5 pt-8">
+                {/* Constraint: Stats container independent from hero text animations (removed hero-element class) */}
+                <div className="relative z-20 mt-12 lg:mt-16 pt-8">
                     <HeroKPI startDelay={100} />
                 </div>
 
