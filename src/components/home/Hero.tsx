@@ -155,7 +155,7 @@ export function Hero() {
                                         ref={primaryBtnRef}
                                         onMouseEnter={() => {
                                             gsap.to(primaryBtnRef.current, { y: -2, duration: 0.18, ease: "cubic-bezier(0.4, 0, 0.2, 1)" });
-                                            gsap.to(primaryArrowRef.current, { x: 5, color: "#60a5fa", duration: 0.18, delay: 0.04, ease: "cubic-bezier(0.4, 0, 0.2, 1)" });
+                                            gsap.to(primaryArrowRef.current, { x: 5, color: "#2563eb", duration: 0.18, delay: 0.04, ease: "cubic-bezier(0.4, 0, 0.2, 1)" });
                                         }}
                                         onMouseLeave={() => {
                                             gsap.to(primaryBtnRef.current, { y: 0, scale: 1, duration: 0.18, ease: "cubic-bezier(0.4, 0, 0.2, 1)" });
@@ -163,7 +163,7 @@ export function Hero() {
                                         }}
                                         onMouseDown={() => gsap.to(primaryBtnRef.current, { y: 0, scale: 0.98, duration: 0.12, ease: "cubic-bezier(0.4, 0, 0.2, 1)" })}
                                         onMouseUp={() => gsap.to(primaryBtnRef.current, { scale: 1, duration: 0.14, ease: "cubic-bezier(0.4, 0, 0.2, 1)" })}
-                                        className="relative w-full sm:min-w-[180px] h-12 px-6 bg-transparent border border-white/30 text-white hover:bg-white hover:text-black hover:border-[#60a5fa] transition-colors duration-[240ms] ease-[cubic-bezier(0.4,0,0.2,1)] flex items-center justify-center rounded-sm text-sm font-medium tracking-wide"
+                                        className="relative w-full sm:min-w-[180px] h-12 px-6 bg-transparent border border-white/30 text-white hover:bg-white hover:text-black hover:border-[#2563eb] transition-colors duration-[240ms] ease-[cubic-bezier(0.4,0,0.2,1)] flex items-center justify-center rounded-sm text-sm font-medium tracking-wide"
                                     >
                                         <span>{content.ctaPrimary}</span>
                                         <ArrowRight

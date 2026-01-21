@@ -99,9 +99,8 @@ export function HeroKPI({ startDelay = 0 }: HeroKPIProps) {
                         duration: 1.4,
                         ease: CustomEase.create("custom", "0.4, 0, 0.2, 1"),
                         onUpdate: () => {
-                            if (valueElement && valueElement.firstChild) {
-                                // Update text node only, preserve accent span
-                                valueElement.firstChild.textContent = Math.floor(counter.val) + kpiData[index].suffix;
+                            if (valueElement) {
+                                valueElement.textContent = Math.floor(counter.val).toString();
                             }
                         }
                     }, 0);
@@ -133,9 +132,9 @@ export function HeroKPI({ startDelay = 0 }: HeroKPIProps) {
                             ref={(el) => (itemsRef.current[index] = el)}
                             className="flex flex-col items-center sm:items-start text-center sm:text-left"
                         >
-                            <span className="kpi-value font-heading font-bold text-3xl sm:text-4xl text-white mb-1 tabular-nums relative block">
-                                0{item.suffix}
-                                <span className="kpi-accent absolute -bottom-1 left-0 w-full h-[2px] bg-[#60a5fa] origin-left scale-x-0 opacity-0" />
+                            <span className="font-heading font-bold text-3xl sm:text-4xl text-white mb-1 tabular-nums relative block">
+                                <span className="kpi-value">0</span>{item.suffix}
+                                <span className="kpi-accent absolute -bottom-1 left-0 w-full h-[2px] bg-[#2563eb] origin-left scale-x-0 opacity-0" />
                             </span>
                             <span className="kpi-label font-body font-medium text-[10px] sm:text-xs tracking-widest text-white/50 uppercase">
                                 {language === "ar" ? item.label.ar : item.label.en}

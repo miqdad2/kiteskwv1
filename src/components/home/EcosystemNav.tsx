@@ -64,7 +64,7 @@ export function EcosystemNav() {
         gsap.to(centerRef.current, {
             scale: 1.02,
             y: -1,
-            borderColor: "rgba(96, 165, 250, 0.6)", // Brand Blue (Blue-400), subtle opacity
+            borderColor: "rgba(37, 99, 235, 0.6)", // Brand Blue (Blue-600)
             duration: 0.3,
             ease: "cubic-bezier(0.4, 0, 0.2, 1)"
         });
@@ -72,7 +72,7 @@ export function EcosystemNav() {
         // Arrow Animation (Target by class)
         gsap.to(".eco-arrow", {
             x: 5,
-            color: "#60a5fa", // Brand Blue (Blue-400)
+            color: "#2563eb", // Brand Blue (Blue-600)
             duration: 0.3,
             ease: "cubic-bezier(0.4, 0, 0.2, 1)"
         });
@@ -228,8 +228,8 @@ export function EcosystemNav() {
         gsap.to(target, {
             opacity: 1,
             scale: 1.05,
-            borderColor: "rgba(96, 165, 250, 0.5)", // Brand Blue
-            backgroundColor: "rgba(96, 165, 250, 0.05)", // Very subtle blue tint
+            borderColor: "rgba(37, 99, 235, 0.5)", // Brand Blue (Blue-600)
+            backgroundColor: "rgba(37, 99, 235, 0.05)", // Very subtle blue tint
             duration: 0.3
         });
     };
