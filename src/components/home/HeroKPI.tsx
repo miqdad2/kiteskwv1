@@ -54,35 +54,66 @@ export function HeroKPI({ startDelay = 0 }: HeroKPIProps) {
 
     useLayoutEffect(() => {
         const ctx = gsap.context(() => {
-            if (!itemsRef.current.length) return;
+            // Container Entrance & Positioning (Shift up -24px)
+            gsap.fromTo(containerRef.current,
+                { y: 16, opacity: 0 },
+                {
+                    y: -24,
+                    opacity: 1,
+                    duration: 0.8,
+                    ease: "cubic-bezier(0.4, 0, 0.2, 1)",
+                    delay: startDelay / 1000
+                }
+            );
 
-            itemsRef.current.forEach((item, index) => {
-                if (!item) return;
+            if (itemsRef.current.length) {
+                itemsRef.current.forEach((item, index) => {
+                    if (!item) return;
 
-                const valueElement = item.querySelector('.kpi-value');
-                const dataValue = kpiData[index].value;
+                    const valueElement = item.querySelector('.kpi-value');
+                    const accentElement = item.querySelector('.kpi-accent');
+                    const dataValue = kpiData[index].value;
 
-                // Animate the counter value only
-                const counter = { val: 0 };
+                    // Animate the counter value only
+                    const counter = { val: 0 };
+                    const tl = gsap.timeline({
+                        delay: startDelay / 1000 + (index * 0.1),
+                        scrollTrigger: {
+                            trigger: containerRef.current,
+                            start: "top 85%",
+                            once: true,
+                        },
+                    });
 
-                gsap.to(counter, {
-                    val: dataValue,
-                    duration: 1.4,
-                    // cubic-bezier(0.4, 0, 0.2, 1)
-                    ease: CustomEase.create("custom", "0.4, 0, 0.2, 1"),
-                    delay: startDelay / 1000 + (index * 0.1), // 100ms stagger
-                    scrollTrigger: {
-                        trigger: containerRef.current,
-                        start: "top 85%",
-                        once: true,
-                    },
-                    onUpdate: () => {
-                        if (valueElement) {
-                            valueElement.textContent = Math.floor(counter.val) + kpiData[index].suffix;
+                    // 1. Accent In
+                    tl.to(accentElement, {
+                        scaleX: 1,
+                        opacity: 1,
+                        duration: 0.4,
+                        ease: "power2.out"
+                    }, 0);
+
+                    // 2. Count Up
+                    tl.to(counter, {
+                        val: dataValue,
+                        duration: 1.4,
+                        ease: CustomEase.create("custom", "0.4, 0, 0.2, 1"),
+                        onUpdate: () => {
+                            if (valueElement && valueElement.firstChild) {
+                                // Update text node only, preserve accent span
+                                valueElement.firstChild.textContent = Math.floor(counter.val) + kpiData[index].suffix;
+                            }
                         }
-                    }
+                    }, 0);
+
+                    // 3. Accent Out (Fade)
+                    tl.to(accentElement, {
+                        opacity: 0,
+                        duration: 0.6,
+                        ease: "power2.out"
+                    }, ">-0.4");
                 });
-            });
+            }
 
         }, containerRef);
 
@@ -102,8 +133,9 @@ export function HeroKPI({ startDelay = 0 }: HeroKPIProps) {
                             ref={(el) => (itemsRef.current[index] = el)}
                             className="flex flex-col items-center sm:items-start text-center sm:text-left"
                         >
-                            <span className="kpi-value font-heading font-bold text-3xl sm:text-4xl text-white mb-1 tabular-nums">
+                            <span className="kpi-value font-heading font-bold text-3xl sm:text-4xl text-white mb-1 tabular-nums relative block">
                                 0{item.suffix}
+                                <span className="kpi-accent absolute -bottom-1 left-0 w-full h-[2px] bg-[#60a5fa] origin-left scale-x-0 opacity-0" />
                             </span>
                             <span className="kpi-label font-body font-medium text-[10px] sm:text-xs tracking-widest text-white/50 uppercase">
                                 {language === "ar" ? item.label.ar : item.label.en}

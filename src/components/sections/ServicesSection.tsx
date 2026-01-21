@@ -166,8 +166,8 @@ export function ServicesSection() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="services-header text-center mb-16 opacity-0">
-          <div className="accent-line mx-auto mb-8" />
-          <span className="block text-xs font-semibold text-muted-foreground uppercase tracking-[0.2em] mb-4">
+          <div className="accent-line mx-auto mb-8 bg-[#60a5fa]" style={{ width: '3rem', height: '1px' }} />
+          <span className="block text-xs font-semibold text-[#60a5fa]/80 uppercase tracking-[0.2em] mb-4">
             {t.eyebrow}
           </span>
           <h2 className="font-heading text-3xl lg:text-4xl font-semibold text-foreground tracking-tight mb-6">
@@ -184,20 +184,20 @@ export function ServicesSection() {
             <div key={service.id} className="service-card opacity-0">
               <Link
                 to={`/services/${service.id}`}
-                className="group block h-full bg-white p-8 lg:p-10 rounded-xl border border-gray-200 border-t-2 border-t-transparent shadow-sm cursor-pointer transition-all duration-300 ease-executive hover:shadow-xl hover:border-gray-300 hover:border-t-primary hover:-translate-y-1 relative overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                className="group block h-full bg-white p-8 lg:p-10 rounded-xl border border-gray-200 border-t-2 border-t-transparent shadow-sm cursor-pointer transition-all duration-300 ease-executive hover:shadow-xl hover:border-gray-300 hover:border-t-[#60a5fa] hover:-translate-y-1 relative overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#60a5fa] focus-visible:ring-offset-2"
               >
                 <div className="flex flex-col h-full items-start text-left transition-all duration-300 ease-executive">
                   {/* Icon */}
-                  <div className="w-14 h-14 bg-gray-50 border border-gray-100 rounded-lg flex items-center justify-center mb-6 group-hover:bg-primary/5 group-hover:scale-105 group-hover:border-primary/10 transition-all duration-300 ease-executive">
+                  <div className="w-14 h-14 bg-gray-50 border border-gray-100 rounded-lg flex items-center justify-center mb-6 group-hover:bg-[#60a5fa]/5 group-hover:scale-105 group-hover:border-[#60a5fa]/10 transition-all duration-300 ease-executive">
                     <service.icon
-                      className="text-gray-500 group-hover:text-primary transition-colors duration-300 ease-executive"
+                      className="text-gray-500 group-hover:text-[#60a5fa] transition-colors duration-300 ease-executive"
                       size={24}
                       strokeWidth={1.5}
                     />
                   </div>
 
                   {/* Title */}
-                  <h3 className="font-heading text-base lg:text-lg font-semibold text-gray-900 mb-2 group-hover:text-primary transition-colors duration-300 leading-tight">
+                  <h3 className="font-heading text-base lg:text-lg font-semibold text-gray-900 mb-2 group-hover:text-[#60a5fa] transition-colors duration-300 leading-tight">
                     {service.title}
                   </h3>
 
@@ -212,10 +212,10 @@ export function ServicesSection() {
                   </p>
 
                   {/* Service-Specific CTA */}
-                  <div className="mt-auto flex items-center text-sm font-medium text-gray-500 group-hover:text-primary transition-colors duration-200 ease-executive">
+                  <div className="mt-auto flex items-center text-sm font-medium text-gray-500 group-hover:text-[#60a5fa] transition-colors duration-200 ease-executive">
                     <span className="relative inline-block">
                       {service.cta}
-                      <span className="absolute bottom-0 left-0 w-full h-[1px] bg-primary scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-200 ease-executive" />
+                      <span className="absolute bottom-0 left-0 w-full h-[1px] bg-[#60a5fa] scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-200 ease-executive" />
                     </span>
                     <ArrowRight
                       className="ml-2 w-4 h-4 transition-transform duration-200 ease-executive group-hover:translate-x-1 rtl:rotate-180 rtl:mr-2 rtl:ml-0 rtl:group-hover:-translate-x-1"
@@ -235,7 +235,7 @@ export function ServicesSection() {
           </p>
           <Link
             to="/contact"
-            className="inline-flex items-center justify-center px-8 py-3 rounded-md text-sm font-semibold transition-all duration-300 ease-executive group border border-black/20 bg-white text-slate-900 hover:bg-primary hover:text-white hover:border-primary"
+            className="inline-flex items-center justify-center px-8 py-3 rounded-md text-sm font-semibold transition-all duration-300 ease-executive group border border-black/20 bg-white text-slate-900 hover:bg-[#60a5fa] hover:text-white hover:border-[#60a5fa]"
           >
             <span>{t.sectionCta.button}</span>
             <ArrowRight
