@@ -129,7 +129,7 @@
 
 @media (min-width: 1024px) {
   :root {
-    --header-height: 88px;
+    --header-height: 100px;
   }
 }
 

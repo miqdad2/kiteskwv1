@@ -117,9 +117,46 @@ export function EcosystemNav() {
         });
     };
 
+    const [dimensions, setDimensions] = useState({ radius: 195, centerSize: 120, nodeSize: 120, iconSize: 24 });
+
+    useLayoutEffect(() => {
+        const updateDimensions = () => {
+            const width = window.innerWidth;
+            if (width < 768) {
+                // Mobile
+                setDimensions({
+                    radius: 120,
+                    centerSize: 90,
+                    nodeSize: 80,
+                    iconSize: 20
+                });
+            } else if (width < 1024) {
+                // Tablet
+                setDimensions({
+                    radius: 150,
+                    centerSize: 100,
+                    nodeSize: 90,
+                    iconSize: 22
+                });
+            } else {
+                // Desktop
+                setDimensions({
+                    radius: mode === 'capabilities' ? 195 : 225,
+                    centerSize: 120,
+                    nodeSize: 120,
+                    iconSize: 24
+                });
+            }
+        };
+
+        updateDimensions();
+        window.addEventListener('resize', updateDimensions);
+        return () => window.removeEventListener('resize', updateDimensions);
+    }, [mode]);
+
     // Derived active items
     const activeItems = mode === 'capabilities' ? services : industries;
-    const radius = mode === 'capabilities' ? 195 : 225;  // Increased from 180/210 for better spacing
+    const { radius, centerSize, nodeSize, iconSize } = dimensions;
 
     // ONE-TIME Entrance Animation + Continuous Rotation
     useLayoutEffect(() => {
@@ -277,7 +314,7 @@ export function EcosystemNav() {
             ref={containerRef}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
-            className="relative w-full h-[600px] flex items-center justify-center select-none eco-entrance"
+            className="relative w-full h-[400px] md:h-[500px] lg:h-[600px] flex items-center justify-center select-none eco-entrance"
         >
 
             {/* Background Rings - Parallax Layer + Slow Rotation */}
@@ -304,17 +341,18 @@ export function EcosystemNav() {
                 onMouseDown={handleCenterDown}
                 onMouseUp={handleCenterUp}
                 className={cn(
-                    "eco-center eco-entrance relative z-20 w-[120px] h-[120px] rounded-full flex flex-col items-center justify-center",
+                    "eco-center eco-entrance relative z-20 rounded-full flex flex-col items-center justify-center",
                     "bg-white/[0.05] backdrop-blur-sm border border-white/30",
-                    "transition-colors duration-300",
+                    "transition-all duration-300",
                     "cursor-pointer group"
                 )}
+                style={{ width: centerSize, height: centerSize }}
             >
-                <Globe className="w-8 h-8 text-white/90 mb-2 transition-transform duration-300" strokeWidth={1.5} />
-                <span className="text-[11px] uppercase tracking-widest text-white/70 font-medium group-hover:text-white transition-colors duration-300">
+                <Globe className="text-white/90 mb-2 transition-transform duration-300" strokeWidth={1.5} style={{ width: iconSize + 8, height: iconSize + 8 }} />
+                <span className="text-[10px] md:text-[11px] uppercase tracking-widest text-white/70 font-medium group-hover:text-white transition-colors duration-300">
                     {mode === 'capabilities' ? 'Our Services' : 'Explore Industries'}
                 </span>
-                <span className="absolute -bottom-8 text-[10px] text-white/50 tracking-widest uppercase transition-opacity duration-300 flex items-center gap-1 group-hover:text-white/80">
+                <span className="absolute -bottom-6 md:-bottom-8 text-[9px] md:text-[10px] text-white/50 tracking-widest uppercase transition-opacity duration-300 flex items-center gap-1 group-hover:text-white/80">
                     {mode === 'capabilities' ? 'Explore Our Services' : 'Start a Conversation'}
                     <span className="eco-arrow inline-block text-[10px] transition-colors duration-300">→</span>
                 </span>
@@ -344,8 +382,8 @@ export function EcosystemNav() {
                             onClick={(e) => handleNodeClick(e, item.path, index)}
                             className={cn(
                                 "eco-node absolute",
-                                "w-[120px] h-[120px] rounded-full",
-                                "flex flex-col items-center justify-center text-center p-3",
+                                "rounded-full",
+                                "flex flex-col items-center justify-center text-center p-2 md:p-3",
                                 "bg-white/[0.05] border border-white/20 backdrop-blur-sm pointer-events-auto group",
                                 // "transition-all duration-200 ease-out", // Removiing CSS transition to let GSAP handle it fully to avoid conflict
                                 "cursor-pointer"
@@ -354,15 +392,17 @@ export function EcosystemNav() {
                                 // Freeing up 'transform' for GSAP
                                 left: `calc(50% + ${x}px)`,
                                 top: `calc(50% + ${y}px)`,
-                                marginLeft: '-60px',
-                                marginTop: '-60px'
+                                marginLeft: -nodeSize / 2, // Dynamic margin
+                                marginTop: -nodeSize / 2, // Dynamic margin
+                                width: nodeSize,
+                                height: nodeSize
                             }}
                         >
-                            <item.icon className="w-6 h-6 text-white/80 mb-2 pointer-events-none" strokeWidth={1.5} />
-                            <span className="text-[10px] leading-relaxed text-white/70 font-medium uppercase tracking-wide pointer-events-none max-w-[90px]">
+                            <item.icon className="text-white/80 mb-1 lg:mb-2 pointer-events-none" strokeWidth={1.5} style={{ width: iconSize, height: iconSize }} />
+                            <span className="text-[9px] md:text-[10px] leading-relaxed text-white/70 font-medium uppercase tracking-wide pointer-events-none max-w-[90px]">
                                 {item.label}
                             </span>
-                            <span className="absolute -bottom-5 text-[9px] text-white/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 tracking-widest uppercase pointer-events-none whitespace-nowrap">
+                            <span className="absolute -bottom-5 text-[8px] md:text-[9px] text-white/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 tracking-widest uppercase pointer-events-none whitespace-nowrap">
                                 {mode === 'capabilities' ? 'View Page' : 'Speak with our experts'}
                             </span>
                         </Link>

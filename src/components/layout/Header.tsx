@@ -96,22 +96,28 @@ export function Header() {
           "fixed top-0 inset-x-0 z-50 transition-all duration-300 ease-in-out h-[var(--header-height)] flex items-center",
           shouldShowSolidHeader
             ? "bg-[#0B0F14]/95 backdrop-blur-md shadow-md border-b border-white/10"
-            : "bg-transparent backdrop-blur-sm border-b border-transparent"
+            : "bg-transparent backdrop-blur-sm border-b border-white/15"
         )}
         onMouseLeave={() => setHoveredNav(null)}
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 h-full">
           <div className="flex items-center justify-between h-full transition-all duration-300">
             {/* Logo */}
-            <Link to="/" className="flex items-center shrink-0 group gap-[14px]">
+            <Link to="/" className="flex items-center shrink-0 group gap-1 lg:gap-[8px]">
               <img
                 src={kitesLogo}
                 alt="KITES - Kuwait Institute for Training & Engineering Simulations"
-                className="h-[42px] lg:h-[52px] w-auto transition-transform duration-300 group-hover:scale-105"
+                className="h-[60px] lg:h-[84px] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
               />
-              <span className="font-heading font-bold text-[20px] lg:text-[24px] text-white tracking-[0.08em] uppercase drop-shadow-sm">
-                KITES
-              </span>
+              {/* Full Text - Responsive Sizing & Weight */}
+              <div className="flex flex-col items-start leading-[1.1] group-hover:opacity-100 transition-opacity">
+                <span className="font-heading font-bold text-[11px] md:text-[13px] lg:text-[15px] text-white tracking-normal uppercase drop-shadow-sm whitespace-nowrap">
+                  Kuwait Institute for Training
+                </span>
+                <span className="font-heading font-bold text-[11px] md:text-[13px] lg:text-[15px] text-white tracking-normal uppercase drop-shadow-sm whitespace-nowrap">
+                  and Engineering Simulations
+                </span>
+              </div>
             </Link>
 
             {/* Desktop Navigation */}
@@ -216,7 +222,7 @@ export function Header() {
               <img
                 src={kitesLogo}
                 alt="KITES"
-                className="h-[42px] w-auto"
+                className="h-[48px] w-auto"
               />
               <span className="font-heading font-bold text-[20px] text-white tracking-[0.08em] uppercase">
                 KITES

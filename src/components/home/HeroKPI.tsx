@@ -122,10 +122,10 @@ export function HeroKPI({ startDelay = 0 }: HeroKPIProps) {
     return (
         <div
             ref={containerRef}
-            className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 lg:mt-24 pointer-events-auto"
+            className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 lg:mt-24 pointer-events-auto"
         >
-            <div className="w-full p-8 border border-[rgba(255,255,255,0.22)] rounded-[10px] shadow-[0_0_0_1px_rgba(255,255,255,0.08)]">
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 relative z-20">
+            <div className="w-full p-5 lg:p-8 border border-[rgba(255,255,255,0.22)] rounded-[10px] shadow-[0_0_0_1px_rgba(255,255,255,0.08)]">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-12 relative z-20">
                     {kpiData.map((item, index) => (
                         <div
                             key={item.id}

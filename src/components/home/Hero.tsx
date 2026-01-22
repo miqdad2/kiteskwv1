@@ -85,17 +85,20 @@ export function Hero() {
             className="relative min-h-[100dvh] pt-[var(--header-height)] bg-gradient-to-b from-[#0B0F14] via-[#0E141B] to-[#0B0F14] overflow-hidden flex flex-col justify-center z-10"
         >
 
-            {/* 0. LAYER: Background Video - Z-0 (Hidden on mobile) */}
+            {/* 0. LAYER: Background Video - Z-0 (Responsive) */}
             <video
                 autoPlay
                 muted
                 loop
                 playsInline
                 preload="metadata"
-                className="absolute inset-0 w-full h-full object-cover z-0 hidden md:block"
+                className="absolute inset-0 w-full h-full object-cover z-0"
             >
                 <source src="/videos/website_final_video.webm" type="video/webm" />
             </video>
+
+            {/* 0.5 LAYER: Mobile Video Overlay - Z-1 (Readability) */}
+            <div className="absolute inset-0 z-1 bg-black/40 md:bg-transparent pointer-events-none" />
 
             {/* 1. LAYER: Background Noise - Z-2 */}
             <div className="absolute inset-0 pointer-events-none z-2 opacity-[0.03]"
@@ -127,14 +130,14 @@ export function Hero() {
 
                     {/* Main Content Column */}
                     <div className={cn(
-                        "lg:col-span-8 flex flex-col justify-center relative z-20", // Kept 8 for safety, EcoNav takes remaining space overlay or grid
+                        "lg:col-span-8 flex flex-col justify-center relative z-20 mt-10 lg:mt-0", // Added mt-10 for mobile spacing
                         "max-lg:text-center max-lg:items-center"
                     )}>
 
                         {/* Headline Block */}
-                        <div className="mb-8">
+                        <div className="mb-6 lg:mb-8">
                             {/* Primary Headline */}
-                            <h1 className="hero-element font-heading font-bold text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.9] tracking-tighter text-white mb-6"
+                            <h1 className="hero-element font-heading font-bold text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.9] tracking-tighter text-white mb-4 lg:mb-6"
                                 style={{
                                     textRendering: 'geometricPrecision',
                                     WebkitFontSmoothing: 'antialiased',
@@ -148,7 +151,7 @@ export function Hero() {
                             </p>
 
                             {/* CTAs */}
-                            <div className="hero-element flex flex-col sm:flex-row items-center gap-4 sm:gap-6 w-full sm:w-auto">
+                            <div className="hero-element flex flex-col sm:flex-row items-center gap-5 sm:gap-6 w-full sm:w-auto">
                                 {/* Primary CTA */}
                                 <Link to="/contact" className="w-full sm:w-auto">
                                     <button
@@ -163,7 +166,7 @@ export function Hero() {
                                         }}
                                         onMouseDown={() => gsap.to(primaryBtnRef.current, { y: 0, scale: 0.98, duration: 0.12, ease: "cubic-bezier(0.4, 0, 0.2, 1)" })}
                                         onMouseUp={() => gsap.to(primaryBtnRef.current, { scale: 1, duration: 0.14, ease: "cubic-bezier(0.4, 0, 0.2, 1)" })}
-                                        className="relative w-full sm:min-w-[180px] h-12 px-6 bg-transparent border border-white/30 text-white hover:bg-white hover:text-black hover:border-[#2563eb] transition-colors duration-[240ms] ease-[cubic-bezier(0.4,0,0.2,1)] flex items-center justify-center rounded-sm text-sm font-medium tracking-wide"
+                                        className="relative w-full sm:w-auto sm:min-w-[180px] h-14 sm:h-12 px-6 bg-transparent border border-white/30 text-white hover:bg-white hover:text-black hover:border-[#2563eb] transition-colors duration-[240ms] ease-[cubic-bezier(0.4,0,0.2,1)] flex items-center justify-center rounded-sm text-sm font-medium tracking-wide"
                                     >
                                         <span>{content.ctaPrimary}</span>
                                         <ArrowRight
@@ -187,9 +190,20 @@ export function Hero() {
                                         gsap.to(secondaryTextRef.current, { x: 0, duration: 0.18, ease: "cubic-bezier(0.4, 0, 0.2, 1)" });
                                         gsap.to(secondaryLineRef.current, { scaleX: 0, duration: 0.22, ease: "cubic-bezier(0.4, 0, 0.2, 1)" });
                                     }}
-                                    className="group/secondary relative inline-flex items-center text-sm font-normal text-white/70 hover:text-white transition-colors duration-300"
+                                    onMouseDown={() => {
+                                        // Mobile Tap Feedback: Underline expands
+                                        gsap.to(secondaryLineRef.current, { scaleX: 1, duration: 0.15, ease: "power2.out" });
+                                    }}
+                                    onMouseUp={() => {
+                                        gsap.to(secondaryLineRef.current, { scaleX: 0, delay: 0.1, duration: 0.2, ease: "power2.out" });
+                                    }}
+                                    className="group/secondary relative inline-flex items-center justify-center w-full sm:w-auto text-sm font-normal text-white/70 hover:text-white transition-colors duration-300"
                                 >
-                                    <span ref={secondaryTextRef} className="inline-block">{content.ctaSecondary}</span>
+                                    <span ref={secondaryTextRef} className="inline-block relative">
+                                        {content.ctaSecondary}
+                                        {/* Mobile: Default semi-visible underline for affordance */}
+                                        <span className="lg:hidden absolute bottom-[-2px] left-0 w-full h-px bg-white/20" />
+                                    </span>
                                     <span
                                         ref={secondaryLineRef}
                                         className="absolute bottom-[-2px] left-0 w-full h-px bg-white/60 origin-left scale-x-0" // CSS handles refined defaults, GSAP handles scale
@@ -201,14 +215,14 @@ export function Hero() {
                     </div>
 
                     {/* Ecosystem Navigation Column */}
-                    <div className="hidden lg:flex lg:col-span-4 lg:col-start-9 justify-center items-center h-full min-h-[400px] animate-fade-in" style={{ animationDelay: '200ms' }}>
+                    <div className="flex lg:col-span-4 lg:col-start-9 justify-center items-center h-full min-h-[350px] lg:min-h-[400px] animate-fade-in order-last lg:order-none w-full" style={{ animationDelay: '200ms' }}>
                         <EcosystemNav />
                     </div>
                 </div>
 
                 {/* KPI Strip */}
                 {/* Constraint: Stats container independent from hero text animations (removed hero-element class) */}
-                <div className="relative z-20 mt-12 lg:mt-16 pt-8">
+                <div className="relative z-20 mt-4 lg:mt-12 pt-4 lg:pt-8 w-full">
                     <HeroKPI startDelay={100} />
                 </div>
 
