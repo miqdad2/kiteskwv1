@@ -40,6 +40,14 @@ export function Hero() {
                 }
             );
 
+            // Secondary CTA: Fade in after primary with delay (Mobile hierarchy)
+            if (secondaryLinkRef.current) {
+                gsap.fromTo(secondaryLinkRef.current,
+                    { autoAlpha: 0, y: 8 },
+                    { autoAlpha: 1, y: 0, duration: 0.7, delay: 1.2, ease: "cubic-bezier(0.4, 0, 0.2, 1)" }
+                );
+            }
+
             // Flow field fade in separately
             gsap.fromTo(".flow-field-bg",
                 { opacity: 0 },
@@ -128,9 +136,11 @@ export function Hero() {
                     isRTL ? "text-right" : "text-left"
                 )}>
 
-                    {/* Main Content Column */}
+                    {/* Main Content Column - Full viewport on mobile */}
                     <div className={cn(
-                        "lg:col-span-8 flex flex-col justify-center relative z-20 mt-10 lg:mt-0", // Added mt-10 for mobile spacing
+                        "lg:col-span-8 flex flex-col justify-center relative z-20",
+                        "min-h-[calc(100vh-var(--header-height))] md:min-h-0", // Full viewport on mobile only
+                        "mt-8 md:mt-0", // Small top spacing for mobile
                         "max-lg:text-center max-lg:items-center"
                     )}>
 
@@ -151,7 +161,7 @@ export function Hero() {
                             </p>
 
                             {/* CTAs */}
-                            <div className="hero-element flex flex-col sm:flex-row items-center gap-5 sm:gap-6 w-full sm:w-auto">
+                            <div className="hero-element flex flex-col sm:flex-row items-center gap-7 sm:gap-6 w-full sm:w-auto">
                                 {/* Primary CTA */}
                                 <Link to="/contact" className="w-full sm:w-auto">
                                     <button
@@ -166,7 +176,16 @@ export function Hero() {
                                         }}
                                         onMouseDown={() => gsap.to(primaryBtnRef.current, { y: 0, scale: 0.98, duration: 0.12, ease: "cubic-bezier(0.4, 0, 0.2, 1)" })}
                                         onMouseUp={() => gsap.to(primaryBtnRef.current, { scale: 1, duration: 0.14, ease: "cubic-bezier(0.4, 0, 0.2, 1)" })}
-                                        className="relative w-full sm:w-auto sm:min-w-[180px] h-14 sm:h-12 px-6 bg-transparent border border-white/30 text-white hover:bg-white hover:text-black hover:border-[#2563eb] transition-colors duration-[240ms] ease-[cubic-bezier(0.4,0,0.2,1)] flex items-center justify-center rounded-sm text-sm font-medium tracking-wide"
+                                        onTouchStart={() => {
+                                            // Mobile: Tap feedback
+                                            gsap.to(primaryBtnRef.current, { scale: 0.98, duration: 0.12, ease: "cubic-bezier(0.4, 0, 0.2, 1)" });
+                                            gsap.to(primaryArrowRef.current, { x: 6, duration: 0.15, ease: "cubic-bezier(0.4, 0, 0.2, 1)" });
+                                        }}
+                                        onTouchEnd={() => {
+                                            gsap.to(primaryBtnRef.current, { scale: 1, duration: 0.16, ease: "cubic-bezier(0.4, 0, 0.2, 1)" });
+                                            gsap.to(primaryArrowRef.current, { x: 0, duration: 0.18, ease: "cubic-bezier(0.4, 0, 0.2, 1)" });
+                                        }}
+                                        className="relative w-full sm:w-auto sm:min-w-[180px] h-[56px] sm:h-12 px-6 bg-transparent border border-white/30 text-white hover:bg-white hover:text-black hover:border-[#2563eb] transition-colors duration-[240ms] ease-[cubic-bezier(0.4,0,0.2,1)] flex items-center justify-center rounded-sm text-sm font-medium tracking-wide"
                                     >
                                         <span>{content.ctaPrimary}</span>
                                         <ArrowRight
@@ -190,23 +209,23 @@ export function Hero() {
                                         gsap.to(secondaryTextRef.current, { x: 0, duration: 0.18, ease: "cubic-bezier(0.4, 0, 0.2, 1)" });
                                         gsap.to(secondaryLineRef.current, { scaleX: 0, duration: 0.22, ease: "cubic-bezier(0.4, 0, 0.2, 1)" });
                                     }}
-                                    onMouseDown={() => {
+                                    onTouchStart={() => {
                                         // Mobile Tap Feedback: Underline expands
-                                        gsap.to(secondaryLineRef.current, { scaleX: 1, duration: 0.15, ease: "power2.out" });
+                                        gsap.to(secondaryLineRef.current, { scaleX: 1, duration: 0.18, ease: "cubic-bezier(0.4, 0, 0.2, 1)" });
                                     }}
-                                    onMouseUp={() => {
-                                        gsap.to(secondaryLineRef.current, { scaleX: 0, delay: 0.1, duration: 0.2, ease: "power2.out" });
+                                    onTouchEnd={() => {
+                                        gsap.to(secondaryLineRef.current, { scaleX: 0, delay: 0.15, duration: 0.22, ease: "cubic-bezier(0.4, 0, 0.2, 1)" });
                                     }}
-                                    className="group/secondary relative inline-flex items-center justify-center w-full sm:w-auto text-sm font-normal text-white/70 hover:text-white transition-colors duration-300"
+                                    className="group/secondary relative inline-flex items-center justify-center w-full sm:w-auto text-xs sm:text-sm font-light text-white/50 hover:text-white transition-colors duration-300"
                                 >
                                     <span ref={secondaryTextRef} className="inline-block relative">
                                         {content.ctaSecondary}
-                                        {/* Mobile: Default semi-visible underline for affordance */}
-                                        <span className="lg:hidden absolute bottom-[-2px] left-0 w-full h-px bg-white/20" />
+                                        {/* Mobile: Subtle default underline for affordance */}
+                                        <span className="md:hidden absolute bottom-[-2px] left-0 w-full h-px bg-white/20" />
                                     </span>
                                     <span
                                         ref={secondaryLineRef}
-                                        className="absolute bottom-[-2px] left-0 w-full h-px bg-white/60 origin-left scale-x-0" // CSS handles refined defaults, GSAP handles scale
+                                        className="absolute bottom-[-2px] left-0 w-full h-px bg-white/60 origin-left scale-x-0" // GSAP controls scale
                                     />
                                 </Link>
                             </div>
@@ -214,15 +233,23 @@ export function Hero() {
 
                     </div>
 
-                    {/* Ecosystem Navigation Column */}
-                    <div className="flex lg:col-span-4 lg:col-start-9 justify-center items-center h-full min-h-[350px] lg:min-h-[400px] animate-fade-in order-last lg:order-none w-full" style={{ animationDelay: '200ms' }}>
+                    {/* Ecosystem Navigation Column - Desktop position */}
+                    <div className="hidden lg:flex lg:col-span-4 lg:col-start-9 justify-center items-center h-full min-h-[400px] animate-fade-in" style={{ animationDelay: '200ms' }}>
                         <EcosystemNav />
                     </div>
                 </div>
 
+                {/* Mobile Ecosystem Navigation - Separate section below hero */}
+                <div className="lg:hidden relative z-20 mt-20 pt-12 w-full">
+                    {/* Subtle fade separator */}
+                    <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+
+                    <EcosystemNav />
+                </div>
+
                 {/* KPI Strip */}
                 {/* Constraint: Stats container independent from hero text animations (removed hero-element class) */}
-                <div className="relative z-20 mt-4 lg:mt-12 pt-4 lg:pt-8 w-full">
+                <div className="relative z-20 mt-8 lg:mt-12 pt-4 lg:pt-8 w-full">
                     <HeroKPI startDelay={100} />
                 </div>
 

@@ -47,8 +47,33 @@ export function EcosystemNav() {
     const nodesRef = useRef<(HTMLAnchorElement | null)[]>([]);
     const navigate = useNavigate();
 
-    // Switch handler / Contact Handler
+    // Mobile: Track expansion state
+    const [isExpanded, setIsExpanded] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
+
+    // Detect mobile on mount and resize
+    useLayoutEffect(() => {
+        const checkMobile = () => {
+            const mobile = window.innerWidth < 768;
+            setIsMobile(mobile);
+            // Auto-expand on desktop, collapse on mobile
+            if (!mobile) setIsExpanded(true);
+            else setIsExpanded(false);
+        };
+
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
+    // Switch handler / Contact Handler / Mobile Expand Handler
     const handleCenterClick = () => {
+        // Mobile: First click expands, subsequent clicks switch mode
+        if (isMobile && !isExpanded) {
+            setIsExpanded(true);
+            return;
+        }
+
         if (mode === 'industries') {
             navigate('/contact');
             return;
@@ -184,22 +209,37 @@ export function EcosystemNav() {
         return () => ctx.revert();
     }, []);
 
-    // Mode Switch Animation
+    // Mode Switch Animation + Mobile Expansion Animation
     useLayoutEffect(() => {
         const ctx = gsap.context(() => {
-            gsap.fromTo(".eco-node",
-                { opacity: 0, scale: 0.95 },
-                {
-                    opacity: 1,
-                    scale: 1,
-                    duration: 0.3,
-                    stagger: 0.04,
-                    ease: "power2.out"
-                }
-            );
+            // Mobile: Animate nodes in when expanded
+            if (isMobile && isExpanded) {
+                gsap.fromTo(".eco-node",
+                    { opacity: 0, scale: 0.9 },
+                    {
+                        opacity: 1,
+                        scale: 1,
+                        duration: 0.5,
+                        stagger: 0.04,
+                        ease: "cubic-bezier(0.4, 0, 0.2, 1)"
+                    }
+                );
+            } else if (!isMobile) {
+                // Desktop: Standard mode switch animation
+                gsap.fromTo(".eco-node",
+                    { opacity: 0, scale: 0.95 },
+                    {
+                        opacity: 1,
+                        scale: 1,
+                        duration: 0.3,
+                        stagger: 0.04,
+                        ease: "power2.out"
+                    }
+                );
+            }
         }, containerRef);
         return () => ctx.revert();
-    }, [mode]);
+    }, [mode, isExpanded, isMobile]);
 
     // Parallax & Interactivity Handler
     const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
@@ -353,62 +393,64 @@ export function EcosystemNav() {
                     {mode === 'capabilities' ? 'Our Services' : 'Explore Industries'}
                 </span>
                 <span className="absolute -bottom-6 md:-bottom-8 text-[9px] md:text-[10px] text-white/50 tracking-widest uppercase transition-opacity duration-300 flex items-center gap-1 group-hover:text-white/80">
-                    {mode === 'capabilities' ? 'Explore Our Services' : 'Start a Conversation'}
+                    {isMobile && !isExpanded ? 'Tap to Explore' : mode === 'capabilities' ? 'Explore Our Services' : 'Start a Conversation'}
                     <span className="eco-arrow inline-block text-[10px] transition-colors duration-300">→</span>
                 </span>
             </button>
 
             {/* Satellite Nodes */}
-            <div className="absolute inset-0 pointer-events-none">
-                {activeItems.map((item, index) => {
-                    const total = activeItems.length;
-                    const angle = (index * (360 / total)) - 90; // Start from top
-                    const radian = (angle * Math.PI) / 180;
-                    const x = Math.cos(radian) * radius;
-                    const y = Math.sin(radian) * radius;
+            {(!isMobile || isExpanded) && (
+                <div className="absolute inset-0 pointer-events-none">
+                    {activeItems.map((item, index) => {
+                        const total = activeItems.length;
+                        const angle = (index * (360 / total)) - 90; // Start from top
+                        const radian = (angle * Math.PI) / 180;
+                        const x = Math.cos(radian) * radius;
+                        const y = Math.sin(radian) * radius;
 
-                    // Compute percentage based offset for transform-free positioning
-                    // Center is 50%, radius is px. 
-                    // To leave transform free for GSAP, we use left/top + margin to position.
-                    // x,y are relative to center (0,0).
+                        // Compute percentage based offset for transform-free positioning
+                        // Center is 50%, radius is px. 
+                        // To leave transform free for GSAP, we use left/top + margin to position.
+                        // x,y are relative to center (0,0).
 
-                    return (
-                        <Link
-                            key={item.id}
-                            ref={el => nodesRef.current[index] = el}
-                            to={item.path}
-                            onMouseEnter={(e) => handleNodeHover(e, index)}
-                            onMouseLeave={handleNodeLeave}
-                            onClick={(e) => handleNodeClick(e, item.path, index)}
-                            className={cn(
-                                "eco-node absolute",
-                                "rounded-full",
-                                "flex flex-col items-center justify-center text-center p-2 md:p-3",
-                                "bg-white/[0.05] border border-white/20 backdrop-blur-sm pointer-events-auto group",
-                                // "transition-all duration-200 ease-out", // Removiing CSS transition to let GSAP handle it fully to avoid conflict
-                                "cursor-pointer"
-                            )}
-                            style={{
-                                // Freeing up 'transform' for GSAP
-                                left: `calc(50% + ${x}px)`,
-                                top: `calc(50% + ${y}px)`,
-                                marginLeft: -nodeSize / 2, // Dynamic margin
-                                marginTop: -nodeSize / 2, // Dynamic margin
-                                width: nodeSize,
-                                height: nodeSize
-                            }}
-                        >
-                            <item.icon className="text-white/80 mb-1 lg:mb-2 pointer-events-none" strokeWidth={1.5} style={{ width: iconSize, height: iconSize }} />
-                            <span className="text-[9px] md:text-[10px] leading-relaxed text-white/70 font-medium uppercase tracking-wide pointer-events-none max-w-[90px]">
-                                {item.label}
-                            </span>
-                            <span className="absolute -bottom-5 text-[8px] md:text-[9px] text-white/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 tracking-widest uppercase pointer-events-none whitespace-nowrap">
-                                {mode === 'capabilities' ? 'View Page' : 'Speak with our experts'}
-                            </span>
-                        </Link>
-                    );
-                })}
-            </div>
+                        return (
+                            <Link
+                                key={item.id}
+                                ref={el => nodesRef.current[index] = el}
+                                to={item.path}
+                                onMouseEnter={(e) => handleNodeHover(e, index)}
+                                onMouseLeave={handleNodeLeave}
+                                onClick={(e) => handleNodeClick(e, item.path, index)}
+                                className={cn(
+                                    "eco-node absolute",
+                                    "rounded-full",
+                                    "flex flex-col items-center justify-center text-center p-2 md:p-3",
+                                    "bg-white/[0.05] border border-white/20 backdrop-blur-sm pointer-events-auto group",
+                                    // "transition-all duration-200 ease-out", // Removiing CSS transition to let GSAP handle it fully to avoid conflict
+                                    "cursor-pointer"
+                                )}
+                                style={{
+                                    // Freeing up 'transform' for GSAP
+                                    left: `calc(50% + ${x}px)`,
+                                    top: `calc(50% + ${y}px)`,
+                                    marginLeft: -nodeSize / 2, // Dynamic margin
+                                    marginTop: -nodeSize / 2, // Dynamic margin
+                                    width: nodeSize,
+                                    height: nodeSize
+                                }}
+                            >
+                                <item.icon className="text-white/80 mb-1 lg:mb-2 pointer-events-none" strokeWidth={1.5} style={{ width: iconSize, height: iconSize }} />
+                                <span className="text-[9px] md:text-[10px] leading-relaxed text-white/70 font-medium uppercase tracking-wide pointer-events-none max-w-[90px]">
+                                    {item.label}
+                                </span>
+                                <span className="absolute -bottom-5 text-[8px] md:text-[9px] text-white/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 tracking-widest uppercase pointer-events-none whitespace-nowrap">
+                                    {mode === 'capabilities' ? 'View Page' : 'Speak with our experts'}
+                                </span>
+                            </Link>
+                        );
+                    })}
+                </div>
+            )}
 
         </div>
     );
