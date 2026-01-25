@@ -2,8 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useContent } from "@/hooks/useContent";
 import { SEO } from "@/components/common/SEO";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
+import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Check, ArrowLeft } from "lucide-react";
 import { getPartnerById } from "@/data/partners";
@@ -41,8 +40,7 @@ export default function PartnerDetail() {
   // Partner not found in data
   if (!partner) {
     return (
-      <div className="min-h-screen bg-background">
-        <Header />
+      <Layout>
         <div className="pt-32 pb-16 lg:pt-40 lg:pb-24">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 className="font-heading text-2xl text-foreground mb-4">
@@ -56,16 +54,14 @@ export default function PartnerDetail() {
             </Link>
           </div>
         </div>
-        <Footer />
-      </div>
+      </Layout>
     );
   }
 
   // Partner exists but content missing - show fallback
   if (!partnerContent) {
     return (
-      <div className="min-h-screen bg-background">
-        <Header />
+      <Layout>
         <div className="pt-32 pb-16 lg:pt-40 lg:pb-24">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 className="font-heading text-2xl text-foreground mb-4">
@@ -84,19 +80,17 @@ export default function PartnerDetail() {
             </Link>
           </div>
         </div>
-        <Footer />
-      </div>
+      </Layout>
     );
   }
 
   return (
     <>
       <SEO page="partners" partnerId={partnerId} />
-      <div className="min-h-screen bg-background">
-        <Header />
+      <Layout>
 
         {/* Partner Hero */}
-        <section className="pt-24 pb-10 sm:pt-32 sm:pb-16 lg:pt-40 lg:pb-24 bg-secondary/30">
+        <section className="pt-32 pb-10 sm:pt-32 sm:pb-16 lg:pt-40 lg:pb-24 bg-secondary/30">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             {/* Back Link */}
             <Link
@@ -129,7 +123,7 @@ export default function PartnerDetail() {
               <h2 className="font-heading text-xl sm:text-2xl lg:text-3xl font-semibold text-foreground mb-4 sm:mb-6 tracking-tight">
                 {allContent.pageLabels.aboutTitle} {partnerContent.name}
               </h2>
-              <p className="font-body text-base sm:text-lg text-muted-foreground leading-relaxed">
+              <p className="font-body text-base sm:text-lg text-muted-foreground">
                 {partnerContent.about}
               </p>
             </div>
@@ -165,7 +159,7 @@ export default function PartnerDetail() {
               <h2 className="font-heading text-2xl lg:text-3xl font-semibold text-foreground mb-6 tracking-tight">
                 {allContent.pageLabels.supportTitle}
               </h2>
-              <p className="font-body text-lg text-muted-foreground leading-relaxed">
+              <p className="font-body text-lg text-muted-foreground">
                 {partnerContent.support}
               </p>
             </div>
@@ -204,8 +198,7 @@ export default function PartnerDetail() {
           </div>
         </section>
 
-        <Footer />
-      </div>
+      </Layout>
     </>
   );
 }

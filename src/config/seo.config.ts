@@ -59,6 +59,19 @@ export const seoConfig: Record<string, { en: PageSEO; ar: PageSEO }> = {
         },
     },
 
+    training: {
+        en: {
+            title: 'Professional Engineering Training Programs',
+            description: 'Industry-aligned, simulation-driven training programs designed to upskill engineers, students, and organizations across the GCC region.',
+            keywords: ['engineering training', 'simulation training', 'CAE training', 'professional certification', 'corporate training', 'Kuwait training'],
+        },
+        ar: {
+            title: 'برامج التدريب الهندسي الاحترافي',
+            description: 'برامج تدريب قائمة على المحاكاة ومصممة لتمكين المهندسين والطلاب والمؤسسات في منطقة الخليج.',
+            keywords: ['تدريب هندسي', 'تدريب المحاكاة', 'تدريب CAE', 'شهادات مهنية', 'تدريب مؤسسي', 'تدريب الكويت'],
+        },
+    },
+
     partners: {
         en: {
             title: 'Our Partners',

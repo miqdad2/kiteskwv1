@@ -89,6 +89,22 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        // Logo-Derived Neutrals (KITES Brand Alignment)
+        logo: {
+          codgray: "hsl(var(--logo-cod-gray))",
+          jumbo: "hsl(var(--logo-jumbo))",
+          gunsmoke: "hsl(var(--logo-gunsmoke))",
+          alto: "hsl(var(--logo-alto))",
+        },
+        // Semantic Text Aliases
+        text: {
+          "deep-neutral": "hsl(var(--text-deep-neutral))",
+          "body-muted": "hsl(var(--text-body-muted))",
+          caption: "hsl(var(--text-caption))",
+        },
+        // Semantic Border/Divider Aliases
+        "border-soft": "hsl(var(--border-soft))",
+        "divider-light": "hsl(var(--divider-light))",
       },
       spacing: {
         '18': '4.5rem',

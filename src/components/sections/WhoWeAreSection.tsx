@@ -30,7 +30,7 @@ export function WhoWeAreSection() {
   const t = content[language];
 
   return (
-    <section id="who-we-are" className="py-24 lg:py-32 bg-[#F8FAFC] border-y border-gray-100 relative overflow-hidden">
+    <section id="who-we-are" className="py-28 lg:py-40 bg-[#F8FAFC] border-y border-soft relative overflow-hidden">
       {/* Background Accent */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-50/20 rounded-full blur-3xl -z-10 pointer-events-none" />
 
@@ -47,7 +47,7 @@ export function WhoWeAreSection() {
             {t.description.map((paragraph, index) => (
               <p
                 key={index}
-                className="font-body text-xl text-muted-foreground leading-[1.8] font-normal italic opacity-90"
+                className="font-body text-xl text-logo-jumbo leading-[1.8] font-normal italic"
               >
                 {paragraph}
               </p>

@@ -69,7 +69,7 @@ export function KeyPillarsSection() {
     }, []);
 
     return (
-        <section ref={sectionRef} id="key-pillars" className="py-20 lg:py-28 bg-white relative overflow-hidden">
+        <section ref={sectionRef} id="key-pillars" className="py-24 lg:py-32 bg-white border-t border-soft relative overflow-hidden">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
                 <div className="pillar-header text-center mb-20 opacity-0">
                     <p className="font-body text-caption font-medium text-[#2563eb]/80 uppercase tracking-[0.2em] mb-4">

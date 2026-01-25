@@ -78,7 +78,7 @@ export function Footer() {
             </Link>
 
             {/* Institutional Description - Polish: Reduced Opacity, Increased Leading */}
-            <p className="font-body text-base text-slate-400/80 leading-loose max-w-md">
+            <p className="font-body text-base text-logo-gunsmoke leading-loose max-w-md">
               {language === 'ar'
                 ? "مركز إقليمي للتميز في المحاكاة الهندسية والتدريب المهني والبحث التطبيقي - يدعم المؤسسات الأكاديمية والحكومية والصناعية عبر دول مجلس التعاون الخليجي."
                 : "A regional center of excellence for engineering simulation, professional training, and applied research — supporting academic, government, and industrial organizations across the GCC."}
@@ -98,7 +98,7 @@ export function Footer() {
                   <a
                     key={label}
                     href="#"
-                    className="flex items-center justify-center w-10 h-10 rounded-full bg-white/5 border border-white/5 text-slate-400 hover:text-white hover:bg-white/10 hover:border-white/20 transition-all duration-300"
+                    className="flex items-center justify-center w-11 h-11 rounded-full bg-white/5 border border-white/5 text-slate-400 hover:text-white hover:bg-white/10 hover:border-white/20 transition-all duration-300"
                     aria-label={label}
                   >
                     <Icon size={18} strokeWidth={1.5} />
@@ -125,7 +125,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     to={link.href}
-                    className="text-sm font-medium text-slate-500 hover:text-blue-200 hover:translate-x-1 transition-all duration-300 block py-1"
+                    className="text-sm font-medium text-logo-gunsmoke hover:text-blue-200 hover:translate-x-1 transition-all duration-300 block py-3"
                   >
                     {link.label}
                   </Link>
@@ -161,7 +161,7 @@ export function Footer() {
                 <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center shrink-0 group-hover:bg-white/10 transition-colors">
                   <Mail size={16} className="text-slate-400 group-hover:text-white transition-colors" strokeWidth={1.5} />
                 </div>
-                <a href="mailto:info@kites-kw.com" className="text-sm font-medium text-slate-400 group-hover:text-white transition-colors">
+                <a href="mailto:info@kites-kw.com" className="text-sm font-medium text-logo-gunsmoke group-hover:text-white transition-colors">
                   info@kites-kw.com
                 </a>
               </li>
@@ -171,7 +171,7 @@ export function Footer() {
                 <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center shrink-0 group-hover:bg-white/10 transition-colors">
                   <Phone size={16} className="text-slate-400 group-hover:text-white transition-colors" strokeWidth={1.5} />
                 </div>
-                <a href="tel:+96522092260" className="text-sm font-medium text-slate-400 group-hover:text-white transition-colors" dir="ltr">
+                <a href="tel:+96522092260" className="text-sm font-medium text-logo-gunsmoke group-hover:text-white transition-colors" dir="ltr">
                   +965 22092260
                 </a>
               </li>

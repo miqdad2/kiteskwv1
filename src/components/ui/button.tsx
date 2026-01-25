@@ -22,7 +22,7 @@ const buttonVariants = cva(
         technicalOutline: "border border-foreground text-foreground hover:bg-foreground hover:text-background font-medium",
       },
       size: {
-        default: "h-10 px-5 py-2",
+        default: "h-11 px-5 py-2",
         sm: "h-9 px-4",
         lg: "h-11 px-8",
         xl: "h-12 px-10 text-base",
@@ -38,7 +38,7 @@ const buttonVariants = cva(
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
+  VariantProps<typeof buttonVariants> {
   asChild?: boolean;
 }
 

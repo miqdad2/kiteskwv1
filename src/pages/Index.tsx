@@ -1,7 +1,6 @@
 import { SEO } from "@/components/common/SEO";
 import { SkipLink } from "@/components/common/SkipLink";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
+import { Layout } from "@/components/layout/Layout";
 import { Hero } from "@/components/home/Hero";
 import { WhoWeAreSection } from "@/components/sections/WhoWeAreSection";
 import { ServicesSection } from "@/components/sections/ServicesSection";
@@ -15,32 +14,28 @@ const Index = () => {
     <>
       <SEO page="home" />
       <SkipLink />
-      <div className="min-h-screen">
-        <Header />
-        <main id="main-content">
-          {/* 1. Hero Section - Lead with value proposition */}
-          <Hero />
+      <Layout>
+        {/* 1. Hero Section - Lead with value proposition */}
+        <Hero />
 
-          {/* 2. Key Pillars - Core fundamental pillars */}
-          <KeyPillarsSection />
+        {/* 2. Key Pillars - Core fundamental pillars */}
+        <KeyPillarsSection />
 
-          {/* 3. Our Services - Demonstrate capability */}
-          <ServicesSection />
+        {/* 3. Our Services - Demonstrate capability */}
+        <ServicesSection />
 
-          {/* 4. Organizations We Support - Establish institutional credibility */}
-          <ClientsSection />
+        {/* 4. Organizations We Support - Establish institutional credibility */}
+        <ClientsSection />
 
-          {/* 5. Technology Partners - Tools support outcomes */}
-          <PartnersSection />
+        {/* 5. Technology Partners - Tools support outcomes */}
+        <PartnersSection />
 
-          {/* 6. Who We Are - Contextual depth and self-description */}
-          <WhoWeAreSection />
+        {/* 6. Who We Are - Contextual depth and self-description */}
+        <WhoWeAreSection />
 
-          {/* 7. Final CTA */}
-          <CTASection />
-        </main>
-        <Footer />
-      </div>
+        {/* 7. Final CTA */}
+        <CTASection />
+      </Layout>
     </>
   );
 };

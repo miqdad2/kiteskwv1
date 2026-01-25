@@ -122,7 +122,7 @@ function ClientGrid({ clients, isRTL }: ClientGridProps) {
           </div>
 
           {/* Client Name */}
-          <span className="mt-3 text-xs font-medium text-gray-500 group-hover:text-gray-900 transition-colors line-clamp-2 text-center leading-tight">
+          <span className="mt-3 text-xs font-medium text-logo-gunsmoke group-hover:text-gray-900 transition-colors line-clamp-2 text-center leading-tight">
             {client.name}
           </span>
         </div>
@@ -192,13 +192,13 @@ export function ClientsSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="clients" className="relative pb-16 sm:pb-24 lg:pb-32 bg-[#fafafa] overflow-hidden">
+    <section ref={sectionRef} id="clients" className="relative py-20 sm:py-28 lg:py-36 bg-[#fafafa] overflow-hidden">
 
       {/* Trust Transition Band */}
       <div className="w-full border-b border-border/40 bg-white/50 backdrop-blur-sm py-4 sm:py-6 mb-12 sm:mb-16 lg:mb-20">
         <div className="container mx-auto px-4 flex items-center justify-center gap-2 sm:gap-4">
           <div className="h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent w-12 sm:w-16 lg:w-32" />
-          <span className="text-[9px] sm:text-[10px] md:text-xs font-medium uppercase tracking-widest text-gray-500 text-center">
+          <span className="text-[9px] sm:text-[10px] md:text-xs font-medium uppercase tracking-widest text-logo-gunsmoke text-center">
             {language === 'ar'
               ? "ندعم المؤسسات الأكاديمية والجهات الحكومية وقادة الصناعة عبر دول مجلس التعاون الخليجي"
               : "SUPPORTING ACADEMIC, GOVERNMENT & INDUSTRIAL LEADERS ACROSS THE GCC"
@@ -216,7 +216,7 @@ export function ClientsSection() {
           <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-semibold text-foreground max-w-2xl mx-auto mb-4 sm:mb-6">
             {t.heading}
           </h2>
-          <p className="font-body text-sm sm:text-base lg:text-lg text-muted-foreground max-w-2xl mx-auto px-2 sm:px-0">
+          <p className="font-body text-sm sm:text-base lg:text-lg text-logo-jumbo max-w-2xl mx-auto px-2 sm:px-0">
             {t.subtitle}
           </p>
         </div>
@@ -224,7 +224,7 @@ export function ClientsSection() {
         {/* Key Institutions Highlight */}
         <div className="mb-12 sm:mb-20 max-w-5xl mx-auto">
           <div className="text-center mb-4 sm:mb-6">
-            <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-logo-gunsmoke">
               {t.keyInstitutions}
             </span>
           </div>

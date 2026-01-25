@@ -90,7 +90,7 @@ export function Hero() {
     return (
         <section
             ref={heroRef}
-            className="relative min-h-[100dvh] pt-[var(--header-height)] bg-gradient-to-b from-[#0B0F14] via-[#0E141B] to-[#0B0F14] overflow-hidden flex flex-col justify-center z-10"
+            className="relative min-h-[100dvh] pt-[calc(var(--header-height)+40px)] bg-gradient-to-b from-[#0B0F14] via-[#0E141B] to-[#0B0F14] overflow-hidden flex flex-col justify-center z-10"
         >
 
             {/* 0. LAYER: Background Video - Z-0 (Responsive) */}
@@ -216,7 +216,7 @@ export function Hero() {
                                     onTouchEnd={() => {
                                         gsap.to(secondaryLineRef.current, { scaleX: 0, delay: 0.15, duration: 0.22, ease: "cubic-bezier(0.4, 0, 0.2, 1)" });
                                     }}
-                                    className="group/secondary relative inline-flex items-center justify-center w-full sm:w-auto text-xs sm:text-sm font-light text-white/50 hover:text-white transition-colors duration-300"
+                                    className="group/secondary relative inline-flex items-center justify-center w-full sm:w-auto text-xs sm:text-sm font-light text-white/50 hover:text-white transition-colors duration-300 min-h-[44px]"
                                 >
                                     <span ref={secondaryTextRef} className="inline-block relative">
                                         {content.ctaSecondary}

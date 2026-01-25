@@ -87,6 +87,23 @@
     --sidebar-accent-foreground: 0 0% 96%;
     --sidebar-border: 220 15% 20%;
     --sidebar-ring: 215 20% 45%;
+
+    /* Logo-Derived Neutrals (KITES Brand Alignment) */
+    --logo-cod-gray: 0 0% 4%;
+    /* #090909 - Deep neutral black */
+    --logo-jumbo: 240 0% 45%;
+    /* #737374 - Mid-tone gray */
+    --logo-gunsmoke: 150 1% 48%;
+    /* #7A7C7B - Medium-light gray */
+    --logo-alto: 0 0% 81%;
+    /* #CECECE - Light gray */
+
+    /* Semantic Aliases (Logo-Aligned) */
+    --text-deep-neutral: var(--logo-cod-gray);
+    --text-body-muted: var(--logo-jumbo);
+    --text-caption: var(--logo-gunsmoke);
+    --border-soft: var(--logo-alto);
+    --divider-light: var(--logo-alto);
   }
 
   .dark {

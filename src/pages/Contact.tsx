@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { SEO } from "@/components/common/SEO";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
+import { Layout } from "@/components/layout/Layout";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useContent } from "@/hooks/useContent";
 import { Button } from "@/components/ui/button";
@@ -154,11 +153,10 @@ export default function Contact() {
   return (
     <>
       <SEO page="contact" />
-      <div className="min-h-screen bg-background text-foreground">
-        <Header />
+      <Layout>
 
         {/* Hero Section */}
-        <section className="pt-24 pb-12 sm:pt-32 sm:pb-16 lg:pt-48 lg:pb-32 bg-primary relative overflow-hidden">
+        <section className="pt-32 pb-12 sm:pt-32 sm:pb-16 lg:pt-48 lg:pb-32 bg-primary relative overflow-hidden">
           {/* Noise Texture */}
           <div className="absolute inset-0 opacity-[0.04] bg-[url('/noise.png')] mix-blend-overlay pointer-events-none" />
 
@@ -167,7 +165,7 @@ export default function Contact() {
               <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-4 sm:mb-6 tracking-tight leading-tight">
                 {t.pageTitle}
               </h1>
-              <p className="font-body text-base sm:text-lg lg:text-xl text-primary-foreground/80 font-light leading-relaxed max-w-2xl mx-auto px-2 sm:px-0">
+              <p className="font-body text-base sm:text-lg lg:text-xl text-primary-foreground/80 font-light max-w-2xl mx-auto px-2 sm:px-0">
                 {t.intro}
               </p>
             </ScrollReveal>
@@ -356,7 +354,7 @@ export default function Contact() {
               {/* Contact Details */}
               <div className="lg:col-span-1">
                 <ScrollReveal delay={200}>
-                  <div className="bg-card border border-border/50 rounded-2xl p-8 sticky top-32 shadow-sm hover:shadow-md transition-shadow duration-300">
+                  <div className="bg-card border border-border/50 rounded-2xl p-8 sticky top-36 md:top-40 lg:top-44 shadow-sm hover:shadow-md transition-shadow duration-300">
                     <h3 className="font-heading text-xl font-bold text-foreground mb-8 pb-4 border-b border-border/40">
                       {t.contactDetails.heading}
                     </h3>
@@ -407,7 +405,7 @@ export default function Contact() {
                           <p className="text-sm font-medium text-muted-foreground mb-1">
                             {t.contactDetails.location}
                           </p>
-                          <p className="text-foreground font-semibold leading-relaxed">
+                          <p className="text-foreground font-semibold">
                             {t.contactDetails.locationValue}
                           </p>
                         </div>
@@ -420,8 +418,7 @@ export default function Contact() {
           </div>
         </section>
 
-        <Footer />
-      </div>
+      </Layout>
     </>
   );
 }

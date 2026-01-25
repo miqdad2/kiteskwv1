@@ -1,7 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { SEO } from "@/components/common/SEO";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
+import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -16,9 +15,8 @@ const ServiceDetail = () => {
 
   if (!service) {
     return (
-      <div className="min-h-screen bg-background">
-        <Header />
-        <main className="pt-32 pb-16 lg:pt-48">
+      <Layout>
+        <div className="pt-32 pb-16 lg:pt-48">
           <div className="container mx-auto px-4 text-center">
             <h1 className="font-heading text-3xl font-bold text-foreground mb-4">
               {language === "en" ? "Service Not Found" : "الخدمة غير موجودة"}
@@ -30,9 +28,8 @@ const ServiceDetail = () => {
               </Button>
             </Link>
           </div>
-        </main>
-        <Footer />
-      </div>
+        </div>
+      </Layout>
     );
   }
 

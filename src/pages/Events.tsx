@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { SEO } from "@/components/common/SEO";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
+import { Layout } from "@/components/layout/Layout";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useContent } from "@/hooks/useContent";
 import { Calendar, MapPin, ArrowRight, Filter } from "lucide-react";
@@ -107,11 +106,10 @@ export default function Events() {
   return (
     <>
       <SEO page="events" />
-      <div className="min-h-screen bg-background text-foreground">
-        <Header />
+      <Layout>
 
         {/* Hero Section */}
-        <section className="pt-24 pb-12 sm:pt-32 sm:pb-16 lg:pt-48 lg:pb-32 bg-primary relative overflow-hidden">
+        <section className="pt-32 pb-12 sm:pt-32 sm:pb-16 lg:pt-48 lg:pb-32 bg-primary relative overflow-hidden">
           {/* Noise Texture */}
           <div className="absolute inset-0 opacity-[0.04] bg-[url('/noise.png')] mix-blend-overlay pointer-events-none" />
 
@@ -120,7 +118,7 @@ export default function Events() {
               <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-4 sm:mb-6 tracking-tight leading-tight">
                 {t.pageTitle}
               </h1>
-              <p className="font-body text-base sm:text-lg lg:text-xl text-primary-foreground/80 font-light leading-relaxed px-2 sm:px-0">
+              <p className="font-body text-base sm:text-lg lg:text-xl text-primary-foreground/80 font-light px-2 sm:px-0">
                 {t.intro}
               </p>
             </ScrollReveal>
@@ -128,7 +126,7 @@ export default function Events() {
         </section>
 
         {/* Filters */}
-        <section className="py-4 sm:py-6 lg:py-8 bg-background border-b border-border/50 sticky top-[76px] z-40 backdrop-blur-md bg-background/90 supports-[backdrop-filter]:bg-background/60">
+        <section className="py-4 sm:py-6 lg:py-8 bg-background border-b border-border/50 sticky top-[116px] z-30 backdrop-blur-md bg-background/90 supports-[backdrop-filter]:bg-background/60">
           <div className="container mx-auto px-4 overflow-x-auto no-scrollbar">
             <div className="flex items-center gap-2 min-w-max">
               <Filter size={14} className="text-muted-foreground mr-1 sm:mr-2 shrink-0" />
@@ -205,8 +203,7 @@ export default function Events() {
           </div>
         </section>
 
-        <Footer />
-      </div>
+      </Layout>
     </>
   );
 }

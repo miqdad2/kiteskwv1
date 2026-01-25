@@ -160,7 +160,7 @@ export function ServicesSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="services" className="py-20 lg:py-32 bg-white relative overflow-hidden">
+    <section ref={sectionRef} id="services" className="py-24 lg:py-36 bg-white relative overflow-hidden">
       {/* Background Accent */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[600px] bg-gradient-to-b from-gray-50/50 to-transparent -z-10 pointer-events-none" />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -173,7 +173,7 @@ export function ServicesSection() {
           <h2 className="font-heading text-3xl lg:text-4xl font-semibold text-foreground tracking-tight mb-6">
             {t.label}
           </h2>
-          <p className="font-body text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+          <p className="font-body text-lg text-logo-jumbo max-w-2xl mx-auto leading-relaxed">
             {t.subtitle}
           </p>
         </div>
@@ -207,7 +207,7 @@ export function ServicesSection() {
                   </p>
 
                   {/* Description */}
-                  <p className="font-body text-sm text-gray-500 leading-relaxed mb-6 line-clamp-3 max-w-[95%]">
+                  <p className="font-body text-sm text-logo-jumbo leading-relaxed mb-6 line-clamp-3 max-w-[95%]">
                     {service.description}
                   </p>
 

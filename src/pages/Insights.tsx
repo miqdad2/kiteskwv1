@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { SEO } from "@/components/common/SEO";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
+import { Layout } from "@/components/layout/Layout";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useContent } from "@/hooks/useContent";
 import { Calendar, ArrowRight } from "lucide-react";
@@ -29,8 +28,7 @@ export default function Insights() {
   return (
     <>
       <SEO page="insights" />
-      <div className="min-h-screen bg-background">
-        <Header />
+      <Layout>
 
         {/* Hero Section */}
         <section className="page-hero">
@@ -47,7 +45,7 @@ export default function Insights() {
         </section>
 
         {/* Category Filters */}
-        <section className="py-4 sm:py-6 bg-background border-b border-border sticky top-[76px] z-40 backdrop-blur-md bg-background/95">
+        <section className="py-4 sm:py-6 bg-background border-b border-border sticky top-[116px] z-30 backdrop-blur-md bg-background/95">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 overflow-x-auto no-scrollbar">
             <div className="flex gap-2 min-w-max">
               <button
@@ -113,8 +111,7 @@ export default function Insights() {
           </div>
         </section>
 
-        <Footer />
-      </div>
+      </Layout>
     </>
   );
 }

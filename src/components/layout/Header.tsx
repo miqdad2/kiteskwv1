@@ -13,6 +13,7 @@ interface CommonContent {
     home: string;
     expertise: string;
     services: string;
+    training: string;
     partners: string;
     insights: string;
     events: string;
@@ -30,6 +31,7 @@ const navStructure = [
   { key: "home", href: "/" },
   { key: "expertise", href: "/expertise" },
   { key: "services", href: "/services", hasMegaMenu: true },
+  { key: "training", href: "/training" },
   { key: "partners", href: "/partners", hasMegaMenu: true },
   // { key: "insights", href: "/insights" }, // Temporarily hidden
   { key: "events", href: "/events" },
@@ -93,28 +95,29 @@ export function Header() {
     <>
       <header
         className={cn(
-          "fixed top-0 inset-x-0 z-50 transition-all duration-300 ease-in-out h-[var(--header-height)] flex items-center",
+          "fixed top-[40px] left-0 right-0 z-40 h-[var(--header-height)] flex items-center",
+          "transition-all duration-200 ease-[cubic-bezier(0.4,0,0.2,1)]",
           shouldShowSolidHeader
-            ? "bg-[#0B0F14]/95 backdrop-blur-md shadow-md border-b border-white/10"
-            : "bg-transparent backdrop-blur-sm border-b border-white/15"
+            ? "bg-[#0B0F14] backdrop-blur-md shadow-md border-b border-white/10"
+            : "bg-[#0B0F14]/50 backdrop-blur-sm border-b border-white/5"
         )}
         onMouseLeave={() => setHoveredNav(null)}
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 h-full">
           <div className="flex items-center justify-between h-full transition-all duration-300">
             {/* Logo */}
-            <Link to="/" className="flex items-center shrink-0 group gap-1 lg:gap-[8px]">
+            <Link to="/" className="flex items-center shrink-0 group gap-2 lg:gap-[8px]">
               <img
                 src={kitesLogo}
                 alt="KITES - Kuwait Institute for Training & Engineering Simulations"
                 className="h-[60px] lg:h-[84px] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
               />
               {/* Full Text - Responsive Sizing & Weight */}
-              <div className="flex flex-col items-start leading-[1.1] group-hover:opacity-100 transition-opacity">
-                <span className="font-heading font-bold text-[11px] md:text-[13px] lg:text-[15px] text-white tracking-normal uppercase drop-shadow-sm whitespace-nowrap">
+              <div className="flex flex-col items-start leading-tight group-hover:opacity-100 transition-opacity">
+                <span className="font-heading font-semibold text-[14px] md:text-[13px] lg:text-[15px] text-white/95 lg:text-white tracking-normal uppercase drop-shadow-sm whitespace-nowrap">
                   Kuwait Institute for Training
                 </span>
-                <span className="font-heading font-bold text-[11px] md:text-[13px] lg:text-[15px] text-white tracking-normal uppercase drop-shadow-sm whitespace-nowrap">
+                <span className="font-heading font-semibold text-[14px] md:text-[13px] lg:text-[15px] text-white/95 lg:text-white tracking-normal uppercase drop-shadow-sm whitespace-nowrap">
                   and Engineering Simulations
                 </span>
               </div>
@@ -176,7 +179,7 @@ export function Header() {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="lg:hidden p-2 text-white/90 hover:text-white transition-colors"
+              className="lg:hidden p-2 text-white/90 hover:text-white transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
               aria-label="Toggle menu"
             >
               {isOpen ? <X size={28} strokeWidth={1.5} /> : <Menu size={28} strokeWidth={1.5} />}

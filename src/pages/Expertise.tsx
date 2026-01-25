@@ -1,8 +1,7 @@
 import { useLanguage } from "@/contexts/LanguageContext";
 import { SEO } from "@/components/common/SEO";
 import { SkipLink } from "@/components/common/SkipLink";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
+import { Layout } from "@/components/layout/Layout";
 import { Cpu, LineChart, Leaf, GraduationCap, ArrowRight, CheckCircle2 } from "lucide-react";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { cn } from "@/lib/utils";
@@ -131,11 +130,10 @@ export default function Expertise() {
     <>
       <SEO page="expertise" />
       <SkipLink />
-      <div className="min-h-screen bg-white">
-        <Header />
+      <Layout>
 
         {/* Page Hero - Unified Dark Enterprise Style */}
-        <section className="relative pt-24 pb-12 sm:pt-32 sm:pb-16 lg:pt-40 lg:pb-24 overflow-hidden bg-[#0B0F14]" id="main-content">
+        <section className="relative pt-32 pb-12 sm:pt-32 sm:pb-16 lg:pt-40 lg:pb-24 overflow-hidden bg-[#0B0F14]" id="main-content">
           {/* Deep Navy Gradient */}
           <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#0B0F14] to-[#101826]" />
           {/* Subtle Noise */}
@@ -152,7 +150,7 @@ export default function Expertise() {
                 <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 lg:mb-8 leading-[1.05] tracking-tight">
                   {t.hero.title}
                 </h1>
-                <p className="font-body text-base sm:text-lg lg:text-xl text-slate-400/90 leading-relaxed max-w-2xl mx-auto font-light px-2 sm:px-0">
+                <p className="font-body text-base sm:text-lg lg:text-xl text-slate-400/90 max-w-2xl mx-auto font-light px-2 sm:px-0">
                   {t.hero.intro}
                 </p>
               </ScrollReveal>
@@ -193,7 +191,7 @@ export default function Expertise() {
                         <h3 className="font-heading text-xl lg:text-2xl font-bold text-slate-900 mb-4 group-hover:text-blue-700 transition-colors duration-300">
                           {area.title}
                         </h3>
-                        <p className="font-body text-slate-600 mb-8 leading-relaxed flex-grow text-[16px]">
+                        <p className="font-body text-slate-600 mb-8 flex-grow text-[16px]">
                           {area.description}
                         </p>
 
@@ -247,7 +245,7 @@ export default function Expertise() {
                       0{idx + 1}
                     </div>
                     <h3 className="text-lg font-bold text-slate-800 mb-3 uppercase tracking-wide">{step.title}</h3>
-                    <p className="text-slate-600 font-body leading-relaxed text-sm max-w-[240px]">{step.desc}</p>
+                    <p className="text-slate-600 font-body text-sm max-w-[240px]">{step.desc}</p>
                   </ScrollReveal>
                 ))}
               </div>
@@ -266,7 +264,7 @@ export default function Expertise() {
                 <h2 className="font-heading text-3xl lg:text-4xl font-bold text-white mb-8 leading-tight">
                   {t.leadershipTitle}
                 </h2>
-                <p className="font-body text-lg lg:text-xl text-slate-400/90 leading-relaxed font-light mb-16">
+                <p className="font-body text-lg lg:text-xl text-slate-400/90 font-light mb-16">
                   {t.leadershipDescription}
                 </p>
 
@@ -284,8 +282,7 @@ export default function Expertise() {
           </div>
         </section>
 
-        <Footer />
-      </div>
+      </Layout>
     </>
   );
 }

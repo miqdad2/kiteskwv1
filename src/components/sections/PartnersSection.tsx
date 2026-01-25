@@ -35,7 +35,7 @@ export function PartnersSection() {
   const t = content[language];
 
   return (
-    <section id="partners" className="py-24 lg:py-32 bg-background">
+    <section id="partners" className="py-24 lg:py-36 bg-[#fafafa]">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 mb-12">
         {/* Section Header */}
         <ScrollReveal className="text-center">
@@ -43,7 +43,7 @@ export function PartnersSection() {
           <h2 className="font-heading text-h2 sm:text-3xl lg:text-4xl font-semibold text-foreground max-w-2xl mx-auto mb-6">
             {t.heading}
           </h2>
-          <p className="font-body text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="font-body text-lg text-logo-jumbo max-w-2xl mx-auto">
             {t.subtitle}
           </p>
         </ScrollReveal>
