@@ -167,7 +167,7 @@ export default function Expertise() {
               <h2 className="font-heading text-2xl font-semibold text-slate-800 tracking-wide uppercase text-sm">
                 {t.areasTitle}
               </h2>
-              <div className="h-px w-16 bg-blue-600 mx-auto mt-4 opacity-50" />
+              <div className="h-px w-16 bg-logo-alto mx-auto mt-4 opacity-50" />
             </div>
 
             <div className="grid md:grid-cols-2 gap-6 lg:gap-8 max-w-6xl mx-auto">
@@ -179,16 +179,16 @@ export default function Expertise() {
                       className="group relative p-8 lg:p-12 bg-white rounded-xl shadow-[0_2px_15px_-3px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 border border-slate-100 cursor-default"
                     >
                       {/* Left Accent Line */}
-                      <div className="absolute left-0 top-8 bottom-8 w-[3px] bg-blue-600 rounded-r-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <div className="absolute left-0 top-8 bottom-8 w-[3px] bg-logo-alto rounded-r-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                       <div className="flex flex-col h-full">
                         <div className="mb-8 flex items-start justify-between">
-                          <div className="w-14 h-14 rounded-2xl bg-slate-50/80 flex items-center justify-center group-hover:scale-105 transition-transform duration-300 border border-slate-100 group-hover:border-blue-100 group-hover:bg-blue-50">
-                            <IconComponent className="w-7 h-7 text-slate-600 group-hover:text-blue-600 transition-colors duration-300" strokeWidth={1.5} />
+                          <div className="w-14 h-14 rounded-2xl bg-slate-50/80 flex items-center justify-center group-hover:scale-105 transition-transform duration-300 border border-slate-100">
+                            <IconComponent className="w-7 h-7 text-slate-600 transition-colors duration-300" strokeWidth={1.5} />
                           </div>
                         </div>
 
-                        <h3 className="font-heading text-xl lg:text-2xl font-bold text-slate-900 mb-4 group-hover:text-blue-700 transition-colors duration-300">
+                        <h3 className="font-heading text-xl lg:text-2xl font-bold text-slate-900 mb-4 group-hover:font-extrabold transition-all duration-300">
                           {area.title}
                         </h3>
                         <p className="font-body text-slate-600 mb-8 flex-grow text-[16px]">
@@ -231,7 +231,7 @@ export default function Expertise() {
               <ScrollReveal>
                 <div className="text-center mb-16">
                   <h2 className="font-heading text-2xl font-bold text-slate-900 mb-4">{t.methodology.title}</h2>
-                  <div className="h-0.5 w-12 bg-blue-600 mx-auto opacity-20" />
+                  <div className="h-0.5 w-12 bg-logo-alto mx-auto opacity-20" />
                 </div>
               </ScrollReveal>
 
@@ -241,7 +241,7 @@ export default function Expertise() {
 
                 {t.methodology.steps.map((step, idx) => (
                   <ScrollReveal key={idx} delay={idx * 150} className="relative z-10 flex flex-col items-center text-center">
-                    <div className="w-14 h-14 rounded-full bg-white border-2 border-slate-100 flex items-center justify-center text-sm font-bold text-slate-400 mb-6 shadow-sm group-hover:border-blue-500 transition-colors">
+                    <div className="w-14 h-14 rounded-full bg-white border-2 border-slate-100 flex items-center justify-center text-sm font-bold text-slate-400 mb-6 shadow-sm transition-colors">
                       0{idx + 1}
                     </div>
                     <h3 className="text-lg font-bold text-slate-800 mb-3 uppercase tracking-wide">{step.title}</h3>
@@ -260,7 +260,7 @@ export default function Expertise() {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="max-w-4xl mx-auto text-center">
               <ScrollReveal>
-                <div className="w-px h-16 bg-gradient-to-b from-transparent via-blue-500/30 to-transparent mx-auto mb-8" />
+                <div className="w-px h-16 bg-gradient-to-b from-transparent via-white/20 to-transparent mx-auto mb-8" />
                 <h2 className="font-heading text-3xl lg:text-4xl font-bold text-white mb-8 leading-tight">
                   {t.leadershipTitle}
                 </h2>

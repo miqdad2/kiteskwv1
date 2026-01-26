@@ -50,7 +50,7 @@ export function Footer() {
         }}
       />
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-32 relative z-10">
 
         {/* Subtle Top Divider */}
         <div className="absolute top-0 left-0 w-full h-px bg-white/5" />
@@ -125,7 +125,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     to={link.href}
-                    className="text-sm font-medium text-logo-gunsmoke hover:text-blue-200 hover:translate-x-1 transition-all duration-300 block py-3"
+                    className="text-sm font-medium text-logo-gunsmoke hover:text-white hover:translate-x-1 transition-all duration-300 block py-3"
                   >
                     {link.label}
                   </Link>
@@ -143,11 +143,11 @@ export function Footer() {
             <ul className="space-y-6">
               {/* Location - Emphasized */}
               <li className="flex items-start gap-4">
-                <div className="w-8 h-8 rounded-full bg-blue-500/10 flex items-center justify-center shrink-0 mt-0.5">
-                  <MapPin size={16} className="text-blue-400" strokeWidth={1.5} />
+                <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center shrink-0 mt-0.5">
+                  <MapPin size={16} className="text-white/70" strokeWidth={1.5} />
                 </div>
                 <div>
-                  <span className="block text-sm font-bold text-blue-100 mb-1.5 uppercase tracking-wide">
+                  <span className="block text-sm font-bold text-white mb-1.5 uppercase tracking-wide">
                     {language === 'ar' ? "الكويت" : "Kuwait"}
                   </span>
                   <span className="text-sm text-slate-400 leading-relaxed block max-w-[240px] opacity-80">

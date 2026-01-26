@@ -203,13 +203,13 @@ export default function Contact() {
                         <div className="grid gap-6 sm:grid-cols-2">
                           {/* Name */}
                           <div className="space-y-2">
-                            <Label htmlFor="name" className="text-sm font-medium text-foreground/80">{t.form.labels.name} <span className="text-blue-500">*</span></Label>
+                            <Label htmlFor="name" className="text-sm font-medium text-foreground/80">{t.form.labels.name} <span className="text-logo-gunsmoke">*</span></Label>
                             <Input
                               id="name"
                               name="name"
                               value={formData.name}
                               onChange={handleChange}
-                              className={`h-12 bg-background focus:ring-2 focus:ring-blue-500/20 transition-all ${errors.name ? "border-destructive focus:ring-destructive/20" : "border-input"}`}
+                              className={`h-12 bg-background focus:ring-2 focus:ring-logo-alto/20 transition-all ${errors.name ? "border-destructive focus:ring-destructive/20" : "border-input"}`}
                               maxLength={100}
                               autoComplete="name"
                             />
@@ -223,14 +223,14 @@ export default function Contact() {
 
                           {/* Email */}
                           <div className="space-y-2">
-                            <Label htmlFor="email" className="text-sm font-medium text-foreground/80">{t.form.labels.email} <span className="text-blue-500">*</span></Label>
+                            <Label htmlFor="email" className="text-sm font-medium text-foreground/80">{t.form.labels.email} <span className="text-logo-gunsmoke">*</span></Label>
                             <Input
                               id="email"
                               name="email"
                               type="email"
                               value={formData.email}
                               onChange={handleChange}
-                              className={`h-12 bg-background focus:ring-2 focus:ring-blue-500/20 transition-all ${errors.email ? "border-destructive focus:ring-destructive/20" : "border-input"}`}
+                              className={`h-12 bg-background focus:ring-2 focus:ring-logo-alto/20 transition-all ${errors.email ? "border-destructive focus:ring-destructive/20" : "border-input"}`}
                               maxLength={255}
                               autoComplete="email"
                             />
@@ -244,14 +244,14 @@ export default function Contact() {
 
                           {/* Phone */}
                           <div className="space-y-2">
-                            <Label htmlFor="phone" className="text-sm font-medium text-foreground/80">{t.form.labels.phone} <span className="text-blue-500">*</span></Label>
+                            <Label htmlFor="phone" className="text-sm font-medium text-foreground/80">{t.form.labels.phone} <span className="text-logo-gunsmoke">*</span></Label>
                             <Input
                               id="phone"
                               name="phone"
                               type="tel"
                               value={formData.phone}
                               onChange={handleChange}
-                              className={`h-12 bg-background focus:ring-2 focus:ring-blue-500/20 transition-all ${errors.phone ? "border-destructive focus:ring-destructive/20" : "border-input"}`}
+                              className={`h-12 bg-background focus:ring-2 focus:ring-logo-alto/20 transition-all ${errors.phone ? "border-destructive focus:ring-destructive/20" : "border-input"}`}
                               maxLength={20}
                               autoComplete="tel"
                             />
@@ -267,7 +267,7 @@ export default function Contact() {
                           <div className="space-y-2">
                             <Label htmlFor="subject" className="text-sm font-medium text-foreground/80">Inquiry Type</Label>
                             <Select onValueChange={handleSelectChange}>
-                              <SelectTrigger className="h-12 bg-background focus:ring-2 focus:ring-blue-500/20 border-input">
+                              <SelectTrigger className="h-12 bg-background focus:ring-2 focus:ring-logo-alto/20 border-input">
                                 <SelectValue placeholder={language === 'en' ? "Select a topic..." : "اختر موضوعاً..."} />
                               </SelectTrigger>
                               <SelectContent>
@@ -288,7 +288,7 @@ export default function Contact() {
                             name="company"
                             value={formData.company}
                             onChange={handleChange}
-                            className={`h-12 bg-background focus:ring-2 focus:ring-blue-500/20 transition-all ${errors.company ? "border-destructive focus:ring-destructive/20" : "border-input"}`}
+                            className={`h-12 bg-background focus:ring-2 focus:ring-logo-alto/20 transition-all ${errors.company ? "border-destructive focus:ring-destructive/20" : "border-input"}`}
                             maxLength={100}
                             autoComplete="organization"
                           />
@@ -302,13 +302,13 @@ export default function Contact() {
 
                         {/* Message */}
                         <div className="space-y-2">
-                          <Label htmlFor="message" className="text-sm font-medium text-foreground/80">{t.form.labels.message} <span className="text-blue-500">*</span></Label>
+                          <Label htmlFor="message" className="text-sm font-medium text-foreground/80">{t.form.labels.message} <span className="text-logo-gunsmoke">*</span></Label>
                           <Textarea
                             id="message"
                             name="message"
                             value={formData.message}
                             onChange={handleChange}
-                            className={`min-h-[160px] resize-y bg-background focus:ring-2 focus:ring-blue-500/20 transition-all ${errors.message ? "border-destructive focus:ring-destructive/20" : "border-input"}`}
+                            className={`min-h-[160px] resize-y bg-background focus:ring-2 focus:ring-logo-alto/20 transition-all ${errors.message ? "border-destructive focus:ring-destructive/20" : "border-input"}`}
                             maxLength={1000}
                           />
                           {errors.message && (
@@ -365,14 +365,14 @@ export default function Contact() {
                         href={`mailto:${t.contactDetails.emailValue}`}
                         className="group flex items-start gap-4 p-2 -mx-2 rounded-lg hover:bg-secondary/50 transition-colors"
                       >
-                        <div className="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-blue-500 group-hover:text-white text-blue-600 transition-colors duration-300">
+                        <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-logo-codgray group-hover:text-white text-logo-codgray transition-colors duration-300">
                           <Mail className="w-5 h-5" strokeWidth={2} />
                         </div>
                         <div>
                           <p className="text-sm font-medium text-muted-foreground mb-1">
                             {t.contactDetails.email}
                           </p>
-                          <span className="text-foreground font-semibold group-hover:text-blue-600 transition-colors">
+                          <span className="text-foreground font-semibold transition-colors">
                             {t.contactDetails.emailValue}
                           </span>
                         </div>

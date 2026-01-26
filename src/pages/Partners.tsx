@@ -83,7 +83,7 @@ export default function Partners() {
                     {/* Category Header */}
                     <ScrollReveal className="mb-8 sm:mb-12 border-b border-border/40 pb-4 sm:pb-6">
                       <div className="flex items-center gap-3 sm:gap-4">
-                        <div className="h-6 sm:h-8 w-1 bg-blue-600 rounded-full" />
+                        <div className="h-6 sm:h-8 w-1 bg-logo-alto rounded-full" />
                         <h2 className="font-heading text-xl sm:text-2xl lg:text-3xl font-bold text-foreground tracking-tight">
                           {t.categories[categoryId]}
                         </h2>
@@ -96,7 +96,7 @@ export default function Partners() {
                         <StaggerItem key={partner.id} index={index}>
                           <Link
                             to={`/partners/${partner.id}`}
-                            className="group block h-full bg-card hover:bg-card/80 border border-border/60 hover:border-blue-500/30 rounded-xl p-6 lg:p-8 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative overflow-hidden"
+                            className="group block h-full bg-card hover:bg-card/80 border border-border/60 hover:border-gray-300 rounded-xl p-6 lg:p-8 hover:shadow-lg hover:-translate-y-1 hover:scale-[1.01] transition-all duration-300 relative overflow-hidden"
                           >
                             <div className="flex flex-col h-full">
                               {/* Logo Container */}
@@ -108,7 +108,7 @@ export default function Partners() {
                                     className="h-full w-auto object-contain max-w-[140px] transition-all duration-300"
                                   />
                                 ) : (
-                                  <div className="w-16 h-16 rounded-lg bg-secondary/50 border border-border/50 flex items-center justify-center text-xl font-heading font-bold text-muted-foreground group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
+                                  <div className="w-16 h-16 rounded-lg bg-secondary/50 border border-border/50 flex items-center justify-center text-xl font-heading font-bold text-muted-foreground group-hover:bg-logo-codgray group-hover:text-white transition-colors duration-300">
                                     {partner.abbr}
                                   </div>
                                 )}
@@ -116,7 +116,7 @@ export default function Partners() {
 
                               {/* Content */}
                               <div className="mt-auto">
-                                <h3 className="font-heading text-lg font-bold text-foreground mb-2 group-hover:text-blue-600 transition-colors">
+                                <h3 className="font-heading text-lg font-bold text-foreground mb-2 group-hover:font-extrabold transition-all">
                                   {partner.name}
                                 </h3>
                                 {partner.desc && (
@@ -127,7 +127,7 @@ export default function Partners() {
                               </div>
 
                               {/* Hover Reveal - Bottom Edge */}
-                              <div className="absolute bottom-0 left-0 w-full h-1 bg-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                              <div className="absolute bottom-0 left-0 w-full h-1 bg-logo-alto opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                             </div>
                           </Link>
                         </StaggerItem>

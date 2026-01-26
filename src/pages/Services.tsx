@@ -207,7 +207,7 @@ const Services = () => {
               <h2 className="font-heading text-[11px] font-bold uppercase tracking-[0.3em] text-muted-foreground/80 mb-6">
                 {t.approach.label}
               </h2>
-              <div className="h-px w-16 bg-blue-600/20 mx-auto" />
+              <div className="h-px w-16 bg-logo-alto mx-auto" />
             </ScrollReveal>
 
             <StaggerContainer className="relative max-w-5xl mx-auto" staggerDelay={150}>
@@ -224,8 +224,8 @@ const Services = () => {
                       </span>
 
                       {/* Icon Circle */}
-                      <div className="w-16 h-16 rounded-full border border-gray-100 bg-white flex items-center justify-center mb-6 transition-all duration-300 group-hover:border-blue-600/20 group-hover:shadow-subtle relative">
-                        <div className="text-muted-foreground/60 group-hover:text-blue-600 transition-colors duration-300">
+                      <div className="w-16 h-16 rounded-full border border-gray-100 bg-white flex items-center justify-center mb-6 transition-all duration-300 group-hover:border-gray-200 group-hover:shadow-subtle relative">
+                        <div className="text-muted-foreground/60 transition-colors duration-300">
                           {(() => {
                             const StepIcon = getIconByName(step.icon);
                             return <StepIcon size={22} strokeWidth={1} />;
@@ -282,7 +282,7 @@ const Services = () => {
                           </h2>
 
                           {/* Strategic Insight Quote - Enhanced authority */}
-                          <p className="font-body text-lg leading-[1.8] mb-12 border-l-[3px] border-blue-600/20 pl-8 py-2 italic text-foreground/60 font-medium max-w-lg">
+                          <p className="font-body text-lg leading-[1.8] mb-12 border-l-[3px] border-logo-alto pl-8 py-2 italic text-foreground/60 font-medium max-w-lg">
                             "{service.solves}"
                           </p>
 

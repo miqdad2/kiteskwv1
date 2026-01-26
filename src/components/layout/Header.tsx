@@ -24,6 +24,10 @@ interface CommonContent {
     switchToArabic: string;
     languageLabel: string;
   };
+  header: {
+    titleLine1: string;
+    titleLine2: string;
+  };
 }
 
 // Define navigation structure (hrefs stay the same across languages)
@@ -38,8 +42,12 @@ const navStructure = [
   { key: "contact", href: "/contact" },
 ];
 
-export function Header() {
-  const [isOpen, setIsOpen] = useState(false);
+interface HeaderProps {
+  isMobileMenuOpen: boolean;
+  setIsMobileMenuOpen: (isMobileMenuOpen: boolean) => void;
+}
+
+export function Header({ isMobileMenuOpen, setIsMobileMenuOpen }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const { language, setLanguage } = useLanguage();
   const common = useContent<CommonContent>('common');
@@ -71,7 +79,7 @@ export function Header() {
   }, []);
 
   useEffect(() => {
-    if (isOpen) {
+    if (isMobileMenuOpen) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
@@ -79,7 +87,7 @@ export function Header() {
     return () => {
       document.body.style.overflow = "";
     };
-  }, [isOpen]);
+  }, [isMobileMenuOpen]);
 
   // Determine header appearance
   // If NOT homepage, always use the "scrolled" (solid/visible) style
@@ -115,10 +123,10 @@ export function Header() {
               {/* Full Text - Responsive Sizing & Weight */}
               <div className="flex flex-col items-start leading-tight group-hover:opacity-100 transition-opacity">
                 <span className="font-heading font-semibold text-[14px] md:text-[13px] lg:text-[15px] text-white/95 lg:text-white tracking-normal uppercase drop-shadow-sm whitespace-nowrap">
-                  Kuwait Institute for Training
+                  {common.header.titleLine1}
                 </span>
                 <span className="font-heading font-semibold text-[14px] md:text-[13px] lg:text-[15px] text-white/95 lg:text-white tracking-normal uppercase drop-shadow-sm whitespace-nowrap">
-                  and Engineering Simulations
+                  {common.header.titleLine2}
                 </span>
               </div>
             </Link>
@@ -178,11 +186,11 @@ export function Header() {
 
             {/* Mobile Menu Button */}
             <button
-              onClick={() => setIsOpen(!isOpen)}
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="lg:hidden p-2 text-white/90 hover:text-white transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
               aria-label="Toggle menu"
             >
-              {isOpen ? <X size={28} strokeWidth={1.5} /> : <Menu size={28} strokeWidth={1.5} />}
+              {isMobileMenuOpen ? <X size={28} strokeWidth={1.5} /> : <Menu size={28} strokeWidth={1.5} />}
             </button>
           </div>
         </div>
@@ -203,44 +211,50 @@ export function Header() {
       <div
         className={cn(
           "fixed inset-0 z-40 lg:hidden transition-all duration-200",
-          isOpen ? "visible" : "invisible"
+          isMobileMenuOpen ? "visible" : "invisible"
         )}
       >
+        {/* Backdrop */}
         <div
           className={cn(
-            "absolute inset-0 bg-primary/50 backdrop-blur-sm transition-opacity duration-200",
-            isOpen ? "opacity-100" : "opacity-0"
+            "absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-200",
+            isMobileMenuOpen ? "opacity-100" : "opacity-0"
           )}
-          onClick={() => setIsOpen(false)}
+          onClick={() => setIsMobileMenuOpen(false)}
         />
 
+        {/* Mobile Menu Panel */}
         <div
           className={cn(
-            "absolute top-0 end-0 h-full w-full max-w-sm bg-[#0B0F14] transition-transform duration-200 ease-out",
-            isOpen ? "translate-x-0 rtl:-translate-x-0" : "translate-x-full rtl:-translate-x-full"
+            "absolute top-0 end-0 h-full w-full max-w-sm bg-[#0B0F14]/90 backdrop-blur-xl border-l border-white/5 shadow-2xl transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] flex flex-col",
+            isMobileMenuOpen ? "translate-x-0 rtl:-translate-x-0" : "translate-x-full rtl:-translate-x-full"
           )}
         >
-          <div className="flex items-center justify-between h-[76px] px-6 border-b border-white/10">
-            <Link to="/" onClick={() => setIsOpen(false)} className="flex items-center gap-[14px]">
+          {/* Header with Logo and Close Button */}
+          <div className="flex items-center justify-between h-20 px-6 border-b border-white/10 shrink-0">
+            <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3">
               <img
                 src={kitesLogo}
                 alt="KITES"
-                className="h-[48px] w-auto"
+                className="h-12 w-auto"
               />
-              <span className="font-heading font-bold text-[20px] text-white tracking-[0.08em] uppercase">
+              <span className="font-heading font-bold text-xl text-white tracking-wider uppercase">
                 KITES
               </span>
             </Link>
+
+            {/* Prominent Close Button - 44x44px tap target */}
             <button
-              onClick={() => setIsOpen(false)}
-              className="p-2 text-white/90 hover:text-white transition-colors"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="relative z-50 flex items-center justify-center w-11 h-11 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white transition-all duration-200"
               aria-label="Close menu"
             >
-              <X size={28} strokeWidth={1.5} />
+              <X size={24} strokeWidth={2} />
             </button>
           </div>
 
-          <nav className="flex flex-col py-6 px-6">
+          {/* Navigation Items - Scrollable */}
+          <nav className="flex-1 overflow-y-auto py-6 px-4 space-y-1">
             {navStructure.map((item, index) => {
               // Render standard links
               if (!item.hasMegaMenu) {
@@ -248,8 +262,8 @@ export function Header() {
                   <Link
                     key={item.key}
                     to={item.href}
-                    onClick={() => setIsOpen(false)}
-                    className="py-4 text-primary-foreground/80 hover:text-primary-foreground font-body text-lg font-medium transition-colors duration-200 border-b border-primary-foreground/5 animate-fade-in"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="flex items-center min-h-[56px] px-4 text-white/80 hover:text-white hover:bg-white/5 font-body text-lg font-medium transition-all duration-200 rounded-xl border border-transparent hover:border-white/5 animate-fade-in"
                     style={{ animationDelay: `${index * 50}ms` }}
                   >
                     {common.nav[item.key as keyof typeof common.nav]}
@@ -260,49 +274,80 @@ export function Header() {
               // Render Accordion for Mega Menu items
               const isExpanded = expandedMobileNav === item.key;
               return (
-                <div key={item.key} className="border-b border-primary-foreground/5 animate-fade-in" style={{ animationDelay: `${index * 50}ms` }}>
+                <div key={item.key} className="animate-fade-in" style={{ animationDelay: `${index * 50}ms` }}>
+                  {/* Accordion Trigger - Full width tappable */}
                   <button
                     onClick={() => toggleMobileNav(item.key)}
-                    className="flex items-center justify-between w-full py-4 text-primary-foreground/80 hover:text-primary-foreground font-body text-lg font-medium transition-colors duration-200 text-left"
+                    className={cn(
+                      "flex items-center justify-between w-full min-h-[56px] px-4 text-lg font-medium transition-all duration-200 rounded-xl border border-transparent",
+                      isExpanded
+                        ? "text-white bg-white/5 font-semibold border-white/5 shadow-inner"
+                        : "text-white/80 hover:text-white hover:bg-white/5"
+                    )}
                   >
-                    {common.nav[item.key as keyof typeof common.nav]}
-                    <ChevronDown size={18} className={cn("transition-transform duration-200", isExpanded ? "rotate-180" : "")} />
+                    <span className="font-body">
+                      {common.nav[item.key as keyof typeof common.nav]}
+                    </span>
+                    <ChevronDown
+                      size={20}
+                      strokeWidth={2}
+                      className={cn(
+                        "text-white/70 transition-transform duration-300",
+                        isExpanded ? "rotate-180" : ""
+                      )}
+                    />
                   </button>
 
                   {/* Mobile Submenu Content */}
                   <div className={cn(
-                    "overflow-hidden transition-all duration-300 ease-in-out bg-white/5 rounded-sm",
-                    isExpanded ? "max-h-[500px] mb-4 opacity-100" : "max-h-0 opacity-0"
+                    "overflow-hidden transition-all duration-300 ease-in-out",
+                    isExpanded ? "max-h-[500px] mt-1 mb-2 opacity-100" : "max-h-0 opacity-0"
                   )}>
                     {item.key === 'services' && (
-                      <div className="flex flex-col p-2">
+                      <div className="flex flex-col py-2 px-2 bg-white/5 rounded-lg">
                         {['consultation', 'software-distribution', 'prototype-development', 'training'].map(id => (
                           <Link
                             key={id}
                             to={`/services/${id}`}
-                            onClick={() => setIsOpen(false)}
-                            className="py-3 px-3 text-sm text-white/70 hover:text-white hover:bg-white/5 rounded transition-colors"
+                            onClick={() => setIsMobileMenuOpen(false)}
+                            className="min-h-[44px] flex items-center px-4 text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-all duration-200"
                           >
                             {id === 'consultation' ? (language === 'ar' ? "الاستشارات الهندسية" : "Engineering Consulting") :
                               id === 'software-distribution' ? (language === 'ar' ? "البرمجيات والمنصات" : "Software & Platforms") :
                                 id === 'prototype-development' ? (language === 'ar' ? "النماذج الأولية" : "Prototyping") : (language === 'ar' ? "التدريب المهني" : "Training")}
                           </Link>
                         ))}
-                        <Link to="/services" onClick={() => setIsOpen(false)} className="mt-2 py-2 px-3 text-xs font-semibold text-blue-400 uppercase tracking-wider">
+                        <Link
+                          to="/services"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className="min-h-[40px] flex items-center mt-2 px-4 text-xs font-semibold text-logo-gunsmoke hover:text-white uppercase tracking-wider transition-colors rounded-lg hover:bg-white/5"
+                        >
                           {language === 'ar' ? "عرض جميع الخدمات" : "View All Services"}
                         </Link>
                       </div>
                     )}
 
                     {item.key === 'partners' && (
-                      <div className="flex flex-col p-2">
-                        <Link to="/partners" onClick={() => setIsOpen(false)} className="py-3 px-3 text-sm text-white/70 hover:text-white hover:bg-white/5 rounded transition-colors">
+                      <div className="flex flex-col py-2 px-2 bg-white/5 rounded-lg">
+                        <Link
+                          to="/partners"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className="min-h-[44px] flex items-center px-4 text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-all duration-200"
+                        >
                           {language === 'ar' ? "الشركاء التقنيون" : "Technology Partners"}
                         </Link>
-                        <Link to="/partners" onClick={() => setIsOpen(false)} className="py-3 px-3 text-sm text-white/70 hover:text-white hover:bg-white/5 rounded transition-colors">
+                        <Link
+                          to="/partners"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className="min-h-[44px] flex items-center px-4 text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-all duration-200"
+                        >
                           {language === 'ar' ? "المؤسسات الأكاديمية والبحثية" : "Academic & Research"}
                         </Link>
-                        <Link to="/partners" onClick={() => setIsOpen(false)} className="py-3 px-3 text-sm text-white/70 hover:text-white hover:bg-white/5 rounded transition-colors">
+                        <Link
+                          to="/partners"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className="min-h-[44px] flex items-center px-4 text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-all duration-200"
+                        >
                           {language === 'ar' ? "الجهات الحكومية والصناعية" : "Government & Industrial"}
                         </Link>
                       </div>
@@ -313,18 +358,19 @@ export function Header() {
             })}
           </nav>
 
-          <div className="absolute bottom-0 inset-x-0 p-6 border-t border-primary-foreground/10">
-            <p className="text-primary-foreground/40 text-xs font-body mb-3 uppercase tracking-wider">
+          {/* Language Switcher - Fixed at Bottom */}
+          <div className="shrink-0 px-6 py-6 border-t border-white/10 bg-[#0B0F14]">
+            <p className="text-white/40 text-xs font-body font-semibold mb-4 uppercase tracking-widest">
               {common.language.languageLabel}
             </p>
             <div className="flex gap-3">
               <button
                 onClick={() => setLanguage("en")}
                 className={cn(
-                  "flex-1 py-3 text-sm font-body font-medium border transition-colors duration-200",
+                  "flex-1 min-h-[48px] text-sm font-body font-semibold rounded-lg border-2 transition-all duration-200",
                   language === "en"
-                    ? "bg-primary-foreground text-primary border-primary-foreground"
-                    : "bg-transparent text-primary-foreground/70 border-primary-foreground/30 hover:border-primary-foreground/50"
+                    ? "bg-white text-black border-white shadow-lg"
+                    : "bg-transparent text-white/70 border-white/20 hover:border-white/40 hover:text-white hover:bg-white/5"
                 )}
               >
                 {common.language.switchToEnglish}
@@ -332,10 +378,10 @@ export function Header() {
               <button
                 onClick={() => setLanguage("ar")}
                 className={cn(
-                  "flex-1 py-3 text-sm font-body font-medium border transition-colors duration-200",
+                  "flex-1 min-h-[48px] text-sm font-body font-semibold rounded-lg border-2 transition-all duration-200",
                   language === "ar"
-                    ? "bg-primary-foreground text-primary border-primary-foreground"
-                    : "bg-transparent text-primary-foreground/70 border-primary-foreground/30 hover:border-primary-foreground/50"
+                    ? "bg-white text-black border-white shadow-lg"
+                    : "bg-transparent text-white/70 border-white/20 hover:border-white/40 hover:text-white hover:bg-white/5"
                 )}
               >
                 {common.language.switchToArabic}

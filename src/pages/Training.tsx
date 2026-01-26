@@ -319,11 +319,11 @@ const Training = () => {
                                         className="group flex items-start gap-4 cursor-default"
                                     >
                                         <div className="shrink-0 mt-1">
-                                            <CheckCircle2 className="w-5 h-5 text-blue-600 transition-opacity duration-200 group-hover:opacity-100 opacity-80" strokeWidth={2} />
+                                            <CheckCircle2 className="w-5 h-5 text-logo-codgray transition-opacity duration-200 group-hover:opacity-100 opacity-80" strokeWidth={2} />
                                         </div>
                                         <p className="font-body text-base lg:text-lg text-slate-700 relative">
                                             {point}
-                                            <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-blue-600/30 transition-all duration-200 group-hover:w-full" />
+                                            <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-logo-alto transition-all duration-200 group-hover:w-full" />
                                         </p>
                                     </StaggerItem>
                                 ))}
@@ -343,7 +343,7 @@ const Training = () => {
                             <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-4">
                                 {t.programs.title}
                             </h2>
-                            <div className="h-px w-16 bg-blue-600/30 mx-auto" />
+                            <div className="h-px w-16 bg-logo-alto mx-auto" />
                         </ScrollReveal>
 
                         {/* NEW: Training Path Selector */}
@@ -361,9 +361,9 @@ const Training = () => {
                                         onClick={() => setSelectedAudience(selectedAudience === key ? null : key)}
                                         className={cn(
                                             "flex-1 px-6 py-4 rounded-lg border-2 font-medium text-sm sm:text-base transition-all duration-300",
-                                            "hover:border-blue-600/40 hover:shadow-md active:scale-[0.98]",
+                                            "hover:border-logo-alto hover:shadow-md active:scale-[0.98]",
                                             selectedAudience === key
-                                                ? "border-blue-600 bg-blue-50 text-blue-700 shadow-md"
+                                                ? "border-logo-alto bg-gray-50 text-logo-codgray shadow-md"
                                                 : "border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
                                         )}
                                     >
@@ -386,11 +386,11 @@ const Training = () => {
                                                 "block h-full p-8 bg-white rounded-lg border border-slate-200 transition-all duration-300 group relative overflow-hidden",
                                                 isRTL && "text-right",
                                                 isRelevant
-                                                    ? "hover:border-blue-600/30 hover:shadow-lg hover:scale-[1.02] opacity-100"
+                                                    ? "hover:border-gray-300 hover:shadow-lg hover:scale-[1.02] opacity-100"
                                                     : "opacity-40"
                                             )}
                                         >
-                                            <h3 className="font-heading text-xl font-bold text-slate-900 mb-4 group-hover:text-blue-700 transition-colors">
+                                            <h3 className="font-heading text-xl font-bold text-slate-900 mb-4 group-hover:font-extrabold transition-all">
                                                 {category.title}
                                             </h3>
                                             <p className="font-body text-slate-600 mb-6">
@@ -407,14 +407,14 @@ const Training = () => {
                                                 </p>
                                                 <div className="flex flex-wrap gap-2">
                                                     {category.idealFor.map((item, i) => (
-                                                        <span key={i} className="text-xs px-2 py-1 bg-blue-50 text-blue-700 rounded">
+                                                        <span key={i} className="text-xs px-2 py-1 bg-gray-100 text-logo-codgray border border-logo-alto rounded">
                                                             {item}
                                                         </span>
                                                     ))}
                                                 </div>
                                             </div>
 
-                                            <div className="flex items-center text-sm font-semibold text-blue-600 group-hover:text-blue-700 transition-colors mt-auto">
+                                            <div className="flex items-center text-sm font-semibold text-logo-codgray transition-colors mt-auto">
                                                 <span>{t.programs.cta}</span>
                                                 <ArrowRight
                                                     size={14}
@@ -446,7 +446,7 @@ const Training = () => {
                                         index={index}
                                         className="group flex items-center gap-4 p-5 bg-slate-50 rounded-lg border border-slate-100 hover:translate-y-[-4px] transition-all duration-250 cursor-default hover:shadow-md peer"
                                     >
-                                        <div className="w-2 h-2 rounded-full bg-blue-600 shrink-0 group-hover:scale-125 transition-transform duration-250" />
+                                        <div className="w-2 h-2 rounded-full bg-logo-codgray shrink-0 group-hover:scale-125 transition-transform duration-250" />
                                         <p className="font-body text-base lg:text-lg text-slate-800 font-medium">
                                             {group}
                                         </p>

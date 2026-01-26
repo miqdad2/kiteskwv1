@@ -9,6 +9,10 @@
         "events": "Events",
         "contact": "Contact"
     },
+    "header": {
+        "titleLine1": "Kuwait Institute for Training",
+        "titleLine2": "and Engineering Simulations"
+    },
     "buttons": {
         "learnMore": "Learn More",
         "readMore": "Read More",

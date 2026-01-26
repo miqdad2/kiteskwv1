@@ -140,14 +140,14 @@ export function Hero() {
                     <div className={cn(
                         "lg:col-span-8 flex flex-col justify-center relative z-20",
                         "min-h-[calc(100vh-var(--header-height))] md:min-h-0", // Full viewport on mobile only
-                        "mt-8 md:mt-0", // Small top spacing for mobile
+                        "mt-14 md:mt-0", // Increased breathing room for mobile
                         "max-lg:text-center max-lg:items-center"
                     )}>
 
                         {/* Headline Block */}
                         <div className="mb-6 lg:mb-8">
                             {/* Primary Headline */}
-                            <h1 className="hero-element font-heading font-bold text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.9] tracking-tighter text-white mb-4 lg:mb-6"
+                            <h1 className="hero-element font-heading font-bold text-[2.75rem] sm:text-6xl md:text-7xl lg:text-8xl leading-[1.1] sm:leading-[0.9] tracking-tighter text-white mb-4 lg:mb-6"
                                 style={{
                                     textRendering: 'geometricPrecision',
                                     WebkitFontSmoothing: 'antialiased',
@@ -168,7 +168,7 @@ export function Hero() {
                                         ref={primaryBtnRef}
                                         onMouseEnter={() => {
                                             gsap.to(primaryBtnRef.current, { y: -2, duration: 0.18, ease: "cubic-bezier(0.4, 0, 0.2, 1)" });
-                                            gsap.to(primaryArrowRef.current, { x: 5, color: "#2563eb", duration: 0.18, delay: 0.04, ease: "cubic-bezier(0.4, 0, 0.2, 1)" });
+                                            gsap.to(primaryArrowRef.current, { x: 5, color: "#FFFFFF", duration: 0.18, delay: 0.04, ease: "cubic-bezier(0.4, 0, 0.2, 1)" });
                                         }}
                                         onMouseLeave={() => {
                                             gsap.to(primaryBtnRef.current, { y: 0, scale: 1, duration: 0.18, ease: "cubic-bezier(0.4, 0, 0.2, 1)" });
@@ -185,7 +185,7 @@ export function Hero() {
                                             gsap.to(primaryBtnRef.current, { scale: 1, duration: 0.16, ease: "cubic-bezier(0.4, 0, 0.2, 1)" });
                                             gsap.to(primaryArrowRef.current, { x: 0, duration: 0.18, ease: "cubic-bezier(0.4, 0, 0.2, 1)" });
                                         }}
-                                        className="relative w-full sm:w-auto sm:min-w-[180px] h-[56px] sm:h-12 px-6 bg-transparent border border-white/30 text-white hover:bg-white hover:text-black hover:border-[#2563eb] transition-colors duration-[240ms] ease-[cubic-bezier(0.4,0,0.2,1)] flex items-center justify-center rounded-sm text-sm font-medium tracking-wide"
+                                        className="relative w-full sm:w-auto sm:min-w-[180px] h-[56px] sm:h-12 px-6 bg-transparent border border-white/30 text-white hover:bg-white hover:text-black hover:border-white transition-colors duration-[240ms] ease-[cubic-bezier(0.4,0,0.2,1)] flex items-center justify-center rounded-sm text-sm font-medium tracking-wide"
                                     >
                                         <span>{content.ctaPrimary}</span>
                                         <ArrowRight
@@ -254,6 +254,7 @@ export function Hero() {
                 </div>
 
             </div>
+
 
         </section >
     );

@@ -63,13 +63,13 @@ export const ServiceDetailLayout = ({ data }: ServiceDetailLayoutProps) => {
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="max-w-3xl mx-auto">
                         <ScrollReveal>
-                            <span className="block font-heading text-xs font-bold uppercase tracking-[0.2em] text-blue-600 mb-6">
+                            <span className="block font-heading text-xs font-bold uppercase tracking-[0.2em] text-logo-codgray mb-6">
                                 {content.overview.title}
                             </span>
 
                             {/* Quote Block */}
                             {content.overview.quote && (
-                                <div className="border-l-4 border-blue-600/20 pl-6 lg:pl-8 py-2 mb-10">
+                                <div className="border-l-4 border-logo-alto/20 pl-6 lg:pl-8 py-2 mb-10">
                                     <p className="font-heading text-2xl lg:text-3xl font-medium text-foreground leading-snug">
                                         "{content.overview.quote}"
                                     </p>
@@ -83,7 +83,7 @@ export const ServiceDetailLayout = ({ data }: ServiceDetailLayoutProps) => {
 
                         {/* Institute Info Block (Static) */}
                         {content.institute_info && (
-                            <ScrollReveal className="mt-12 group bg-card hover:bg-card/80 border border-border/60 hover:border-blue-500/30 p-8 rounded-xl shadow-sm transition-all duration-300">
+                            <ScrollReveal className="mt-12 group bg-card hover:bg-card/80 border border-border/60 hover:border-gray-300/30 p-8 rounded-xl shadow-sm transition-all duration-300">
                                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                                     <div>
                                         <div className="flex items-center gap-3 mb-3">
@@ -91,14 +91,14 @@ export const ServiceDetailLayout = ({ data }: ServiceDetailLayoutProps) => {
                                                 {content.institute_info.name}
                                             </h4>
                                             {data.id === 'training' && (
-                                                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wide bg-blue-100 text-blue-700 border border-blue-200 whitespace-nowrap">
+                                                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wide bg-gray-100 text-gray-700 border border-gray-200 whitespace-nowrap">
                                                     Authorized Provider
                                                 </span>
                                             )}
                                         </div>
                                         <div className="font-body text-base text-muted-foreground space-y-1">
                                             <p>{content.institute_info.address}</p>
-                                            <p dir="ltr" className="flex items-center gap-2 group-hover:text-blue-600 transition-colors">
+                                            <p dir="ltr" className="flex items-center gap-2 group-hover:text-logo-codgray transition-colors">
                                                 📞 <span className="font-medium">{content.institute_info.phone}</span>
                                             </p>
                                         </div>
@@ -118,21 +118,21 @@ export const ServiceDetailLayout = ({ data }: ServiceDetailLayoutProps) => {
                             <h2 className="font-heading text-2xl sm:text-3xl font-bold text-foreground mb-4">
                                 {content.courses.title}
                             </h2>
-                            <div className="h-1 w-12 bg-blue-600 rounded-full mx-auto opacity-80" />
+                            <div className="h-1 w-12 bg-logo-alto rounded-full mx-auto opacity-80" />
                         </ScrollReveal>
 
                         <div className="max-w-4xl mx-auto">
                             <Accordion type="single" collapsible className="w-full space-y-3 sm:space-y-4">
                                 {content.courses.items.map((course, index) => (
                                     <ScrollReveal key={index} className="w-full">
-                                        <AccordionItem value={`item-${index}`} className="border border-border/60 rounded-lg bg-background px-3 sm:px-4 lg:px-6 shadow-sm data-[state=open]:border-blue-500/30 data-[state=open]:shadow-md transition-all overflow-hidden">
+                                        <AccordionItem value={`item-${index}`} className="border border-border/60 rounded-lg bg-background px-3 sm:px-4 lg:px-6 shadow-sm data-[state=open]:border-gray-300/30 data-[state=open]:shadow-md transition-all overflow-hidden">
                                             <AccordionTrigger className="hover:no-underline py-4 sm:py-6">
                                                 <div className="flex flex-col sm:flex-row sm:items-center text-start gap-2 sm:gap-4 w-full ltr:pr-4 rtl:pl-4">
                                                     <span className="font-heading font-medium text-base sm:text-lg text-foreground flex-1 break-words">
                                                         {course.title}
                                                     </span>
                                                     <div className="flex items-center gap-2 text-[10px] sm:text-xs font-bold uppercase tracking-wide text-muted-foreground bg-secondary/50 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full whitespace-nowrap max-w-fit shrink-0">
-                                                        <Clock size={12} className="text-blue-600 shrink-0" />
+                                                        <Clock size={12} className="text-logo-codgray shrink-0" />
                                                         <span>{course.duration}</span>
                                                     </div>
                                                 </div>
@@ -153,15 +153,15 @@ export const ServiceDetailLayout = ({ data }: ServiceDetailLayoutProps) => {
                                                         {/* Outline */}
                                                         <div>
                                                             <h4 className="flex items-center gap-2 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-foreground mb-3 sm:mb-4">
-                                                                <BookOpen size={12} className="text-blue-600" /> Course Outline
+                                                                <BookOpen size={12} className="text-logo-codgray" /> Course Outline
                                                             </h4>
                                                             <ul className="space-y-3 sm:space-y-4">
                                                                 {course.outline.map((topic, i) => (
                                                                     <li key={i} className="flex items-start gap-3 sm:gap-4 text-xs sm:text-sm text-foreground/90 group">
-                                                                        <span className="flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-blue-100 text-blue-700 text-[9px] sm:text-[10px] font-bold shrink-0 mt-0.5 border border-blue-200 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                                                                        <span className="flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-gray-100 text-gray-700 text-[9px] sm:text-[10px] font-bold shrink-0 mt-0.5 border border-gray-200 group-hover:bg-logo-alto group-hover:text-white transition-colors">
                                                                             {i + 1}
                                                                         </span>
-                                                                        <span className="leading-relaxed pt-0.5 border-b border-transparent group-hover:border-blue-200 transition-colors break-words">
+                                                                        <span className="leading-relaxed pt-0.5 border-b border-transparent group-hover:border-gray-200 transition-colors break-words">
                                                                             {topic}
                                                                         </span>
                                                                     </li>
@@ -174,7 +174,7 @@ export const ServiceDetailLayout = ({ data }: ServiceDetailLayoutProps) => {
                                                             {/* Who Should Attend */}
                                                             <div>
                                                                 <h4 className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-foreground mb-4">
-                                                                    <Users size={14} className="text-blue-600" /> Who Should Attend
+                                                                    <Users size={14} className="text-logo-codgray" /> Who Should Attend
                                                                 </h4>
                                                                 <div className="flex flex-wrap gap-2">
                                                                     {course.who_should_attend.map((role, i) => (
@@ -222,8 +222,8 @@ export const ServiceDetailLayout = ({ data }: ServiceDetailLayoutProps) => {
                             <StaggerContainer className="grid md:grid-cols-2 gap-x-12 gap-y-6" staggerDelay={70}>
                                 {content.deliverables.items.map((item, i) => (
                                     <StaggerItem key={i} index={i}>
-                                        <div className="flex items-start gap-4 p-4 rounded-lg bg-background border border-border/60 shadow-sm hover:border-blue-200 transition-colors">
-                                            <CheckCircle2 className="text-blue-600 shrink-0 mt-0.5" size={20} strokeWidth={1.5} />
+                                        <div className="flex items-start gap-4 p-4 rounded-lg bg-background border border-border/60 shadow-sm hover:border-gray-200 transition-colors">
+                                            <CheckCircle2 className="text-logo-codgray shrink-0 mt-0.5" size={20} strokeWidth={1.5} />
                                             <span className="font-body text-base text-foreground/90">{item}</span>
                                         </div>
                                     </StaggerItem>
@@ -242,7 +242,7 @@ export const ServiceDetailLayout = ({ data }: ServiceDetailLayoutProps) => {
                             <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
                                 {content.domains.title}
                             </h2>
-                            <div className="h-1 w-12 bg-blue-600 rounded-full mx-auto opacity-80" />
+                            <div className="h-1 w-12 bg-logo-alto rounded-full mx-auto opacity-80" />
                         </ScrollReveal>
 
                         <StaggerContainer className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8" staggerDelay={100}>
@@ -250,9 +250,9 @@ export const ServiceDetailLayout = ({ data }: ServiceDetailLayoutProps) => {
                                 const DomainIcon = domain.icon || CheckCircle2;
                                 return (
                                     <StaggerItem key={i} index={i}>
-                                        <div className="bg-secondary/20 p-8 rounded-xl border border-border/50 hover:border-blue-500/30 hover:shadow-lg transition-all duration-300 h-full group">
-                                            <div className="w-12 h-12 bg-background rounded-lg flex items-center justify-center mb-6 shadow-sm group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
-                                                <DomainIcon size={24} strokeWidth={1.5} className="text-blue-600 group-hover:text-white transition-colors" />
+                                        <div className="bg-secondary/20 p-8 rounded-xl border border-border/50 hover:border-gray-300/30 hover:shadow-lg transition-all duration-300 h-full group">
+                                            <div className="w-12 h-12 bg-background rounded-lg flex items-center justify-center mb-6 shadow-sm group-hover:bg-logo-alto group-hover:text-white transition-colors duration-300">
+                                                <DomainIcon size={24} strokeWidth={1.5} className="text-logo-codgray group-hover:text-white transition-colors" />
                                             </div>
                                             <h3 className="font-heading text-xl font-bold text-foreground mb-3 border-b border-border/50 pb-2 inline-block">
                                                 {domain.title}
@@ -265,7 +265,7 @@ export const ServiceDetailLayout = ({ data }: ServiceDetailLayoutProps) => {
                                                 <ul className="space-y-2 mt-auto">
                                                     {domain.capabilities.map((cap, capIndex) => (
                                                         <li key={capIndex} className="flex items-start gap-2 text-xs text-foreground/80 font-medium">
-                                                            <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5 shrink-0" />
+                                                            <div className="w-1.5 h-1.5 rounded-full bg-gray-400 mt-1.5 shrink-0" />
                                                             <span>{cap}</span>
                                                         </li>
                                                     ))}
@@ -316,14 +316,14 @@ export const ServiceDetailLayout = ({ data }: ServiceDetailLayoutProps) => {
                                 <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
                                     {content.process.title}
                                 </h2>
-                                <div className="h-1 w-12 bg-blue-600 rounded-full mx-auto opacity-80" />
+                                <div className="h-1 w-12 bg-logo-alto rounded-full mx-auto opacity-80" />
                             </ScrollReveal>
 
                             <StaggerContainer className="grid gap-6" staggerDelay={150}>
                                 {content.process.steps.map((step, i) => (
                                     <StaggerItem key={i} index={i}>
-                                        <div className="flex flex-col md:flex-row gap-6 p-6 lg:p-8 rounded-2xl border border-border/60 bg-gradient-to-r from-secondary/10 to-transparent hover:border-blue-500/20 transition-all">
-                                            <div className="shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-blue-600 text-white font-heading font-bold text-lg shadow-md">
+                                        <div className="flex flex-col md:flex-row gap-6 p-6 lg:p-8 rounded-2xl border border-border/60 bg-gradient-to-r from-secondary/10 to-transparent hover:border-gray-300/20 transition-all">
+                                            <div className="shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-logo-alto text-white font-heading font-bold text-lg shadow-md">
                                                 {i + 1}
                                             </div>
                                             <div>
@@ -350,14 +350,14 @@ export const ServiceDetailLayout = ({ data }: ServiceDetailLayoutProps) => {
                                 <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
                                     {content.delivery.title}
                                 </h2>
-                                <div className="h-1 w-12 bg-blue-600 rounded-full mx-auto opacity-80" />
+                                <div className="h-1 w-12 bg-logo-alto rounded-full mx-auto opacity-80" />
                             </ScrollReveal>
 
                             <StaggerContainer className="grid md:grid-cols-2 gap-6 lg:gap-8" staggerDelay={100}>
                                 {content.delivery.steps.map((step, index) => (
                                     <StaggerItem key={index} index={index}>
                                         <div className="bg-background border border-border/60 p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 flex items-start gap-4 h-full">
-                                            <div className="w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                                            <div className="w-8 h-8 rounded-full bg-gray-100 text-logo-codgray flex items-center justify-center shrink-0">
                                                 <span className="font-heading text-sm font-bold">{index + 1}</span>
                                             </div>
                                             <p className="font-body text-base text-foreground/90 font-medium pt-1">
@@ -436,7 +436,7 @@ export const ServiceDetailLayout = ({ data }: ServiceDetailLayoutProps) => {
                             <Link to="/contact">
                                 <div className="bg-foreground text-background px-6 py-4 rounded-full shadow-2xl hover:scale-105 transition-transform duration-300 flex items-center gap-3 border border-border/20">
                                     <span className="font-heading font-bold text-sm">Request Training</span>
-                                    <ArrowRight size={16} className="text-blue-400 rtl:rotate-180" />
+                                    <ArrowRight size={16} className="text-logo-gunsmoke rtl:rotate-180" />
                                 </div>
                             </Link>
                         </ScrollReveal>

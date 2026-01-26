@@ -89,7 +89,7 @@ export function EcosystemNav() {
         gsap.to(centerRef.current, {
             scale: 1.02,
             y: -1,
-            borderColor: "rgba(37, 99, 235, 0.6)", // Brand Blue (Blue-600)
+            borderColor: "rgba(255, 255, 255, 0.6)", // White on dark
             duration: 0.3,
             ease: "cubic-bezier(0.4, 0, 0.2, 1)"
         });
@@ -97,7 +97,7 @@ export function EcosystemNav() {
         // Arrow Animation (Target by class)
         gsap.to(".eco-arrow", {
             x: 5,
-            color: "#2563eb", // Brand Blue (Blue-600)
+            color: "#FFFFFF", // White
             duration: 0.3,
             ease: "cubic-bezier(0.4, 0, 0.2, 1)"
         });
@@ -305,8 +305,8 @@ export function EcosystemNav() {
         gsap.to(target, {
             opacity: 1,
             scale: 1.05,
-            borderColor: "rgba(37, 99, 235, 0.5)", // Brand Blue (Blue-600)
-            backgroundColor: "rgba(37, 99, 235, 0.05)", // Very subtle blue tint
+            borderColor: "rgba(255, 255, 255, 0.5)", // White
+            backgroundColor: "rgba(255, 255, 255, 0.08)", // Subtle white tint
             duration: 0.3
         });
     };
@@ -392,7 +392,10 @@ export function EcosystemNav() {
                 <span className="text-[10px] md:text-[11px] uppercase tracking-widest text-white/70 font-medium group-hover:text-white transition-colors duration-300">
                     {mode === 'capabilities' ? 'Our Services' : 'Explore Industries'}
                 </span>
-                <span className="absolute -bottom-6 md:-bottom-8 text-[9px] md:text-[10px] text-white/50 tracking-widest uppercase transition-opacity duration-300 flex items-center gap-1 group-hover:text-white/80">
+                <span className={cn(
+                    "absolute -bottom-6 md:-bottom-8 text-[9px] md:text-[10px] tracking-widest uppercase transition-all duration-300 flex items-center gap-1 group-hover:text-white/80",
+                    isMobile && !isExpanded ? "text-white/90 font-semibold animate-pulse" : "text-white/50"
+                )}>
                     {isMobile && !isExpanded ? 'Tap to Explore' : mode === 'capabilities' ? 'Explore Our Services' : 'Start a Conversation'}
                     <span className="eco-arrow inline-block text-[10px] transition-colors duration-300">→</span>
                 </span>

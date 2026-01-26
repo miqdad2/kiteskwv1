@@ -59,10 +59,10 @@ export function ServicesMegaMenu({ isOpen, onClose }: ServicesMegaMenuProps) {
                                     key={id}
                                     to={`/services/${id}`}
                                     className={cn(
-                                        "group flex items-center justify-between px-4 py-3 text-sm font-semibold transition-colors duration-0", // Instant transition for enterprise feel
+                                        "group flex items-center justify-between px-4 py-3 text-sm font-semibold transition-all duration-200",
                                         isActive
-                                            ? "bg-[#0052CC] text-white" // Solid Brand Blue active state
-                                            : "text-slate-700 hover:bg-gray-50"
+                                            ? "bg-logo-codgray text-white shadow-sm"
+                                            : "text-logo-gunsmoke hover:bg-gray-50 hover:text-logo-codgray"
                                     )}
                                     onMouseEnter={() => setActiveServiceId(id)}
                                     onClick={onClose}
@@ -71,7 +71,7 @@ export function ServicesMegaMenu({ isOpen, onClose }: ServicesMegaMenuProps) {
                                         <service.icon
                                             size={18}
                                             className={cn(
-                                                isActive ? "text-white" : "text-slate-400 group-hover:text-[#0052CC]"
+                                                isActive ? "text-white" : "text-logo-gunsmoke group-hover:text-logo-codgray"
                                             )}
                                             strokeWidth={1.5}
                                         />
@@ -109,7 +109,7 @@ export function ServicesMegaMenu({ isOpen, onClose }: ServicesMegaMenuProps) {
                                 <Link
                                     to={`/services/${activeServiceId}`}
                                     onClick={onClose}
-                                    className="mt-auto inline-flex items-center text-sm font-semibold text-[#0052CC] hover:text-[#003d99] transition-colors"
+                                    className="mt-auto inline-flex items-center text-sm font-medium text-logo-codgray border-b border-logo-alto pb-0.5 transition-colors"
                                 >
                                     <span>
                                         {language === 'ar' ? "استكشف تفاصيل الخدمة" : "Explore service details"}

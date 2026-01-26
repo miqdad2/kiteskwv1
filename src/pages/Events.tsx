@@ -46,7 +46,7 @@ export default function Events() {
 
   const getTypeColor = (type: EventType) => {
     switch (type) {
-      case 'workshop': return 'bg-blue-100 text-blue-700 border-blue-200';
+      case 'workshop': return 'bg-gray-100 text-logo-codgray border-gray-200';
       case 'webinar': return 'bg-purple-100 text-purple-700 border-purple-200';
       case 'training': return 'bg-green-100 text-green-700 border-green-200';
       case 'conference': return 'bg-orange-100 text-orange-700 border-orange-200';
@@ -55,11 +55,11 @@ export default function Events() {
   };
 
   const EventCard = ({ event }: { event: Event }) => (
-    <div className="group flex flex-col h-full bg-card hover:bg-card/80 border border-border/60 hover:border-blue-500/30 rounded-xl p-4 sm:p-5 lg:p-6 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
+    <div className="group flex flex-col h-full bg-card hover:bg-card/80 border border-border/60 hover:border-gray-300 rounded-xl p-4 sm:p-5 lg:p-6 shadow-sm hover:shadow-md hover:-translate-y-1 hover:scale-[1.01] transition-all duration-300 relative overflow-hidden">
 
       <div className="flex items-start justify-between gap-4 mb-5">
         {/* Date Block */}
-        <div className="flex-shrink-0 w-14 h-14 bg-primary rounded-lg flex flex-col items-center justify-center text-center shadow-sm group-hover:bg-blue-600 transition-colors duration-300">
+        <div className="flex-shrink-0 w-14 h-14 bg-primary rounded-lg flex flex-col items-center justify-center text-center shadow-sm group-hover:bg-logo-codgray transition-colors duration-300">
           <span className="text-white font-heading text-lg font-bold leading-none">
             {new Date(event.date).getDate()}
           </span>
@@ -77,12 +77,12 @@ export default function Events() {
       </div>
 
       <div className="mb-4 flex-grow">
-        <h3 className="font-heading text-xl font-bold text-foreground mb-3 group-hover:text-blue-600 transition-colors line-clamp-2 leading-tight">
+        <h3 className="font-heading text-xl font-bold text-foreground mb-3 group-hover:font-extrabold transition-all line-clamp-2 leading-tight">
           {event.title[language]}
         </h3>
 
         <div className="flex items-center gap-2 text-muted-foreground text-sm">
-          <MapPin size={14} className="shrink-0 text-blue-500/70" />
+          <MapPin size={14} className="shrink-0 text-logo-gunsmoke" />
           <span className="line-clamp-1">{event.location[language]}</span>
         </div>
       </div>
@@ -93,13 +93,13 @@ export default function Events() {
           {formatDate(event.date)}
         </span>
 
-        <span className="inline-flex items-center gap-1 text-xs font-bold text-blue-600 group-hover:translate-x-1 transition-transform rtl:rotate-180 rtl:group-hover:-translate-x-1">
+        <span className="inline-flex items-center gap-1 text-xs font-bold text-logo-codgray group-hover:translate-x-1 transition-transform rtl:rotate-180 rtl:group-hover:-translate-x-1">
           {t.learnMore} <ArrowRight size={12} />
         </span>
       </div>
 
       {/* Bottom Accent Line */}
-      <div className="absolute bottom-0 left-0 w-full h-[2px] bg-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      <div className="absolute bottom-0 left-0 w-full h-[2px] bg-logo-alto opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
     </div>
   );
 

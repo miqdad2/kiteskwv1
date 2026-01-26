@@ -1,8 +1,9 @@
+import { useState, useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { HelmetProvider } from "react-helmet-async";
 import Index from "./pages/Index";
@@ -17,8 +18,58 @@ import Events from "./pages/Events";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "@/components/common/ScrollToTop";
+import { IntroRevealAR } from "@/components/intro/IntroRevealAR";
+import { Layout } from "@/components/layout/Layout";
 
 const queryClient = new QueryClient();
+
+// Wrapper for Layout to handle location-based re-renders if needed, 
+// though here we mainly need it to pass the hidden state.
+const AppLayout = ({ showIntro }: { showIntro: boolean }) => {
+  return (
+    <Layout hidden={showIntro}>
+      <Routes>
+        <Route path="/" element={<Index />} />
+        <Route path="/expertise" element={<Expertise />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/services/:serviceId" element={<ServiceDetail />} />
+        <Route path="/training" element={<Training />} />
+        <Route path="/partners" element={<Partners />} />
+        <Route path="/partners/:partnerId" element={<PartnerDetail />} />
+        <Route path="/insights" element={<Insights />} />
+        <Route path="/events" element={<Events />} />
+        <Route path="/contact" element={<Contact />} />
+        {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Layout>
+  );
+};
+
+
+const AppContent = () => {
+  const [showIntro, setShowIntro] = useState(true);
+
+  useEffect(() => {
+    // Check session storage
+    const hasSeenIntro = sessionStorage.getItem("introDone");
+    if (hasSeenIntro) {
+      setShowIntro(false);
+    }
+  }, []);
+
+  const handleIntroComplete = () => {
+    setShowIntro(false);
+    sessionStorage.setItem("introDone", "true");
+  };
+
+  return (
+    <>
+      {showIntro && <IntroRevealAR onComplete={handleIntroComplete} />}
+      <AppLayout showIntro={showIntro} />
+    </>
+  );
+};
 
 const App = () => (
   <HelmetProvider>
@@ -29,20 +80,7 @@ const App = () => (
           <Sonner />
           <BrowserRouter>
             <ScrollToTop />
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/expertise" element={<Expertise />} />
-              <Route path="/services" element={<Services />} />
-              <Route path="/services/:serviceId" element={<ServiceDetail />} />
-              <Route path="/training" element={<Training />} />
-              <Route path="/partners" element={<Partners />} />
-              <Route path="/partners/:partnerId" element={<PartnerDetail />} />
-              <Route path="/insights" element={<Insights />} />
-              <Route path="/events" element={<Events />} />
-              <Route path="/contact" element={<Contact />} />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
+            <AppContent />
           </BrowserRouter>
         </TooltipProvider>
       </LanguageProvider>

@@ -9,6 +9,10 @@
         "events": "الفعاليات",
         "contact": "تواصل معنا"
     },
+    "header": {
+        "titleLine1": "معهد الكويت للتدريب",
+        "titleLine2": "والمحاكاة الهندسية"
+    },
     "buttons": {
         "learnMore": "اعرف المزيد",
         "readMore": "اقرأ المزيد",

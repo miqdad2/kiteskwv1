@@ -7,7 +7,11 @@ import gsap from "gsap";
 // Social media icons - using lucide-react compatible ones
 import { Youtube, Instagram, Twitter, Linkedin } from "lucide-react";
 
-export function TopUtilityBar() {
+interface TopUtilityBarProps {
+    isMobileMenuOpen: boolean;
+}
+
+export function TopUtilityBar({ isMobileMenuOpen }: TopUtilityBarProps) {
     const { language } = useLanguage();
     const barRef = useRef<HTMLDivElement>(null);
 
@@ -35,7 +39,9 @@ export function TopUtilityBar() {
                 "fixed top-0 left-0 right-0 z-50",
                 "w-full h-[40px]",
                 "bg-black/90 backdrop-blur-sm border-b border-white/10",
-                "flex items-center"
+                "items-center",
+                // Hide on mobile when menu is open
+                isMobileMenuOpen ? "hidden lg:flex" : "flex"
             )}
             dir={isRTL ? "rtl" : "ltr"}
             style={{
