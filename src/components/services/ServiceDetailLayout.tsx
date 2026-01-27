@@ -1,29 +1,100 @@
-// ... keeping existing imports
+import { useState, useEffect } from "react";
+// ... (keep existing imports)
 import { Link } from "react-router-dom";
-import { ArrowLeft, ArrowRight, CheckCircle2, Clock, BookOpen, Users } from "lucide-react"; // Added Clock, BookOpen, Users
+import { ArrowLeft, ArrowRight, CheckCircle2, Clock, BookOpen, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/layout/Layout";
 import { ScrollReveal, StaggerContainer, StaggerItem } from "@/components/ui/scroll-reveal";
 import { ServiceDetailContent, ServiceData } from "@/data/serviceDetailData";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { cn } from "@/lib/utils";
 import {
     Accordion,
     AccordionContent,
     AccordionItem,
     AccordionTrigger,
-} from "@/components/ui/accordion"; // New import
+} from "@/components/ui/accordion";
 
 interface ServiceDetailLayoutProps {
     data: ServiceData;
 }
+
+const StickySubNav = ({ sections }: { sections: { id: string; label: string }[] }) => {
+    const [activeId, setActiveId] = useState("");
+    const [isVisible, setIsVisible] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            // Show nav after scrolling past hero (approx 600px)
+            setIsVisible(window.scrollY > 600);
+
+            // Determine active section
+            let currentId = "";
+            sections.forEach(({ id }) => {
+                const element = document.getElementById(id);
+                if (element) {
+                    const rect = element.getBoundingClientRect();
+                    // If top is roughly in view
+                    if (rect.top < 150 && rect.bottom > 150) {
+                        currentId = id;
+                    }
+                }
+            });
+            if (currentId) setActiveId(currentId);
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, [sections]);
+
+    if (!isVisible) return null;
+
+    return (
+        <div className="fixed top-20 left-0 right-0 z-40 bg-background/80 backdrop-blur-md border-b border-border/40 transition-all duration-300 animate-in slide-in-from-top-2">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="flex items-center gap-6 overflow-x-auto no-scrollbar py-3">
+                    {sections.map((section) => (
+                        <a
+                            key={section.id}
+                            href={`#${section.id}`}
+                            className={cn(
+                                "text-xs font-bold uppercase tracking-widest whitespace-nowrap transition-colors duration-200",
+                                activeId === section.id
+                                    ? "text-primary border-b-2 border-primary pb-0.5"
+                                    : "text-muted-foreground hover:text-foreground"
+                            )}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                document.getElementById(section.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            }}
+                        >
+                            {section.label}
+                        </a>
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
+};
 
 export const ServiceDetailLayout = ({ data }: ServiceDetailLayoutProps) => {
     const { language, isRTL } = useLanguage();
     const content = data[language];
     const Icon = data.icon;
 
+    // Build available sections dynamically
+    const navSections = [
+        { id: "overview", label: content.overview.title },
+        ...(content.courses ? [{ id: "curriculum", label: content.courses.title }] : []),
+        ...(content.deliverables ? [{ id: "deliverables", label: content.deliverables.title }] : []),
+        ...(content.domains ? [{ id: "capabilities", label: content.domains.title }] : []),
+        { id: "impact", label: content.impact.title }
+    ];
+
     return (
         <Layout>
+            <StickySubNav sections={navSections} />
+
             {/* Enterprise Hero Section */}
             <section className="pt-20 pb-10 sm:pt-24 sm:pb-12 lg:pt-48 lg:pb-32 bg-primary relative overflow-hidden">
                 {/* Noise Texture */}
@@ -59,7 +130,7 @@ export const ServiceDetailLayout = ({ data }: ServiceDetailLayoutProps) => {
             </section>
 
             {/* Overview & Value Prop */}
-            <section className="py-10 sm:py-12 lg:py-28 bg-background border-b border-border/50">
+            <section id="overview" className="scroll-mt-32 py-10 sm:py-12 lg:py-28 bg-background border-b border-border/50">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="max-w-3xl mx-auto">
                         <ScrollReveal>
@@ -112,7 +183,7 @@ export const ServiceDetailLayout = ({ data }: ServiceDetailLayoutProps) => {
 
             {/* Training Course Catalogue (New Section) */}
             {content.courses && (
-                <section className="py-12 sm:py-16 lg:py-28 bg-secondary/10 border-b border-border/50">
+                <section id="curriculum" className="scroll-mt-32 py-12 sm:py-16 lg:py-28 bg-secondary/10 border-b border-border/50">
                     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                         <ScrollReveal className="text-center mb-10 sm:mb-16">
                             <h2 className="font-heading text-2xl sm:text-3xl font-bold text-foreground mb-4">
@@ -211,7 +282,7 @@ export const ServiceDetailLayout = ({ data }: ServiceDetailLayoutProps) => {
 
             {/* Deliverables (Expanded List) */}
             {content.deliverables && (
-                <section className="py-16 lg:py-28 bg-secondary/10 border-b border-border/50">
+                <section id="deliverables" className="scroll-mt-32 py-16 lg:py-28 bg-secondary/10 border-b border-border/50">
                     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="max-w-4xl mx-auto">
                             <ScrollReveal className="mb-12">
@@ -236,7 +307,7 @@ export const ServiceDetailLayout = ({ data }: ServiceDetailLayoutProps) => {
 
             {/* Consultation Domains (Cards) */}
             {content.domains && (
-                <section className="py-16 lg:py-28 bg-background">
+                <section id="capabilities" className="scroll-mt-32 py-16 lg:py-28 bg-background">
                     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                         <ScrollReveal className="text-center mb-16">
                             <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
@@ -309,7 +380,7 @@ export const ServiceDetailLayout = ({ data }: ServiceDetailLayoutProps) => {
 
             {/* 4-Step Process (or Legacy Delivery) */}
             {content.process ? (
-                <section className="py-16 lg:py-28 bg-background">
+                <section id="process" className="scroll-mt-32 py-16 lg:py-28 bg-background">
                     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="max-w-4xl mx-auto">
                             <ScrollReveal className="text-center mb-16">
@@ -343,7 +414,7 @@ export const ServiceDetailLayout = ({ data }: ServiceDetailLayoutProps) => {
                 </section>
             ) : content.delivery && (
                 /* Legacy Delivery Fallback */
-                <section className="py-16 lg:py-28 bg-secondary/20">
+                <section id="process" className="scroll-mt-32 py-16 lg:py-28 bg-secondary/20">
                     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="max-w-4xl mx-auto">
                             <ScrollReveal className="text-center mb-16">
@@ -373,7 +444,7 @@ export const ServiceDetailLayout = ({ data }: ServiceDetailLayoutProps) => {
             )}
 
             {/* Business Impact */}
-            <section className="py-16 lg:py-28 bg-background border-t border-border/40">
+            <section id="impact" className="scroll-mt-32 py-16 lg:py-28 bg-background border-t border-border/40">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="max-w-5xl mx-auto">
                         <div className="grid lg:grid-cols-2 gap-16 items-center">

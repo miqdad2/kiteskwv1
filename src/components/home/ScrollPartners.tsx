@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { partners } from '@/data/partners';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { gsap } from "@/lib/gsap";
@@ -7,92 +7,100 @@ export function ScrollPartners() {
     const { isRTL } = useLanguage();
     const containerRef = useRef<HTMLDivElement>(null);
     const trackRef = useRef<HTMLDivElement>(null);
-    const itemsRef = useRef<(HTMLDivElement | null)[]>([]);
 
     // Configuration
-    const BASE_SCALE = 0.95; // Requested: Adjacent ~0.95
-    const ACTIVE_SCALE = 1.25; // Requested: Center 1.25
-    const SCROLL_SPEED = 0.65; // User requested ~0.65 speed (previously was ~0.4)
+    const ITEM_WIDTH = 300; // Increased width for card spacing
+    const PAUSE_DURATION = 2; // Seconds to pause on each logo
+    const MOVE_DURATION = 0.8; // Seconds to move between logos
+    const SET_LENGTH = partners.length;
 
-    // Ensure we have enough copies for seamless loop
-    // 5-6 items * 4 sets should effectively fill typical screens + buffer
-    const marqueePartners = [...partners, ...partners, ...partners, ...partners];
+    // Use 3 sets: [Buffer Previous] [Active Set] [Buffer Next]
+    // This allows sufficient buffer for infinite looping in both directions
+    const marqueePartners = [...partners, ...partners, ...partners];
 
     useEffect(() => {
         if (!trackRef.current || !containerRef.current) return;
 
         const track = trackRef.current;
-        const totalWidth = track.scrollWidth;
-        const singleSetWidth = totalWidth / 4; // Since we quadrupled the list
+        const totalItems = marqueePartners.length;
 
-        // Use a GSAP context for easy cleanup
+        // Clean up previous animations
+        gsap.killTweensOf(track);
+
         const ctx = gsap.context(() => {
 
-            // 1. Infinite Scroll Tween
-            // We use xPercent/x for better performance.
-            // For RTL we move positive, for LTR we move negative.
-            const direction = isRTL ? 1 : -1;
+            // Calculate starting position to center the first item of the MIDDLE set
+            // The middle set starts at index = SET_LENGTH
+            const viewportWidth = containerRef.current?.offsetWidth || window.innerWidth;
+            const centerOffset = (viewportWidth / 2) - (ITEM_WIDTH / 2);
 
-            // Immediate setup
-            gsap.set(track, { x: 0 });
+            // Initial position: 
+            // - Push back by the width of the first set (buffer)
+            // + Add centering offset
+            const startX = -(SET_LENGTH * ITEM_WIDTH) + centerOffset;
 
-            const scrollTween = gsap.to(track, {
-                x: isRTL ? singleSetWidth : -singleSetWidth,
-                duration: singleSetWidth / (100 * SCROLL_SPEED), // Calculate duration based on speed constant
-                ease: "none",
+            // Reset to initial state
+            gsap.set(track, { x: startX });
+
+            // Create the Master Timeline
+            const tl = gsap.timeline({
                 repeat: -1,
-                modifiers: {
-                    x: gsap.utils.unitize((x) => {
-                        return parseFloat(x) % singleSetWidth; // Seamless reset math
+                paused: false,
+                defaults: { ease: "power2.inOut" } // Smooth ease for movement
+            });
+
+            // LTR Logic (Standard)
+            // Move LEFT: decrease x value
+            // We want to move through one entire set (SET_LENGTH items)
+            if (!isRTL) {
+                for (let i = 0; i < SET_LENGTH; i++) {
+                    // 1. Move to next item
+                    tl.to(track, {
+                        x: `-=${ITEM_WIDTH}`,
+                        duration: MOVE_DURATION,
                     })
+                        // 2. Pause
+                        .to(track, {}, `+=${PAUSE_DURATION}`);
                 }
-            });
 
-
-            // 2. Scaling Logic using GSAP Ticker
-            // This runs every frame to update scales based on position relative to viewport center
-            gsap.ticker.add(() => {
-                if (!containerRef.current) return;
-
-                const viewportCenter = window.innerWidth / 2;
-                const containerRect = containerRef.current.getBoundingClientRect();
-                const containerCenter = containerRect.left + containerRect.width / 2;
-
-                // Optimization: Only run if container is visible? (Not strict requirement but good practice)
-
-                itemsRef.current.forEach((item) => {
-                    if (!item) return;
-
-                    const rect = item.getBoundingClientRect();
-                    const itemCenter = rect.left + rect.width / 2;
-
-                    // Distance from visual center of the screen
-                    const dist = Math.abs(itemCenter - viewportCenter);
-
-                    // Logic for scale:
-                    // Max scale at dist 0.
-                    // Min scale (base) at some distance X (e.g., 300px).
-                    // Use a smooth falloff.
-
-                    const maxDist = 350; // Distance where effect fades to base
-
-                    if (dist < maxDist) {
-                        // Normalize distance (0 to 1)
-                        const progress = 1 - (dist / maxDist);
-                        // Easing for sharper peak
-                        const eased = Math.pow(progress, 1.5);
-
-                        const scale = BASE_SCALE + (ACTIVE_SCALE - BASE_SCALE) * eased;
-                        item.style.transform = `scale(${scale})`;
-                        item.style.filter = `brightness(${1 + eased * 0.1}) grayscale(0%)`; // Slight brightness boost at center
-                        item.style.zIndex = Math.round(progress * 10).toString(); // Ensure center item overlaps nicely if needed
-                    } else {
-                        item.style.transform = `scale(${BASE_SCALE})`;
-                        item.style.filter = "brightness(1) grayscale(0%)";
-                        item.style.zIndex = "0";
-                    }
+                // seamless loop reset: instantly jump back to startX
+                // This happens after we have moved exactly one set width to the left
+                tl.add(() => {
+                    gsap.set(track, { x: startX });
                 });
-            });
+            }
+            // RTL Logic (Arabic)
+            // Move RIGHT: increase x value
+            else {
+                for (let i = 0; i < SET_LENGTH; i++) {
+                    // 1. Move to next item (to the right)
+                    tl.to(track, {
+                        x: `+=${ITEM_WIDTH}`,
+                        duration: MOVE_DURATION,
+                    })
+                        // 2. Pause
+                        .to(track, {}, `+=${PAUSE_DURATION}`);
+                }
+
+                // seamless loop reset: instantly jump back to startX
+                // This happens after we have moved exactly one set width to the right
+                tl.add(() => {
+                    gsap.set(track, { x: startX });
+                });
+            }
+
+            // Hover Interactions
+            const onMouseEnter = () => tl.pause();
+            const onMouseLeave = () => tl.play();
+
+            containerRef.current?.addEventListener('mouseenter', onMouseEnter);
+            containerRef.current?.addEventListener('mouseleave', onMouseLeave);
+
+            // Cleanup interactions
+            return () => {
+                containerRef.current?.removeEventListener('mouseenter', onMouseEnter);
+                containerRef.current?.removeEventListener('mouseleave', onMouseLeave);
+            };
 
         }, containerRef);
 
@@ -102,13 +110,14 @@ export function ScrollPartners() {
     return (
         <div
             ref={containerRef}
-            className="w-full relative overflow-hidden py-20 bg-white select-none" // Adjusted padding
-            dir="ltr" // Always LTR for DOM structure, we handle visually via transforms
+            className="w-full relative overflow-hidden py-16 bg-[#fafafa] select-none"
+            dir="ltr" // Structure is always LTR, we handle direction via transforms
         >
-            {/* Gradient Masks */}
-            <div className="absolute inset-y-0 left-0 w-24 sm:w-48 bg-gradient-to-r from-white via-white/90 to-transparent z-20 pointer-events-none" />
-            <div className="absolute inset-y-0 right-0 w-24 sm:w-48 bg-gradient-to-l from-white via-white/90 to-transparent z-20 pointer-events-none" />
+            {/* Soft Gradient Masks */}
+            <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#fafafa] to-transparent z-20 pointer-events-none" />
+            <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#fafafa] to-transparent z-20 pointer-events-none" />
 
+            {/* Track */}
             <div
                 ref={trackRef}
                 className="flex items-center w-max will-change-transform"
@@ -116,23 +125,24 @@ export function ScrollPartners() {
                 {marqueePartners.map((partner, index) => (
                     <div
                         key={`${partner.id}-${index}`}
-                        ref={el => itemsRef.current[index] = el}
-                        className="flex-shrink-0 px-8 lg:px-12 flex justify-center origin-center" // Consistent spacing
+                        className="flex-shrink-0 flex justify-center items-center px-3" // Added horizontal padding for spacing between cards
                         style={{
-                            width: '280px', // Fixed width for consistent calculation
+                            width: `${ITEM_WIDTH}px`,
                         }}
                     >
-                        <div className="relative h-20 sm:h-24 flex items-center justify-center transition-transform will-change-transform">
+                        <div className="relative w-full h-[110px] sm:h-[120px] flex items-center justify-center border border-neutral-300 rounded-[2rem] bg-transparent transition-all duration-300 hover:border-neutral-400 hover:bg-black/[0.02] p-4">
                             <img
                                 src={partner.logo}
                                 alt={partner.name}
-                                className="max-h-full w-auto object-contain"
-                                style={{ maxWidth: '100%' }}
+                                className="w-full h-full object-contain"
                             />
                         </div>
                     </div>
                 ))}
             </div>
+
+            {/* Optional: Central Focus Indicator (Subtle) */}
+            {/* <div className="absolute left-1/2 top-0 bottom-0 w-px bg-red-500/0 z-50 transform -translate-x-1/2 pointer-events-none" /> */}
         </div>
     );
 }

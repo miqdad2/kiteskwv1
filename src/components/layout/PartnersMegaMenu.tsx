@@ -88,11 +88,11 @@ export function PartnersMegaMenu({ isOpen, onClose }: PartnersMegaMenuProps) {
                             {/* Denser Grid: 5 columns, tighter gap */}
                             <div className="grid grid-cols-5 gap-3 animate-in fade-in duration-200" key={activeCategory}>
                                 {activePartners.map((partner) => (
-                                    <div key={partner.id} className="group relative bg-white p-3 rounded-sm border border-gray-200/80 hover:border-gray-300 hover:scale-[1.02] transition-all duration-150 flex items-center justify-center aspect-[4/3]">
+                                    <div key={partner.id} className="group relative bg-white p-4 rounded-sm border border-gray-200/80 hover:border-gray-300 hover:scale-[1.02] transition-all duration-150 flex items-center justify-center aspect-[4/3]">
                                         <img
                                             src={partner.logo}
                                             alt={partner.name}
-                                            className="max-w-[85%] max-h-[85%] object-contain transition-all duration-200"
+                                            className="w-full h-full object-contain transition-all duration-200"
                                         />
                                     </div>
                                 ))}

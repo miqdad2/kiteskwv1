@@ -18,8 +18,8 @@ import Events from "./pages/Events";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "@/components/common/ScrollToTop";
-import { IntroRevealAR } from "@/components/intro/IntroRevealAR";
 import { Layout } from "@/components/layout/Layout";
+import { SplashScreen } from "@/components/splash/SplashScreen";
 
 const queryClient = new QueryClient();
 
@@ -48,25 +48,16 @@ const AppLayout = ({ showIntro }: { showIntro: boolean }) => {
 
 
 const AppContent = () => {
-  const [showIntro, setShowIntro] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    // Check session storage
-    const hasSeenIntro = sessionStorage.getItem("introDone");
-    if (hasSeenIntro) {
-      setShowIntro(false);
-    }
-  }, []);
-
-  const handleIntroComplete = () => {
-    setShowIntro(false);
-    sessionStorage.setItem("introDone", "true");
+  const handleSplashComplete = () => {
+    setIsLoading(false);
   };
 
   return (
     <>
-      {showIntro && <IntroRevealAR onComplete={handleIntroComplete} />}
-      <AppLayout showIntro={showIntro} />
+      {isLoading && <SplashScreen onComplete={handleSplashComplete} />}
+      <AppLayout showIntro={isLoading} />
     </>
   );
 };

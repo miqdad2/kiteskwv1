@@ -43,8 +43,9 @@
     --muted: 220 10% 96%;
     --muted-foreground: 220 10% 40%;
 
-    /* Technical Accent - Muted Steel Blue */
-    --accent: 215 20% 45%;
+    /* Technical Accent - Rebranded to Logo Neutral */
+    --accent: 150 1% 48%;
+    /* Logo Gunsmoke */
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
@@ -52,7 +53,8 @@
 
     --border: 220 10% 88%;
     --input: 220 10% 88%;
-    --ring: 215 20% 45%;
+    --ring: 240 0% 45%;
+    /* Logo Jumbo */
 
     --radius: 0.125rem;
 
@@ -65,9 +67,11 @@
     --technical-pale: 220 10% 96%;
     --technical-white: 0 0% 100%;
 
-    /* Technical Accent - Steel Blue */
-    --accent-technical: 215 25% 42%;
-    --accent-hover: 215 25% 32%;
+    /* Technical Accent - Rebranded to Logo Dark */
+    --accent-technical: 0 0% 20%;
+    /* Dark Neutral */
+    --accent-hover: 0 0% 10%;
+    /* Darker Neutral */
 
     /* Shadows - Ultra Minimal */
     --shadow-subtle: 0 1px 2px 0 hsla(220, 20%, 8%, 0.03);
@@ -81,12 +85,14 @@
 
     --sidebar-background: 220 20% 8%;
     --sidebar-foreground: 0 0% 96%;
-    --sidebar-primary: 215 20% 45%;
+    --sidebar-primary: 0 0% 20%;
+    /* Dark Neutral */
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 220 15% 15%;
     --sidebar-accent-foreground: 0 0% 96%;
     --sidebar-border: 220 15% 20%;
-    --sidebar-ring: 215 20% 45%;
+    --sidebar-ring: 240 0% 45%;
+    /* Logo Jumbo */
 
     /* Logo-Derived Neutrals (KITES Brand Alignment) */
     --logo-cod-gray: 0 0% 4%;
@@ -97,6 +103,7 @@
     /* #7A7C7B - Medium-light gray */
     --logo-alto: 0 0% 81%;
     /* #CECECE - Light gray */
+    --logo-alto-light: 0 0% 90%;
 
     /* Semantic Aliases (Logo-Aligned) */
     --text-deep-neutral: var(--logo-cod-gray);
@@ -125,7 +132,8 @@
     --muted: 220 15% 15%;
     --muted-foreground: 220 8% 60%;
 
-    --accent: 215 20% 55%;
+    --accent: 150 1% 48%;
+    /* Logo Gunsmoke */
     --accent-foreground: 220 20% 8%;
 
     --destructive: 0 63% 31%;
@@ -133,7 +141,8 @@
 
     --border: 220 15% 20%;
     --input: 220 15% 20%;
-    --ring: 215 20% 55%;
+    --ring: 150 1% 48%;
+    /* Logo Gunsmoke */
   }
 
   /* Custom Easings */

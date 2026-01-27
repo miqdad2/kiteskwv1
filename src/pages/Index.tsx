@@ -9,22 +9,8 @@ import { PartnersSection } from "@/components/sections/PartnersSection";
 import { ClientsSection } from "@/components/sections/ClientsSection";
 import { KeyPillarsSection } from "@/components/sections/KeyPillarsSection";
 import { CTASection } from "@/components/sections/CTASection";
-import { IntroReveal } from "@/components/intro/IntroReveal";
 
 const Index = () => {
-  // Always start with intro not completed - shows on every visit
-  const [introCompleted, setIntroCompleted] = useState(false);
-
-  const handleIntroComplete = () => {
-    setIntroCompleted(true);
-  };
-
-  // If intro not completed, show ONLY the intro (bypass Layout)
-  if (!introCompleted) {
-    return <IntroReveal onComplete={handleIntroComplete} />;
-  }
-
-  // After intro, render normal homepage with Layout
   return (
     <>
       <SEO page="home" />

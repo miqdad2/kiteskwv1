@@ -1,8 +1,10 @@
 import { SEO } from "@/components/common/SEO";
 import { SkipLink } from "@/components/common/SkipLink";
 import { Layout } from "@/components/layout/Layout";
+import { useRef, useEffect } from "react";
 import { ArrowRight, CheckCircle2, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Link } from "react-router-dom";
 import { ScrollReveal, StaggerContainer, StaggerItem } from "@/components/ui/scroll-reveal";
@@ -177,9 +179,47 @@ const content = {
 const Services = () => {
   const { language, isRTL } = useLanguage();
   const t = content[language];
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // 1. Methodology Connector Line Draw
+      gsap.fromTo(".methodology-line",
+        { scaleX: 0, transformOrigin: isRTL ? "right center" : "left center" },
+        {
+          scaleX: 1,
+          duration: 1.5,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".methodology-section",
+            start: "top 70%",
+            end: "top 40%",
+            scrub: 1,
+          }
+        }
+      );
+
+      // 2. Parallax Diagrams
+      const diagrams = gsap.utils.toArray<HTMLElement>(".service-diagram-wrapper");
+      diagrams.forEach((diagram) => {
+        gsap.to(diagram, {
+          y: 50, // Move down slightly as user scrolls (parallax lag)
+          ease: "none",
+          scrollTrigger: {
+            trigger: diagram,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true
+          }
+        });
+      });
+
+    }, containerRef);
+    return () => ctx.revert();
+  }, [isRTL]);
 
   return (
-    <>
+    <div ref={containerRef}>
       <SEO page="services" />
       <SkipLink />
       <Layout>
@@ -201,7 +241,7 @@ const Services = () => {
         </section>
 
         {/* Methodology Strip - Unified Enterprise Process */}
-        <section className="py-24 sm:py-28 lg:py-32 bg-gradient-to-b from-secondary/30 to-background border-b border-border">
+        <section className="methodology-section py-24 sm:py-28 lg:py-32 bg-gradient-to-b from-secondary/30 to-background border-b border-border">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <ScrollReveal className="text-center mb-16 sm:mb-20 lg:mb-24">
               <h2 className="font-heading text-[11px] font-bold uppercase tracking-[0.3em] text-muted-foreground/80 mb-6">
@@ -211,12 +251,13 @@ const Services = () => {
             </ScrollReveal>
 
             <StaggerContainer className="relative max-w-5xl mx-auto" staggerDelay={150}>
-              {/* Horizontal Connector Line (Desktop Only) */}
-              <div className="hidden lg:block absolute top-[62px] left-[10%] right-[10%] h-[1.5px] bg-gradient-to-r from-transparent via-gray-200 to-transparent z-0" />
+              {/* Horizontal Connector Line (Desktop Only) - Animated */}
+              <div className="methodology-line hidden lg:block absolute top-[62px] left-[10%] right-[10%] h-[1.5px] bg-gradient-to-r from-transparent via-gray-200 to-transparent z-0 origin-left" />
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 sm:gap-y-16 lg:gap-y-20 gap-x-10">
                 {t.approach.steps.map((step, index) => (
                   <StaggerItem key={index} index={index}>
+                    {/* ... content remains same ... */}
                     <div className="flex flex-col items-center text-center group relative z-10">
                       {/* Number Badge */}
                       <span className="font-heading text-[10px] font-bold text-muted-foreground/30 mb-5 bg-background px-4 relative z-20 tracking-widest">
@@ -328,7 +369,7 @@ const Services = () => {
 
                       {/* Visual Column - Refined Diagram Illustration */}
                       <div className="lg:sticky lg:top-40">
-                        <div className="relative w-full rounded-2xl overflow-hidden border border-gray-100 bg-gray-50/30 flex items-center justify-center p-8 lg:p-12">
+                        <div className="service-diagram-wrapper relative w-full rounded-2xl overflow-hidden border border-gray-100 bg-gray-50/30 flex items-center justify-center p-8 lg:p-12">
                           <img
                             src={diagramMapping[service.id]}
                             alt={`${service.title} Process Diagram`}
@@ -385,7 +426,7 @@ const Services = () => {
           </div>
         </section>
       </Layout>
-    </>
+    </div>
   );
 };
 

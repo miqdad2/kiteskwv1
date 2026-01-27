@@ -1,8 +1,10 @@
 import { Boxes, MessageSquare, GraduationCap, Package, ArrowRight } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Link } from "react-router-dom";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState, MouseEvent } from "react";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { cn } from "@/lib/utils";
+import { ConsultingVisual, SoftwareVisual, PrototypingVisual, TrainingVisual } from "./ServiceVisuals";
 
 const content = {
   en: {
@@ -97,6 +99,94 @@ const content = {
   },
 };
 
+// --- Interactive Card Component ---
+const SpotlightCard = ({ children, to, className }: { children: React.ReactNode, to: string, className?: string }) => {
+  const divRef = useRef<HTMLDivElement>(null);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [opacity, setOpacity] = useState(0);
+
+  const handleMouseMove = (e: MouseEvent<HTMLAnchorElement>) => {
+    if (!divRef.current) return;
+
+    const rect = divRef.current.getBoundingClientRect();
+    setPosition({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+
+    // Tilt Effect
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = ((y - centerY) / centerY) * -2; // Max 2deg rotation
+    const rotateY = ((x - centerX) / centerX) * 2;
+
+    gsap.to(divRef.current, {
+      rotationX: rotateX,
+      rotationY: rotateY,
+      duration: 0.4,
+      ease: "power2.out"
+    });
+  };
+
+  const handleMouseEnter = () => {
+    setOpacity(1);
+  };
+
+  const handleMouseLeave = () => {
+    setOpacity(0);
+    // Reset rotation
+    gsap.to(divRef.current, {
+      rotationX: 0,
+      rotationY: 0,
+      duration: 0.6,
+      ease: "power2.out"
+    });
+  };
+
+  return (
+    <div ref={divRef} style={{ perspective: '1000px' }} className="h-full">
+      <Link
+        to={to}
+        onMouseMove={handleMouseMove}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        className={cn(
+          "relative block h-full overflow-hidden rounded-xl border border-gray-200 bg-white transition-all duration-300",
+          className
+        )}
+        style={{
+          transformStyle: 'preserve-3d',
+        }}
+      >
+        {/* Spotlight Gradient Overlay */}
+        <div
+          className="pointer-events-none absolute -inset-px opacity-0 transition duration-300"
+          style={{
+            opacity,
+            background: `radial-gradient(600px circle at ${position.x}px ${position.y}px, rgba(100, 100, 100, 0.05), transparent 40%)`,
+          }}
+        />
+
+        {/* Border Glow */}
+        <div
+          className="pointer-events-none absolute -inset-px opacity-0 transition duration-300"
+          style={{
+            opacity,
+            background: `radial-gradient(400px circle at ${position.x}px ${position.y}px, rgba(100, 100, 100, 0.2), transparent 40%)`,
+            maskImage: 'linear-gradient(black, black) content-box, linear-gradient(black, black)',
+            WebkitMaskImage: 'linear-gradient(black, black) content-box, linear-gradient(black, black)',
+            maskComposite: 'exclude',
+            WebkitMaskComposite: 'xor',
+            padding: '1.5px', // Border width simulates
+          }}
+        />
+
+        <div className="relative h-full p-8 lg:p-10">{children}</div>
+      </Link>
+    </div>
+  );
+};
+
+
 export function ServicesSection() {
   const { language } = useLanguage();
   const t = content[language];
@@ -181,19 +271,15 @@ export function ServicesSection() {
         {/* Services Grid - 4 Cards */}
         <div className="services-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
           {t.services.map((service, index) => (
-            <div key={service.id} className="service-card opacity-0">
-              <Link
-                to={`/services/${service.id}`}
-                className="group block h-full bg-white p-8 lg:p-10 rounded-xl border border-gray-200 border-t-2 border-t-transparent shadow-sm cursor-pointer transition-all duration-300 ease-executive hover:shadow-xl hover:border-gray-300 hover:-translate-y-1 hover:scale-[1.02] relative overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-logo-alto focus-visible:ring-offset-2"
-              >
+            <div key={service.id} className="service-card opacity-0 h-full">
+              <SpotlightCard to={`/services/${service.id}`}>
                 <div className="flex flex-col h-full items-start text-left transition-all duration-300 ease-executive">
-                  {/* Icon */}
-                  <div className="w-14 h-14 bg-gray-50 border border-gray-100 rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-all duration-300 ease-executive">
-                    <service.icon
-                      className="text-gray-500 transition-colors duration-300 ease-executive"
-                      size={24}
-                      strokeWidth={1.5}
-                    />
+                  {/* Icon / Micro-Visual */}
+                  <div className="w-16 h-16 bg-gray-50 border border-gray-100 rounded-xl flex items-center justify-center mb-6 group-hover:scale-105 transition-all duration-300 ease-executive relative z-10 shadow-sm">
+                    {service.id === 'consultation' && <ConsultingVisual />}
+                    {service.id === 'software-distribution' && <SoftwareVisual />}
+                    {service.id === 'prototype-development' && <PrototypingVisual />}
+                    {service.id === 'training' && <TrainingVisual />}
                   </div>
 
                   {/* Title */}
@@ -223,7 +309,7 @@ export function ServicesSection() {
                     />
                   </div>
                 </div>
-              </Link>
+              </SpotlightCard>
             </div>
           ))}
         </div>

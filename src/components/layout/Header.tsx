@@ -35,8 +35,8 @@ const navStructure = [
   { key: "home", href: "/" },
   { key: "expertise", href: "/expertise" },
   { key: "services", href: "/services", hasMegaMenu: true },
-  { key: "training", href: "/training" },
   { key: "partners", href: "/partners", hasMegaMenu: true },
+  { key: "training", href: "/training" },
   // { key: "insights", href: "/insights" }, // Temporarily hidden
   { key: "events", href: "/events" },
   { key: "contact", href: "/contact" },
@@ -103,7 +103,7 @@ export function Header({ isMobileMenuOpen, setIsMobileMenuOpen }: HeaderProps) {
     <>
       <header
         className={cn(
-          "fixed top-[40px] left-0 right-0 z-40 h-[var(--header-height)] flex items-center",
+          "fixed top-0 left-0 right-0 z-40 h-[var(--header-height)] flex items-center",
           "transition-all duration-200 ease-[cubic-bezier(0.4,0,0.2,1)]",
           shouldShowSolidHeader
             ? "bg-[#0B0F14] backdrop-blur-md shadow-md border-b border-white/10"
@@ -114,18 +114,26 @@ export function Header({ isMobileMenuOpen, setIsMobileMenuOpen }: HeaderProps) {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 h-full">
           <div className="flex items-center justify-between h-full transition-all duration-300">
             {/* Logo */}
-            <Link to="/" className="flex items-center shrink-0 group gap-2 lg:gap-[8px]">
+            <Link to="/" className="flex items-center shrink-0 group">
               <img
                 src={kitesLogo}
                 alt="KITES - Kuwait Institute for Training & Engineering Simulations"
                 className="h-[60px] lg:h-[84px] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
               />
               {/* Full Text - Responsive Sizing & Weight */}
-              <div className="flex flex-col items-start leading-tight group-hover:opacity-100 transition-opacity">
-                <span className="font-heading font-semibold text-[14px] md:text-[13px] lg:text-[15px] text-white/95 lg:text-white tracking-normal uppercase drop-shadow-sm whitespace-nowrap">
+              {/* Full Text - Responsive Sizing & Weight */}
+              <div
+                className={cn(
+                  "flex flex-col items-start leading-tight transition-all duration-300 ease-out overflow-hidden whitespace-nowrap",
+                  isScrolled
+                    ? "w-0 opacity-0 -translate-y-1 pointer-events-none"
+                    : "w-auto opacity-100 translate-y-0 group-hover:opacity-100 pl-2 lg:pl-[8px]"
+                )}
+              >
+                <span className="font-heading font-normal text-[13px] md:text-[14px] lg:text-[15px] text-white/90 tracking-wider uppercase drop-shadow-sm">
                   {common.header.titleLine1}
                 </span>
-                <span className="font-heading font-semibold text-[14px] md:text-[13px] lg:text-[15px] text-white/95 lg:text-white tracking-normal uppercase drop-shadow-sm whitespace-nowrap">
+                <span className="font-heading font-normal text-[13px] md:text-[14px] lg:text-[15px] text-white/90 tracking-wider uppercase drop-shadow-sm">
                   {common.header.titleLine2}
                 </span>
               </div>

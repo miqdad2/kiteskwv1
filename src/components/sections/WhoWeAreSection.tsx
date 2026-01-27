@@ -1,6 +1,8 @@
 import { Cpu, Cog, GraduationCap, Leaf } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { ScrollReveal, StaggerContainer, StaggerItem } from "@/components/ui/scroll-reveal";
+import { ImpactMetrics } from "@/components/home/ImpactMetrics";
+import { ProcessBentoGrid } from "@/components/home/ProcessBentoGrid";
 
 const content = {
   en: {
@@ -35,25 +37,7 @@ export function WhoWeAreSection() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gray-100/30 rounded-full blur-3xl -z-10 pointer-events-none" />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <ScrollReveal className={`max-w-3xl mx-auto ${language === 'ar' ? 'text-right' : 'text-center'}`}>
-          <span className="block text-xs font-bold text-logo-gunsmoke uppercase tracking-[0.25em] mb-6">
-            {t.eyebrow}
-          </span>
-          <h2 className="font-heading text-3xl lg:text-4xl font-semibold text-foreground mb-8 tracking-tight">
-            {t.label}
-          </h2>
-          <div className={`w-12 h-px bg-logo-alto mb-10 ${language === 'ar' ? 'ml-auto mr-0' : 'mx-auto'}`} />
-          <div className="space-y-4">
-            {t.description.map((paragraph, index) => (
-              <p
-                key={index}
-                className="font-body text-xl text-logo-jumbo leading-[1.8] font-normal italic"
-              >
-                {paragraph}
-              </p>
-            ))}
-          </div>
-        </ScrollReveal>
+        <ProcessBentoGrid />
       </div>
     </section>
   );

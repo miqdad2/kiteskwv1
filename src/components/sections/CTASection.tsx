@@ -3,8 +3,8 @@ import { ArrowLeft, ArrowRight, Sparkles } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import { useEffect, useRef } from "react";
-import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { useEffect, useRef, useState } from "react";
+import { gsap } from "@/lib/gsap";
 
 const content = {
   en: {
@@ -25,6 +25,8 @@ export function CTASection() {
   const { language, isRTL } = useLanguage();
   const t = content[language];
   const sectionRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -67,27 +69,171 @@ export function CTASection() {
     return () => ctx.revert();
   }, []);
 
+  // Particle Network Animation
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let width = canvas.width = canvas.offsetWidth;
+    let height = canvas.height = canvas.offsetHeight;
+
+    const particles: Particle[] = [];
+    const particleCount = width < 768 ? 40 : 80; // Fewer particles on mobile
+    const connectionDistance = 150;
+    const mouseDistance = 200;
+
+    class Particle {
+      x: number;
+      y: number;
+      vx: number;
+      vy: number;
+      size: number;
+
+      constructor() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.vx = (Math.random() - 0.5) * 0.5; // Slow velocity
+        this.vy = (Math.random() - 0.5) * 0.5;
+        this.size = Math.random() * 2 + 1;
+      }
+
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+
+        // Bounce off edges
+        if (this.x < 0 || this.x > width) this.vx *= -1;
+        if (this.y < 0 || this.y > height) this.vy *= -1;
+
+        // Mouse interaction (gentle attraction)
+        const dx = mousePos.x - this.x; // Use reference or state? State might be laggy in loop without ref.
+        // Actually, let's use a ref for mouse pos to avoid re-renders of the effect
+      }
+
+      draw() {
+        if (!ctx) return;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+        ctx.fill();
+      }
+    }
+
+    // Initialize
+    for (let i = 0; i < particleCount; i++) {
+      particles.push(new Particle());
+    }
+
+    // Animation Loop
+    let animationFrameId: number;
+
+    // We need a ref for current mouse pos to use inside the loop
+    // But we are inside useEffect, so we can use a local variable updated by event listener
+    let localMouseX = 0;
+    let localMouseY = 0;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!sectionRef.current) return;
+      const rect = sectionRef.current.getBoundingClientRect();
+      localMouseX = e.clientX - rect.left;
+      localMouseY = e.clientY - rect.top;
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+
+    const animate = () => {
+      ctx.clearRect(0, 0, width, height);
+
+      // Update and Draw Particles
+      particles.forEach(p => {
+        // Basic movement
+        p.x += p.vx;
+        p.y += p.vy;
+
+        // Bounce
+        if (p.x < 0 || p.x > width) p.vx *= -1;
+        if (p.y < 0 || p.y > height) p.vy *= -1;
+
+        // Mouse Interaction
+        const dx = localMouseX - p.x;
+        const dy = localMouseY - p.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance < mouseDistance) {
+          const forceDirectionX = dx / distance;
+          const forceDirectionY = dy / distance;
+          const force = (mouseDistance - distance) / mouseDistance;
+          // Push away slightly
+          const direction = -1;
+          const strength = 0.05;
+
+          p.vx += forceDirectionX * force * strength * direction;
+          p.vy += forceDirectionY * force * strength * direction;
+        }
+
+        // Draw Particle
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(220, 220, 220, ${0.1 + (p.size / 3) * 0.2})`; // Silver/White tint
+        ctx.fill();
+      });
+
+      // Draw Connections
+      particles.forEach((a, i) => {
+        particles.slice(i + 1).forEach(b => {
+          const dx = a.x - b.x;
+          const dy = a.y - b.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < connectionDistance) {
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(200, 200, 200, ${0.15 * (1 - distance / connectionDistance)})`;
+            ctx.lineWidth = 1;
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+          }
+        });
+      });
+
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    animate();
+
+    const handleResize = () => {
+      width = canvas.width = canvas.offsetWidth;
+      height = canvas.height = canvas.offsetHeight;
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('mousemove', handleMouseMove);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []); // Run once on mount
+
   return (
     <section ref={sectionRef} id="cta" className="relative py-28 lg:py-36 bg-[#0B1220] overflow-hidden">
 
-      {/* 1. Background Gradient (Navy Toned) */}
-      <div
-        className="absolute inset-0 z-0"
-        style={{
-          background: 'radial-gradient(circle at 50% 0%, #0F1A2E 0%, #0B1220 70%)'
-        }}
+      {/* 1. Interactive Canvas Background */}
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 z-0 w-full h-full pointer-events-none"
       />
 
-      {/* 2. Faint Noise Texture (2-3% Opacity) */}
+      {/* 2. Radial Gradient Overlay (for depth) */}
       <div
-        className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none mix-blend-overlay"
+        className="absolute inset-0 z-0 pointer-events-none"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+          background: 'radial-gradient(circle at 50% 50%, transparent 0%, #0B1220 90%)'
         }}
       />
-
-      {/* 3. Soft Top Transition Divider */}
-      <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-[#fafafa] to-transparent z-10 opacity-5 pointer-events-none" />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
         <div className="cta-content max-w-[720px] mx-auto text-center">
